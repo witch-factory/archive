@@ -28,35 +28,10 @@ body {
     Helvetica Neue, Arial, sans-serif;
   background-color: var(--color-bg);
   color: var(--color-text);
-  margin: 0;
-  padding: 0;
-}
-
-main {
+  padding: 0 1rem;
+  width: 100%;
+  max-width: 60rem;
   margin: 0 auto;
-  padding: 1rem;
-}
-
-header {
-  padding: 0.25rem 0.5rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid var(--color-border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.header-menu {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  font-size: 1.2rem;
-  margin: 0;
-  padding: 0;
-}
-
-.header-menu li {
-  list-style: none;
 }
 
 h1 {
@@ -79,8 +54,11 @@ h4 {
   margin: 0.25rem 0;
 }
 
-header h2 {
+header {
   margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 a {
@@ -98,28 +76,8 @@ code {
   font-family: monospace;
 }
 
-.layout {
-  display: flex;
-  padding: 1rem;
-  gap: 2rem;
-}
-
-.sidebar {
-  flex: 0 0 200px;
-  border-right: 1px solid var(--color-border);
-  padding-right: 1rem;
-}
-
-.sidebar-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.content {
-  width: 100%;
-  max-width: 60rem;
-  margin: 0 auto;
+nav {
+  font-size: 1.2rem;
 }
 
 #theme-toggle {
@@ -129,7 +87,7 @@ code {
   font-size: 1.2rem;
   cursor: pointer;
   color: var(--color-text);
-  border-radius: 4px;
+  border-radius: 0.5rem;
 }
 
 .icon-light,
@@ -142,14 +100,4 @@ code {
 }
 [data-theme="light"] .icon-dark {
   display: inline;
-}
-
-@media (max-width: 640px) {
-  .header-menu {
-    gap: 0.75rem;
-  }
-
-  .header-github-link {
-    display: none;
-  }
 }

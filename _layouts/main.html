@@ -42,31 +42,35 @@
   </head>
   <body>
     <header>
-      <nav class="header-menu">
-        <h2><a href="/">아카이브</a></h2>
-        <a href="/data/til/">TIL</a>
-        <a href="/data/scrap/">스크랩</a>
-        <a href="/data/books/">책</a>
-      </nav>
-      <menu class="header-menu">
-        <li class="header-github-link">
+      <div>
+        <h1>{{ title }}</h1>
+        <nav>
+          {% for crumb in breadcrumbs %}
           <a
-            href="https://github.com/witch-factory"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="{{crumb.url}}"
+            {%
+            if
+            forloop.last
+            %}
+            aria-current="page"
+            {%
+            endif
+            %}
           >
-            GitHub
+            {{crumb.name}}
           </a>
-        </li>
-        <li>
-          <button id="theme-toggle" aria-label="Toggle theme">
-            <span class="icon-light">🌙 dark</span>
-            <span class="icon-dark">☀️ light</span>
-          </button>
-        </li>
-      </menu>
+          {% unless forloop.last %}
+          <span>&nbsp;/&nbsp;</span>
+          {% endunless %} {% endfor %}
+        </nav>
+      </div>
+
+      <button id="theme-toggle" aria-label="Toggle theme">
+        <span class="icon-light">🌙 dark</span>
+        <span class="icon-dark">☀️ light</span>
+      </button>
     </header>
-    <main class="layout">{{ content }}</main>
+    <main>{{ content }}</main>
   </body>
   <script>
     const toggleBtn = document.getElementById("theme-toggle");
