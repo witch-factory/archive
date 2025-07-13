@@ -3,7 +3,6 @@ export default {
   hi: () => "Hello, World!",
   breadcrumbs: ({ page }) => {
     if (!page || !page.url) {
-      console.warn("Page object is missing or has no URL:", page);
       return [];
     }
     const segments = page.url.split("/").filter(Boolean);
