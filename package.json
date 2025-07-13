@@ -9,7 +9,10 @@
     "build": "npx @11ty/eleventy"
   },
   "dependencies": {
-    "@11ty/eleventy": "^3.1.2"
+    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-img": "^6.0.4",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.1",
+    "markdown-it": "^14.1.0"
   },
   "browserslist": {
     "production": [
@@ -25,5 +28,6 @@
   },
   "engines": {
     "node": ">=18.0"
-  }
+  },
+  "type": "module"
 }

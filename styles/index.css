@@ -72,38 +72,15 @@ a:hover {
 }
 
 code {
-  width: 100%;
-  display: inline-block;
   background-color: var(--color-code-bg);
   padding: 0.2rem;
-  font-family: monospace;
   border-radius: 0.5rem;
   overflow-x: auto;
   white-space: pre-wrap;
+  font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono",
+    monospace;
 }
 
 nav {
   font-size: 1.1rem;
-}
-
-#theme-toggle {
-  background: none;
-  border: 1px solid var(--color-border);
-  padding: 0.25rem 0.5rem;
-  font-size: 1.2rem;
-  cursor: pointer;
-  color: var(--color-text);
-  border-radius: 0.5rem;
-}
-
-.icon-light,
-.icon-dark {
-  display: none;
-}
-
-[data-theme="dark"] .icon-light {
-  display: inline;
-}
-[data-theme="light"] .icon-dark {
-  display: inline;
 }
