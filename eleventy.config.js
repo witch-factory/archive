@@ -1,9 +1,10 @@
 /** @param {import("@11ty/eleventy/UserConfig").UserConfig} eleventyConfig */
 export default async function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("*.css");
-  eleventyConfig.addPassthroughCopy("favicon.ico");
-  eleventyConfig.addPassthroughCopy("apple-icon.png");
-  eleventyConfig.addPassthroughCopy("witch-archive.png");
+  eleventyConfig.addPassthroughCopy("assets");
+  // eleventyConfig.addPassthroughCopy("favicon.ico");
+  // eleventyConfig.addPassthroughCopy("apple-icon.png");
+  // eleventyConfig.addPassthroughCopy("witch-archive.png");
 
   eleventyConfig.addCollection("til", (collectionApi) =>
     collectionApi.getFilteredByGlob("data/til/*.md")
