@@ -72,15 +72,18 @@ a:hover {
 }
 
 code {
+  width: 100%;
   display: inline-block;
   background-color: var(--color-code-bg);
   padding: 0.2rem;
   font-family: monospace;
   border-radius: 0.5rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
 }
 
 nav {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 #theme-toggle {
