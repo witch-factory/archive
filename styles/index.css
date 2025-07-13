@@ -8,16 +8,6 @@
   --color-code-bg: #f4f4f4;
 }
 
-[data-theme="dark"] {
-  --color-text: #ececec;
-  --color-text-light: #bbb;
-  --color-bg: #111;
-  --color-border: #444;
-  --color-link: #8ab4f8;
-  --color-link-hover: #a5c9ff;
-  --color-code-bg: #1e1e1e;
-}
-
 * {
   box-sizing: border-box;
   /* 긴 단어나 URL 강제 줄바꿈 */
