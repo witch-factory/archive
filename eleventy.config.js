@@ -2,12 +2,17 @@
 export default async function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("*.css");
   eleventyConfig.addPassthroughCopy("assets");
-  // eleventyConfig.addPassthroughCopy("favicon.ico");
-  // eleventyConfig.addPassthroughCopy("apple-icon.png");
-  // eleventyConfig.addPassthroughCopy("witch-archive.png");
 
-  eleventyConfig.addCollection("til", (collectionApi) =>
-    collectionApi.getFilteredByGlob("data/til/*.md")
+  eleventyConfig.addCollection("study2025", (collectionApi) =>
+    collectionApi.getFilteredByGlob("data/study/*.md")
+  );
+
+  eleventyConfig.addCollection("scrap", (collectionApi) =>
+    collectionApi.getFilteredByGlob("data/scrap/*.md")
+  );
+
+  eleventyConfig.addCollection("books", (collectionApi) =>
+    collectionApi.getFilteredByGlob("data/books/*.md")
   );
 }
 
