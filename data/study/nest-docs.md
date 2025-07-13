@@ -1,3 +1,10 @@
+---
+id: nestjs docs reading
+title: Nest.js 문서를 읽고 해보자
+description: Nest.js 문서를 읽고 알아본 내용
+---
+
+
 # Nest.js 문서를 읽고 해보자
 
 https://docs.nestjs.com/ 를 읽고 시작해 보는 중. Prisma를 사용해 보려고 함

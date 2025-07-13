@@ -1,0 +1,21 @@
+---
+title: 읽은 책들
+description: 좋은 글들을 모아보자
+---
+
+<p>내가 읽고 메모한 책들</p>
+
+<nav>
+  <ul>
+    <li>
+      <a href="/books/">books</a>
+      <ul>
+        {% for book in collections.books %}
+        <li>
+          <a href="{{ book.url }}">{{ book.data.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+  </ul>
+</nav>

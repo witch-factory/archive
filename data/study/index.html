@@ -1,7 +1,20 @@
 ---
-showSidebar: false
+title: 2025년의 공부 내용
 ---
 
-<p>
-This is a collection of recent edits made to the codebase. The changes include updates to the CSS styles for better layout and design, modifications to the data structure for TIL (Today I Learned) entries, and adjustments to the HTML templates for improved navigation and readability. The goal is to enhance the user experience and maintainability of the project.
-</p>
+<p>공부한 것들을 정리했다.</p>
+
+<nav>
+  <ul>
+    <li>
+      <a href="/study/">study</a>
+      <ul>
+        {% for study in collections.study2025 %}
+        <li>
+          <a href="{{ study.url }}">{{ study.data.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+  </ul>
+</nav>

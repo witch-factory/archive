@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 slug: react-docs-brief
 title: React 공식 문서 요약
 description: React 공식 문서의 각 섹션을 짧게 요약한 메모들

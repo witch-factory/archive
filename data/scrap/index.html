@@ -1,0 +1,21 @@
+---
+title: 스크랩해놓은 글들
+description: 좋은 글들을 모아보자
+---
+
+<p>좋은 글들을 모아 보았다.</p>
+
+<nav>
+  <ul>
+    <li>
+      <a href="/scrap/">scrap</a>
+      <ul>
+        {% for link in collections.scrap %}
+        <li>
+          <a href="{{ link.url }}">{{ link.data.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+  </ul>
+</nav>
