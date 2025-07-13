@@ -1,17 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  <script>
-    // 가장 먼저 실행되어야 함
-    const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    document.documentElement.setAttribute(
-      "data-theme",
-      savedTheme || (prefersDark ? "dark" : "light")
-    );
-  </script>
-
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -71,13 +59,4 @@
     </header>
     <main>{{ content }}</main>
   </body>
-  <script>
-    const toggleBtn = document.getElementById("theme-toggle");
-    toggleBtn.addEventListener("click", () => {
-      const current = document.documentElement.getAttribute("data-theme");
-      const newTheme = current === "dark" ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", newTheme);
-      localStorage.setItem("theme", newTheme);
-    });
-  </script>
 </html>
