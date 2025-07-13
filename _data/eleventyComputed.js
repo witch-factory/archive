@@ -9,8 +9,6 @@ export default {
     const segments = page.url.split("/").filter(Boolean);
     const result = [];
 
-    console.log("Page segments:", segments);
-
     result.push({
       name: "Home",
       url: "/",
@@ -26,8 +24,6 @@ export default {
         return acc;
       }, [])
     );
-
-    console.log("Breadcrumbs result:", result);
     return result;
   },
 };

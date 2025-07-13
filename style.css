@@ -9,7 +9,7 @@
 }
 
 [data-theme="dark"] {
-  --color-text: #eee;
+  --color-text: #ececec;
   --color-text-light: #bbb;
   --color-bg: #111;
   --color-border: #444;
@@ -20,6 +20,10 @@
 
 * {
   box-sizing: border-box;
+  /* 긴 단어나 URL 강제 줄바꿈 */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 body {
@@ -56,9 +60,6 @@ h4 {
 
 header {
   margin: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 a {
@@ -71,9 +72,11 @@ a:hover {
 }
 
 code {
+  display: inline-block;
   background-color: var(--color-code-bg);
   padding: 0.2rem;
   font-family: monospace;
+  border-radius: 0.5rem;
 }
 
 nav {

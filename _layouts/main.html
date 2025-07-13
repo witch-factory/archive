@@ -41,34 +41,31 @@
     />
   </head>
   <body>
+    <button id="theme-toggle" aria-label="Toggle theme">
+      <span class="icon-light">🌙 dark</span>
+      <span class="icon-dark">☀️ light</span>
+    </button>
     <header>
-      <div>
-        <h1>{{ title }}</h1>
-        <nav>
-          {% for crumb in breadcrumbs %}
-          <a
-            href="{{crumb.url}}"
-            {%
-            if
-            forloop.last
-            %}
-            aria-current="page"
-            {%
-            endif
-            %}
-          >
-            {{crumb.name}}
-          </a>
-          {% unless forloop.last %}
-          <span>&nbsp;/&nbsp;</span>
-          {% endunless %} {% endfor %}
-        </nav>
-      </div>
-
-      <button id="theme-toggle" aria-label="Toggle theme">
-        <span class="icon-light">🌙 dark</span>
-        <span class="icon-dark">☀️ light</span>
-      </button>
+      <h1>{{ title }}</h1>
+      <nav>
+        {% for crumb in breadcrumbs %}
+        <a
+          href="{{crumb.url}}"
+          {%
+          if
+          forloop.last
+          %}
+          aria-current="page"
+          {%
+          endif
+          %}
+        >
+          {{crumb.name}}</a
+        >
+        {% unless forloop.last %}
+        <span>&nbsp;/&nbsp;</span>
+        {% endunless %}{% endfor %}
+      </nav>
     </header>
     <main>{{ content }}</main>
   </body>

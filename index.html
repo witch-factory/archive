@@ -20,11 +20,43 @@ layout: main.html
 </p>
 <p>도구를 마법처럼 여기지 않기를.</p>
 
-<dl>
-  <dt>47</dt>
-  <dd>TIL 기록</dd>
-  <dt>12</dt>
-  <dd>좋은 글 스크랩</dd>
-  <dt>12</dt>
-  <dd>독서 기록</dd>
-</dl>
+<h2>Contents</h2>
+
+<nav>
+  <ul>
+    <li>
+      <a href="/study/">study</a>
+      <ul>
+        {% for study in collections.study2025 %}
+        <li>
+          <a href="{{ study.url }}">{{ study.data.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+  </ul>
+  <ul>
+    <li>
+      <a href="/scrap/">scrap</a>
+      <ul>
+        {% for link in collections.scrap %}
+        <li>
+          <a href="{{ link.url }}">{{ link.data.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+  </ul>
+  <ul>
+    <li>
+      <a href="/books/">books</a>
+      <ul>
+        {% for book in collections.books %}
+        <li>
+          <a href="{{ book.url }}">{{ book.data.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+  </ul>
+</nav>
