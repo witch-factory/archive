@@ -1,8 +1,6 @@
 :root {
   --color-text: #111;
-  --color-text-light: #666;
   --color-bg: #fff;
-  --color-border: #ccc;
   --color-link: #0645ad;
   --color-link-hover: #0b0080;
   --color-code-bg: #f4f4f4;
@@ -28,33 +26,8 @@ body {
   margin: 0 auto;
 }
 
-h1 {
-  font-size: 1.75rem;
-  margin: 0.75rem 0;
-}
-
-h2 {
-  font-size: 1.5rem;
-  margin: 0.5rem 0;
-}
-
-h3 {
-  font-size: 1.25rem;
-  margin: 0.5rem 0;
-}
-
-h4 {
-  font-size: 1.1rem;
-  margin: 0.25rem 0;
-}
-
-header {
-  margin: 0;
-}
-
 a {
   color: var(--color-link);
-  text-decoration: underline;
 }
 
 a:hover {

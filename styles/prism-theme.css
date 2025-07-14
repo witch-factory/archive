@@ -1,5 +1,4 @@
 /* prettier-ignore */
-
 /* https://github.com/PrismJS/prism/blob/v2/src/themes/prism.css */
 code[class*="language-"],
 pre[class*="language-"] {
@@ -50,6 +49,7 @@ pre[class*="language-"] {
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
   background: #f5f2f0;
+  border-radius: 0.5rem;
 }
 :not(pre) > code[class*="language-"] {
   padding: 0.1em;
