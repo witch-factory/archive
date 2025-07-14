@@ -4,9 +4,6 @@ title: Nest.js 문서를 읽고 해보자
 description: Nest.js 문서를 읽고 알아본 내용
 ---
 
-
-# Nest.js 문서를 읽고 해보자
-
 https://docs.nestjs.com/ 를 읽고 시작해 보는 중. Prisma를 사용해 보려고 함
 
 Node.JS의 새로운 파트너 NestJS는 왜 탄생했을까?
@@ -45,12 +42,12 @@ HTTP 응답 코드는 `@HttpCode(...)` 데코레이터로 변경가능.(기본�
 request 객체는 `@Req()` 데코레이터로 주입받을 수 있음
 
 ```ts
-@Controller('cats')
+@Controller("cats")
 export class CatsController {
   // HTTP 메서드별로 데코레이터가 있음
   @Get()
   findAll(@Req() request: Request): string {
-    return 'This action returns all cats';
+    return "This action returns all cats";
   }
 }
 ```
@@ -228,11 +225,10 @@ export const User = createParamDecorator(
     const user = request.user;
 
     return data ? user?.[data] : user;
-  },
+  }
 );
 ```
 
 `createParamDecorator`는 제네릭 타입을 가지며 콜백이 받는 인수의 `data` 타입에 따라 제네릭 타입 결정됨
 
 `applyDecorators`로 데코레이터를 조합해서 사용도 가능
-

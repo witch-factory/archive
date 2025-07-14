@@ -4,9 +4,6 @@ title: Next.js 문서를 읽으면서 메모
 description: Next.js 문서를 읽으면서 간단히 메모한 내용
 ---
 
-
-# Next.js 문서를 읽자
-
 ## 2024.10.10
 
 ### Getting Started
@@ -14,6 +11,7 @@ description: Next.js 문서를 읽으면서 간단히 메모한 내용
 Next.js는 풀스택 웹 애플리케이션을 만들기 위한 리액트 프레임워크. 번들링, 컴파일, 라우팅 등 React에 필요한 여러 추가 설정들을 자동 제공
 
 메인 기능
+
 - 페이지 기반 라우팅
 - 렌더링
 - 데이터 페칭
@@ -44,12 +42,14 @@ page.tsx: 실제 페이지 컴포넌트. 라우트의 컨텐츠를 렌더링
 ### Project Structure
 
 최상위 폴더
+
 - src
   - app(app, pages는 프로젝트 루트에 위치할 수도 있음)
   - pages
 - public
 
 파일 이름 컨벤션
+
 - `(folder)`로 라우트 그룹, `_`로 시작하는 파일은 라우트로 인식되지 않는 private 폴더
 - `@`로 시작하는 패러렐 라우트
 - `icon.png` 등으로 메타데이터 파일 지정 가능
@@ -110,6 +110,7 @@ layout에서 데이터 페칭도 가능
 만약 모든 라우트 세그먼트가 필요하다면 `useSelectedLayoutSegments`를 사용
 
 layout과 달리 template(`template.js`로 선언 가능)는 리렌더링된다. 네비게이션에 따라 새로운 인스턴스 생성
+
 - useEffect, useState 등에 의존하는 기능에 유용
 - 각 탐색마다 fallback을 표시하는 등, 기존 프레임워크 동작을 바꾸려고 할 때 가능
 

@@ -4,8 +4,6 @@ title: React 공식 문서 요약
 description: React 공식 문서의 각 섹션을 짧게 요약한 메모들
 ---
 
-# React 공식 문서 요약
-
 https://ko.react.dev/
 
 React의 각 문서를 내가 아는 지식들을 빼고, 받을 수 있었던 새로운 부분과 인사이트만 더해 3~5항목으로 요약하는 것을 시도(세줄요약 하려 했는데 그건 너무 짧을지도 모르겠어서)
@@ -50,7 +48,6 @@ useEffect(() => {
 }, [userId]);
 ```
 
-
 의존성 배열에 지정한 종속성 값들이 Effect 내부 코드 기반으로 리액트가 기대하는 거랑 다르면 린터 에러가 발생한다. 이때 종속성 배열을 변경할 수도 있지만 종속성 설계를 다시 검토해볼 수 있다(https://ko.react.dev/learn/lifecycle-of-reactive-effects#what-to-do-when-you-dont-want-to-re-synchronize)
 
 ref 객체는 리액트에서 항상 같은 객체를 얻을 수 있음을 보장하기 때문에 ref 객체를 의존성 배열에 넣을 필요 없다. `useState`의 set 함수들도 참조 동일성을 유지한다. 안정된 식별성을 가진 의존성을 생략하는 것은 린터가 해당 객체가 안정적임을 “알 수” 있는 경우에 그렇다. 예를 들어, ref가 부모 컴포넌트에서 전달되었다면 부모가 항상 같은 ref를 전달하는지 알 수 없으므로 ref를 의존성 배열에 넣어야 한다.
@@ -59,7 +56,7 @@ ref 객체는 리액트에서 항상 같은 객체를 얻을 수 있음을 보�
 
 effect를 이용하면 리액트를 벗어난 외부 시스템(네트워크 etc)과 동기화 가능. 하지만 외부 시스템이 관려하지 않을 경우 effect 안 써도 된다.
 
-핵심은 렌더링 패스를 줄이고 이벤트를 위치해야 할 곳에 위치시키는 것. 렌더링이 끝나고 나서 또 useEffect에서 state를 바꿔서 렌더링을 다시 하게 되는 건 비효율적이다. 
+핵심은 렌더링 패스를 줄이고 이벤트를 위치해야 할 곳에 위치시키는 것. 렌더링이 끝나고 나서 또 useEffect에서 state를 바꿔서 렌더링을 다시 하게 되는 건 비효율적이다.
 
 state가 다른 state에서 계산될 수 있는 경우 그냥 그 값을 최상위에서 지역변수로 선언해서 렌더링 중에 계산되게 한다. 이 계산이 비싸면 useMemo를 사용한다.
 
@@ -124,7 +121,7 @@ useEffectEvent는 콜백을 받고, 콜백 내부 로직은 **반응형이 아�
 이때 `useEffectEvent`를 쓴다고 해도 반응형 로직은 Effect에 남겨두는 게 좋다. 별도의 이벤트이기도 하고, 이는 비동기 로직이 있는 경우 특히 그렇다. 공식 문서의 예시는 이렇다.
 
 ```jsx
-const onVisit = useEffectEvent(visitedUrl => {
+const onVisit = useEffectEvent((visitedUrl) => {
   logVisit(visitedUrl, numberOfItems);
 });
 
@@ -162,11 +159,11 @@ Effect의 의존성 배열을 검토했을 때, 의존성 중 하나라도 변�
 - [effect에서 일어나는 state 업데이트를 의존성 값을 사용하지 않고, 업데이터 콜백 함수를 이용하도록 변경할 수는 없는가?](https://ko.react.dev/learn/removing-effect-dependencies#are-you-reading-some-state-to-calculate-the-next-state) 그렇게 하면 effect의 의존성 배열에서 해당 state를 제거할 수 있다.
 - 변경되었을 때 동기화를 다시 시작할 필요가 없는 값을 useEffectEvent로 옮길 수 없는가?(부모에서 받은 onReceive 같은 이벤트 핸들러에도 useEffectEvent 적용할 수 있다)
 - 객체/함수는 렌더링 시마다 다시 생성되므로 effect 의존성으로 사용하지 않는 게 좋다. 객체/함수라면 effect 내부로 이동하거나 원시값을 추출하자.(구조 분해 할당 등)
-`options`를 의존성으로 지정하는 대신 `const { roomId, serverUrl } = options;`처럼 해서 roomId, serverUrl을 의존성으로 지정하는 식이다. 이러면 `options`가 props이더라도 부모 객체가 리렌더링되면서 `options`가 다시 실행되어도 roomId, serverUrl은 불변이므로 동기화가 다시 되지 않는다! 굿.
+  `options`를 의존성으로 지정하는 대신 `const { roomId, serverUrl } = options;`처럼 해서 roomId, serverUrl을 의존성으로 지정하는 식이다. 이러면 `options`가 props이더라도 부모 객체가 리렌더링되면서 `options`가 다시 실행되어도 roomId, serverUrl은 불변이므로 동기화가 다시 되지 않는다! 굿.
 
 **의존성 린터 억제는 하지 말자**
 
-연습문제가 쓸만하다. state 업데이트를 콜백함수로 진행하기, useEffectEvent 사용하기, 객체나 함수를 의존성으로 사용하지 않기, props 구조 변경해서 의존성 줄이기 등을 연습 가능. 
+연습문제가 쓸만하다. state 업데이트를 콜백함수로 진행하기, useEffectEvent 사용하기, 객체나 함수를 의존성으로 사용하지 않기, props 구조 변경해서 의존성 줄이기 등을 연습 가능.
 
 ## 커스텀 Hook으로 로직 재사용하기
 

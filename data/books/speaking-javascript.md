@@ -4,8 +4,6 @@ title: 자바스크립트를 말하다
 description: 악셀 라우슈마이어의 책 "자바스크립트를 말하다"
 ---
 
-# 자바스크립트를 말하다
-
 악셀 라우슈마이어의 "자바스크립트를 말하다"를 읽으며 메모하는 페이지. 아는 부분은 빠르게 넘어가고 새로이 알게 된 부분을 정리
 
 ## undefined와 null(8장 내용도 추가)
@@ -13,7 +11,7 @@ description: 악셀 라우슈마이어의 책 "자바스크립트를 말하다"
 자바스크립트에서 정보가 없음을 나타내는 값은 `undefined`와 `null`이 있다. 둘 다 falsy이며 프로퍼티에 접근하려 하면 어떤 형태로든 에러가 일어난다.
 
 ```javascript
-function returnFoo(x){
+function returnFoo(x) {
   return x.foo;
 }
 
@@ -27,7 +25,7 @@ null은 객체가 올 자리지만 비어 있음을 나타낸다. 예를 들어 
 
 ```javascript
 console.log(Object.getPrototypeOf(Object.prototype)); // null
-console.log(/a/.exec('b')); // null
+console.log(/a/.exec("b")); // null
 ```
 
 ### 역사
@@ -52,7 +50,7 @@ ES3까지 undefined는 전역 객체 프로퍼티, 전역 변수였다. 따라�
 1. undefined 가리기
 
 ```javascript
-(function (undefined){
+(function (undefined) {
   // 즉시 실행 함수 호출시 "undefined"라는 이름의 매개변수를 제공하지 않았으므로
   // 이 매개변수의 값은 무조건 진짜 undefined가 된다.
   console.log(undefined); // undefined
@@ -64,7 +62,7 @@ ES3까지 undefined는 전역 객체 프로퍼티, 전역 변수였다. 따라�
 void 연산자는 피연산자를 평가하고 undefined(덮어써질 수 있는 전역 변수 undefined가 아니라 진짜 undefined 값)를 반환한다. 이를 이용해 undefined를 덮어쓰는 것을 막을 수 있다.
 
 ```javascript
-if (x === void 0){
+if (x === void 0) {
   // x가 undefined일 때 실행
 }
 ```
@@ -79,14 +77,14 @@ void 연산자는 피연산자인 표현식을 평가하고 undefined를 반환�
 
 ```js
 var x;
-void (x=123); // undefined
+void (x = 123); // undefined
 console.log(x); // 123
 ```
 
 또한 우선순위에 주의해야 한다. void는 우선순위가 매우 높아서 보통 다른 연산자보다 우선적으로 고려된다. 따라서 괄호로 묶어주는 게 좋다.
 
 ```js
-void 3+1; // (void 3) + 1 즉 undefined + 1이 되어 NaN이다.
+void 3 + 1; // (void 3) + 1 즉 undefined + 1이 되어 NaN이다.
 ```
 
 void는 크게 많이 쓰이지는 않지만 표현식 평가 결과와 상관없이 undefined를 반환하고 싶을 때 쓰인다. 예를 들어 `javascript:URL`을 쓸 때 void를 쓸 수 있다. 이런 URL을 방문시 브라우저 대부분은 현재 문서 URL을 URL 콘텐츠를 평가한 결과로 대체한다. 하지만 undefined가 평가 결과일 땐 예외다.
@@ -101,7 +99,6 @@ void는 크게 많이 쓰이지는 않지만 표현식 평가 결과와 상관�
 >
 > Brendan Eich의 말 인용, "자바스크립트를 말하다" 163쪽
 
-
 ## arguments
 
 함수 매개변수는 모두 유사 배열 객체 arguments에 담긴다. 이는 length 프로퍼티를 가지며 배열처럼 인덱스로 접근할 수 있다. 하지만 배열 메서드는 하나도 없다.
@@ -111,7 +108,7 @@ length는 있으므로 특정한 매개변수 숫자를 강제하고 싶으면 `
 ```javascript
 function pair(x, y) {
   if (arguments.length !== 2) {
-    throw new Error('함수 pair는 두 개의 매개변수를 필요로 합니다.');
+    throw new Error("함수 pair는 두 개의 매개변수를 필요로 합니다.");
   }
   return [x, y];
 }
@@ -122,7 +119,7 @@ function pair(x, y) {
 ## 엄격 모드
 
 ```javascript
-'use strict';
+"use strict";
 ```
 
 엄격 모드에서는 변수를 사용 전에 var로 선언해야 한다.
@@ -132,9 +129,9 @@ function pair(x, y) {
 var 기준으로 변수 스코프는 블록이 아니라 함수이다.
 
 ```javascript
-function foo(){
+function foo() {
   var x = 1;
-  if(true){
+  if (true) {
     var y = 2;
   }
   console.log(y); // if 블록 밖에서도 y에 접근 가능. 함수 스코프라서 그렇다
@@ -144,9 +141,9 @@ function foo(){
 함수 스코프와 호이스팅이 합쳐지면 이런 동작이 된다. if문 안의 동작은 절대 실행되지 않지면 if문 안의 변수 선언은 함수의 시작 부분으로 끌어올려지기 때문에 if문 밖에서도 접근할 수 있는 것이다. 다만 값의 할당은 이루어지지 않아서 undefined가 출력된다.
 
 ```javascript
-function foo(){
+function foo() {
   console.log(x); // undefined
-  if(false){
+  if (false) {
     var x = 1;
   }
 }
@@ -155,7 +152,7 @@ function foo(){
 새 변수 스코프가 필요하면 IIFE를 사용한다.
 
 ```javascript
-(function(){
+(function () {
   var x = 1;
   console.log(x);
 })();
@@ -167,8 +164,8 @@ function foo(){
 
 ```javascript
 var result = [];
-for(var i = 0; i < 5; i++){
-  result[i] = function(){
+for (var i = 0; i < 5; i++) {
+  result[i] = function () {
     return i;
   };
 }
@@ -180,11 +177,21 @@ console.log(result[0]()); // 5
 
 ```javascript
 result = [
-  function(){ return i; },
-  function(){ return i; },
-  function(){ return i; },
-  function(){ return i; },
-  function(){ return i; }
+  function () {
+    return i;
+  },
+  function () {
+    return i;
+  },
+  function () {
+    return i;
+  },
+  function () {
+    return i;
+  },
+  function () {
+    return i;
+  },
 ];
 ```
 
@@ -192,10 +199,10 @@ result = [
 
 ```javascript
 var result = [];
-for(var i = 0; i < 5; i++){
-  result[i] = (function(){
+for (var i = 0; i < 5; i++) {
+  result[i] = (function () {
     var j = i;
-    return function(){
+    return function () {
       return j;
     };
   })();
@@ -210,14 +217,14 @@ console.log(result[0]()); // 0
 
 ```javascript
 var jane = {
-  name: 'Jane',
-  friends: ['Tarzan', 'Cheeta'],
-  logHiToFriends: function(){
-    'use strict';
-    this.friends.forEach(function(friend){
-      console.log(this.name + ' says hi to ' + friend);
+  name: "Jane",
+  friends: ["Tarzan", "Cheeta"],
+  logHiToFriends: function () {
+    "use strict";
+    this.friends.forEach(function (friend) {
+      console.log(this.name + " says hi to " + friend);
     });
-  }
+  },
 };
 
 jane.logHiToFriends(); // cannot read property 'name' of undefined
@@ -227,15 +234,15 @@ jane.logHiToFriends(); // cannot read property 'name' of undefined
 
 ```javascript
 var jane = {
-  name: 'Jane',
-  friends: ['Tarzan', 'Cheeta'],
-  logHiToFriends: function(){
-    'use strict';
+  name: "Jane",
+  friends: ["Tarzan", "Cheeta"],
+  logHiToFriends: function () {
+    "use strict";
     var that = this;
-    this.friends.forEach(function(friend){
-      console.log(that.name + ' says hi to ' + friend);
+    this.friends.forEach(function (friend) {
+      console.log(that.name + " says hi to " + friend);
     });
-  }
+  },
 };
 
 jane.logHiToFriends(); // Jane says hi to Tarzan, Jane says hi to Cheeta
@@ -245,15 +252,15 @@ jane.logHiToFriends(); // Jane says hi to Tarzan, Jane says hi to Cheeta
 
 ```javascript
 var jane = {
-  name: 'Jane',
-  friends: ['Tarzan', 'Cheeta'],
-  logHiToFriends: function(){
-    'use strict';
+  name: "Jane",
+  friends: ["Tarzan", "Cheeta"],
+  logHiToFriends: function () {
+    "use strict";
     // 2번째 매개변수 사용
-    this.friends.forEach(function(friend){
-      console.log(this.name + ' says hi to ' + friend);
+    this.friends.forEach(function (friend) {
+      console.log(this.name + " says hi to " + friend);
     }, this);
-  }
+  },
 };
 
 jane.logHiToFriends(); // Jane says hi to Tarzan, Jane says hi to Cheeta
@@ -265,15 +272,15 @@ jane.logHiToFriends(); // Jane says hi to Tarzan, Jane says hi to Cheeta
 
 ```javascript
 // test 메서드는 일치하는 것이 있는지 확인한다
-/^a+b+$/.test('aaab'); // true
+/^a+b+$/.test("aaab"); // true
 // exec 메서드는 일치하는 그룹을 캡처해 반환한다
-/a(b+)a/.exec('abba'); // ['abba', 'bb']
+/a(b+)a/.exec("abba"); // ['abba', 'bb']
 ```
 
 `replace` 메서드의 첫 매개변수에 `/g` 플래그가 들어간 정규 표현식을 넣으면 모든 일치하는 것을 바꿀 수 있다.
 
 ```javascript
-'abba'.replace(/a/g, 'x'); // 'xbbx'
+"abba".replace(/a/g, "x"); // 'xbbx'
 ```
 
 ## JS의 우아한 부분
@@ -310,7 +317,7 @@ do while, 정규 표현식, concat, replace 등 새로운 문자열 메서드, �
 
 ML로 작성된 JS의 새로운 프로토타입이었지만 수용되지 않았다. 2008년 7월 말에 이런 결론이 났따.
 
-ES3을 점진적으로 업데이트한다. 그리고 ES4보다는 덜 급진적이지만 ES3을 개선한 새 버전을 만든다. 하위 호환성을 유지하면서 조화롭게 진화시키는 것을 목표로 코드네임을 Harmony로 한다. 패키지, 네임스페이스 등 ES4의 일부 기능을 뺀다. 
+ES3을 점진적으로 업데이트한다. 그리고 ES4보다는 덜 급진적이지만 ES3을 개선한 새 버전을 만든다. 하위 호환성을 유지하면서 조화롭게 진화시키는 것을 목표로 코드네임을 Harmony로 한다. 패키지, 네임스페이스 등 ES4의 일부 기능을 뺀다.
 
 - ES5(2009.12)
 
@@ -394,7 +401,7 @@ MS는 윈도우 8 운영체제를 HTML5와 통합했다. 윈8은 HTML5로 만든
 
 ```js
 {
-  foo:func(1,2);
+  foo: func(1, 2);
 }
 ```
 
@@ -403,10 +410,10 @@ MS는 윈도우 8 운영체제를 HTML5와 통합했다. 윈8은 HTML5로 만든
 이런 요건을 만족하기 위해서 여러 방법을 쓸 수 있는데 대표적으로 괄호로 표현식을 감싸는 게 있다. `eval`이 객체를 반환하게 하거나 IIFE를 쓸 때 그렇다.
 
 ```js
-eval('({foo:1})'); // {foo:1} 객체를 반환하게 하려면 괄호로 감싸야 한다
+eval("({foo:1})"); // {foo:1} 객체를 반환하게 하려면 괄호로 감싸야 한다
 
-(function(){
-  return 'a';
+(function () {
+  return "a";
 })(); // IIFE를 쓸 때도 함수 표현식을 괄호로 감싸야 한다. 그러지 않으면 익명 함수 선언으로 인식되어 에러가 발생한다.
 ```
 
@@ -419,10 +426,10 @@ eval('({foo:1})'); // {foo:1} 객체를 반환하게 하려면 괄호로 감싸�
 메서드 호출시 부동소수점 기호인 점과 점 연산자를 구별해야 한다. `1.toString()`은 불가능하고 반드시 다음처럼 써야 한다.
 
 ```js
-1..toString(); // '1'
-1 .toString(); // '1'
 (1).toString(); // '1'
-1.0.toString(); // '1'
+(1).toString(); // '1'
+(1).toString(); // '1'
+(1.0).toString(); // '1'
 ```
 
 ## 엄격 모드
@@ -430,7 +437,7 @@ eval('({foo:1})'); // {foo:1} 객체를 반환하게 하려면 괄호로 감싸�
 https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Strict_mode
 
 ```js
-'use strict';
+"use strict";
 ```
 
 - 변수를 반드시 선언해야 한다.
@@ -450,8 +457,8 @@ arguments 객체의 caller, callee는 폐기됐고 변수명으로 arguments를 
 반면 엄격 모드에서는 메서드가 아닌 함수의 this가 undefined가 된다. 즉 생성자에서 this를 사용하면 undefined가 된다.
 
 ```js
-function Point(x, y){
-  'use strict';
+function Point(x, y) {
+  "use strict";
   this.x = x;
   this.y = y;
 }
@@ -466,7 +473,7 @@ Point(1, 2); // TypeError: Cannot set property 'x' of undefined
 엄격 모드에서는 읽기 전용 프로퍼티에 값을 할당하려고 하면 에러가 발생한다. length 프로퍼티가 대표적이다. NaN도 마찬가지다.
 
 ```js
-'use strict';
+"use strict";
 var arr = [1, 2, 3];
 arr.length = 1; // 1
 
@@ -485,7 +492,7 @@ delete foo;
 
 ```js
 delete window.foo;
-delete this.foo
+delete this.foo;
 ```
 
 - eval의 명확함
@@ -502,7 +509,7 @@ eval은 쓰면 안되기는 하지만 엄격 모드에서 좀 낫다. 엄격 모
 
 ```js
 String(123); // '123'
-Number('123'); // 123
+Number("123"); // 123
 ```
 
 단 래퍼 객체는 말 그대로 객체이며 원시값과 달리 참조로 비교된다. 또한 원시값은 immutable이라는 걸 제외하면 원시값으로 할 수 없는 일은 래퍼 객체로도 할 수 없기 때문에 래퍼 객체를 쓸 일은 거의 없다.
@@ -510,7 +517,7 @@ Number('123'); // 123
 래퍼 생성자를 써서 원시값을 객체화할 수 있는데 이를 되돌리려면 `valueOf` 메서드를 쓰면 된다.
 
 ```js
-var str = new String('foo');
+var str = new String("foo");
 str.valueOf(); // 'foo'
 ```
 
@@ -518,7 +525,7 @@ str.valueOf(); // 'foo'
 
 ```js
 Number(new Number(123)); // 123
-String(new String('foo')); // 'foo'
+String(new String("foo")); // 'foo'
 Boolean(new Boolean(false)); // true. 래퍼 객체는 객체이기에 true로 평가된다.
 ```
 
@@ -530,19 +537,19 @@ Boolean(new Boolean(false)); // true. 래퍼 객체는 객체이기에 true로 �
 
 ```js
 // 엄격 모드가 아닐 때
-String.prototype.sloppy=function(){
+String.prototype.sloppy = function () {
   console.log(typeof this);
   console.log(this instanceof String);
 };
-'' .sloppy(); // object, true
+"".sloppy(); // object, true
 
 // 엄격 모드일 때
-String.prototype.strict=function(){
-  'use strict';
+String.prototype.strict = function () {
+  "use strict";
   console.log(typeof this);
   console.log(this instanceof String);
 };
-''.strict(); // string, false
+"".strict(); // string, false
 ```
 
 ## Object 생성자
@@ -552,8 +559,8 @@ Object 생성자는 임의의 값을 객체로 바꿀 때 사용할 수도 있�
 일반적으로 이 Object도 Number등 원시값 래퍼 객체와 비슷하게, 생성자로 쓰는 일은 거의 없다.
 
 ```js
-var obj={a:1, b:2};
-Object(obj)===obj; // true
+var obj = { a: 1, b: 2 };
+Object(obj) === obj; // true
 Object(undefined); // {}
 Object(null); // {}
 Object(1); // Number {1}
@@ -577,7 +584,7 @@ ToPrimitive(input, [preferredType]);
 ```js
 var arr = [1, 10, 2, 20];
 arr.sort(); // [1, 10, 2, 20]
-arr.sort(function(a, b){
+arr.sort(function (a, b) {
   return a - b;
 }); // [1, 2, 10, 20]
 ```
@@ -593,13 +600,13 @@ arr.sort(function(a, b){
 ```js
 // x가 undefined인지 확인
 // x가 선언된 변수(즉 존재하는지)인지 확인
-typeof x === 'undefined';
+typeof x === "undefined";
 ```
 
 특히 이는 변수가 존재하는지 확인할 때 유용한데 변수가 존재하지 않을 때 `undefined`와 직접 비교하면 에러가 나기 때문이다.
 
 ```js
-if(x === undefined){
+if (x === undefined) {
   // ReferenceError: x is not defined
 }
 ```
@@ -621,12 +628,12 @@ if(x === undefined){
 
 ```js
 var obj = {
-  valueOf: function(){
+  valueOf: function () {
     return 1;
   },
-  toString: function(){
-    return 'my string';
-  }
+  toString: function () {
+    return "my string";
+  },
 };
 
 Number(obj); // 1
@@ -638,9 +645,9 @@ String(obj); // 'my string'
 `&&`, `||`는 단축 평가된다. `&&`는 왼쪽 피연산자가 `false`이면 오른쪽 피연산자를 평가하지 않는다. `||`는 왼쪽 피연산자가 `true`이면 오른쪽 피연산자를 평가하지 않는다.
 
 ```js
-true || console.log('hi'); // true.
+true || console.log("hi"); // true.
 // true만으로도 결과가 나오므로 오른쪽 피연산자는 평가되지 않는다.
-false || console.log('hi'); // hi, undefined
+false || console.log("hi"); // hi, undefined
 // console.log의 리턴값은 undefined이다.
 ```
 
@@ -649,9 +656,9 @@ false || console.log('hi'); // hi, undefined
 숫자 리터럴에 메서드를 호출할 때는 점 연산자와 소수점의 구별이 필요하다. 따라서 숫자 리터럴에서 메서드를 호출할 때는 다음과 같이 해야 한다.
 
 ```js
-123..toString(); // '123'
-123 .toString(); // '123'
-123.0.toString(); // '123'
+(123).toString(); // '123'
+(123).toString(); // '123'
+(123.0).toString(); // '123'
 (123).toString(); // '123'
 ```
 
@@ -680,13 +687,13 @@ JS 문자열은 immutable 문자 시퀀스이다. 각 문자는 UTF-16 코드 �
 문자열 비교는 단순히 유니코드 코드 포인트로 비교한다. 이는 문자열을 비교할 때 대소문자를 구분한다는 뜻이고 또한 악센트, 움라우트 등이 비교에 반영되지 않는다는 뜻이다. 따라서 `String.prototype.localeCompare`를 쓰면 이런 문제를 해결할 수 있다.
 
 ```js
-'ä'.localeCompare('z'); // -1
+"ä".localeCompare("z"); // -1
 ```
 
 결과가 0보다 작으면 메서드를 호출한 문자열이 매개변수보다 작다는 것이고, 0보다 크면 메서드를 호출한 문자열이 매개변수보다 크다는 것이다. 가령 위의 경우 `ä`는 `z`보다 작으므로 -1이 반환된다.
 
 ```js
-String.prototype.localeCompare.call('ä', 'z'); // -1
+String.prototype.localeCompare.call("ä", "z"); // -1
 String.prototype.localeCompare(other); // 문자열과 other를 비교한다.
 // 문자열이 other보다 앞이면 <0, 같으면 0, 뒤면 >0이 반환
 ```
@@ -699,22 +706,22 @@ for..in은 `enumerable`이 false라서 순회 불가능한 객체를 제외하�
 
 ```js
 // 상속된 프로퍼티까지 순회
-function Person(name){
+function Person(name) {
   this.name = name;
 }
-Person.prototype.describe = function(){
-  return 'Person Name ' + this.name;
+Person.prototype.describe = function () {
+  return "Person Name " + this.name;
 };
 
-var jane = new Person('Jane');
-for(var prop in jane){
+var jane = new Person("Jane");
+for (var prop in jane) {
   console.log(prop);
 }
 // name, describe
 
 // hasOwnProperty로 상속된 프로퍼티 제외
-for(var prop in jane){
-  if(jane.hasOwnProperty(prop)){
+for (var prop in jane) {
+  if (jane.hasOwnProperty(prop)) {
     console.log(prop);
   }
 }
@@ -724,8 +731,8 @@ for(var prop in jane){
 그런데 이때 객체에 `hasOwnProperty`라는 프로퍼티가 있다면 체크 자체가 불가능하다. 이를 배제하려면 `Object.prototype.hasOwnProperty.call(obj, prop)`과 같이 범용 메서드를 프로토타입에서 가져와서 call을 이용해 쓰면 된다.
 
 ```js
-for(var prop in jane){
-  if(Object.prototype.hasOwnProperty.call(jane, prop)){
+for (var prop in jane) {
+  if (Object.prototype.hasOwnProperty.call(jane, prop)) {
     console.log(prop);
   }
 }
@@ -738,15 +745,15 @@ for..in은 배열 순회시 쓰는 건 좋지 않다. for..in은 값이 아니�
 switch는 매개변수로 온 표현식을 평가하고 각 case의 표현식과 `===`로 비교한다. C처럼 점프 테이블을 만드는 게 아니기 때문에 매개변수나 case에 어떤 형태 표현식이든 쓸 수 있다.
 
 ```js
-switch(true){
-  case x<0:
-    console.log('negative');
+switch (true) {
+  case x < 0:
+    console.log("negative");
     break;
-  case x===0:
-    console.log('zero');
+  case x === 0:
+    console.log("zero");
     break;
-  case x>0:
-    console.log('positive');
+  case x > 0:
+    console.log("positive");
     break;
 }
 ```

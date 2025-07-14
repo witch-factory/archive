@@ -4,8 +4,6 @@ title: 김영한의 Java 중급편 강의(첫번째)를 듣고 정리한 내용
 description: 김영한의 Java 초급편 첫번째 강의를 듣고 정리한 내용
 ---
 
-# Java 중급편 강의 정리
-
 목표: java의 기능보다는 제공하는 기술들이 왜 필요한지 이해하는 것
 
 # 섹션1. Object 클래스
@@ -18,6 +16,7 @@ Object, String, Integer, Double, Math, System, Class 등
 `java.lang.Object` 클래스는 모든 클래스의 조상이다. 즉, 모든 클래스는 Object 클래스를 기본적으로 상속받는다. 그래서 Object에 있는 `toString()`, `equals()`, `hashCode()` 메서드를 사용할 수 있다. 이 말은 늘 메모리에도 같이 존재한다는 뜻이다. 자식 인스턴스가 생성될 때는 부모도 같이 생성되니까..
 
 그럼 이걸 왜 할까?
+
 - 공통 기능 제공
   - 객체 비교, 정보 확인 등의 기본적인 기능들을 제공
 - 다형성의 기본 구현

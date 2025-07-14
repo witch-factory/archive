@@ -4,8 +4,6 @@ title: 이펙티브 자바스크립트
 description: 데이비드 허먼, "이펙티브 자바스크립트"
 ---
 
-# 이펙티브 자바스크립트
-
 이펙티브 자바스크립트를 읽으며 매일 메모 남기기
 
 ## 2024.08.22
@@ -17,7 +15,7 @@ JS의 모든 숫자는 IEEE 754 double이다. 따라서 -2^53 ~ 2^53 사이의 �
 이때 비트 연산자는 다른 연산자들과 달리 피연산자들을 부동 소수점 숫자처럼 처리하지 않는다. 대신 암묵적으로 32비트 정수로 변환하고 연산 수행 후 다시 부동 소수점 숫자로 변환하여 돌려준다. 따라서 비트 연산자를 사용할 때는 주의해야 한다.
 
 ```js
-8 | 1 // 9
+8 | 1; // 9
 // 내부적으로 8과 1을 32비트 정수로 변환하여 비트 연산을 수행한 후 다시 부동 소수점 숫자로 변환하여 돌려준다.
 ```
 
@@ -28,11 +26,11 @@ JS의 모든 숫자는 IEEE 754 double이다. 따라서 -2^53 ~ 2^53 사이의 �
 ```js
 const obj = {
   toString() {
-    return 'hello';
+    return "hello";
   },
   valueOf() {
     return 3;
-  }
+  },
 };
 
 Number(obj); // 3
@@ -44,11 +42,11 @@ String(obj); // 'hello'
 ```js
 const obj = {
   toString() {
-    return 'witch';
-  }
+    return "witch";
+  },
 };
 
-console.log('the ' + obj); // 'the witch'
+console.log("the " + obj); // 'the witch'
 ```
 
 그런데 객체가 `toString`, `valueOf`를 둘 다 가진다면 `+`는 문자병합과 덧셈에 모두 쓰이므로 어떤 걸 호출할지 애매해진다. JS는 일단 `valueOf`를 호출하고 그 결과에 대해 `toString`을 호출한다. 따라서 누군가 객체에 문자열 더하기를 실행하면 `valueOf` 부터 호출되어 의도하지 않은 결과가 나올 수 있다.
@@ -56,14 +54,14 @@ console.log('the ' + obj); // 'the witch'
 ```js
 const obj = {
   toString() {
-    return 'witch';
+    return "witch";
   },
   valueOf() {
     return 3;
-  }
+  },
 };
 
-console.log('the ' + obj); // 'the 3'
+console.log("the " + obj); // 'the 3'
 ```
 
 `valueOf`는 객체가 실제로 숫자로 된 값을 가질 때 사용하는 게 맞다. 이런 객체에서 `toString`, `valueOf`는 문자열 표현 또는 동일한 값을 갖는 숫자 표현을 반환한다. 즉 `valueOf` 를 갖는 객체는 해당 메서드가 생성하는 숫자값의 문자열 표현을 생성하는 `toString` 메서드를 갖는 것이 좋다.
@@ -74,8 +72,8 @@ const obj = {
     return 3;
   },
   toString() {
-    return '3';
-  }
+    return "3";
+  },
 };
 ```
 
@@ -84,11 +82,11 @@ const obj = {
 아이템 5. `==`로 혼합 데이터형을 비교하지 말라
 
 ```js
-const obj={
-  valueOf: function() {
+const obj = {
+  valueOf: function () {
     return true;
-  }
-}
+  },
+};
 "1.0e0" == obj; // true
 ```
 
@@ -106,7 +104,7 @@ const obj={
 
 따라서 UTF-16은 가변 길이 인코딩이다. 각 글자는 16비트 코드 유닛 1개 또는 2개(서로게이트 쌍)로 표현될 수 있다. 그래서 같은 길이 문자열도 메모리 사용량이 다를 수 있다. 예를 들어 `A`는 1개의 코드 유닛으로 표현되지만 `😀`는 2개의 코드 유닛으로 표현된다.
 
-유니코드가 확장될 때 JS는 이미 16비트 문자열 요소들을 쓰고 있었다. 따라서 유니코드가 확장될 때 이미 문자열의 `length`,  `charAt`같은 프로퍼티, 메서드들은 모두 1글자가 아니라 16비트 코드 유닛의 단계에서 동작한다. 즉 JS 문자열은 16비트 코드 유닛의 배열이고 `length`는 정확한 글자 수가 아니라 코드 유닛의 개수를 반환한다.
+유니코드가 확장될 때 JS는 이미 16비트 문자열 요소들을 쓰고 있었다. 따라서 유니코드가 확장될 때 이미 문자열의 `length`, `charAt`같은 프로퍼티, 메서드들은 모두 1글자가 아니라 16비트 코드 유닛의 단계에서 동작한다. 즉 JS 문자열은 16비트 코드 유닛의 배열이고 `length`는 정확한 글자 수가 아니라 코드 유닛의 개수를 반환한다.
 
 비슷하게 정규 표현식도 16비트 코드 유닛 단위로 실행된다. 따라서 유니코드 전체 영역을 처리하는 애플리케이션을 만드는 것은 어렵다. 이런 문제를 해결하기 위해 ES6에서는 코드 포인트 단위로 문자열을 다룰 수 있는 메서드를 추가하긴 했다.
 
@@ -123,7 +121,7 @@ JS의 전역 네임스페이스는 전역 객체로도 노출되어 있다. 이�
 ```js
 var a = 1;
 console.log(window.a); // 1
-window.a=2;
+window.a = 2;
 console.log(a); // 2
 ```
 
@@ -132,7 +130,7 @@ console.log(a); // 2
 전역 객체 사용은 최소화하는 게 좋다. 하지만 전역 객체는 환경을 동적으로 반영하기 때문에, 플랫폼에서 사용 가능한 기능 탐지를 위해서는 사용해야 한다.
 
 ```js
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   // 브라우저 전용 코드
 }
 
@@ -150,11 +148,11 @@ if (Array.prototype.includes === undefined) {
 하나의 객체에서 여러 메서드를 호출하려고 할 시 해당 객체에 대한 참조를 반복하지 않으려고 쓰는 with문
 
 ```js
-function status(info){
-  var widget= new Widget();
-  with(widget){
-    setBackground('blue'); // Widget.prototype.setBackground에서 찾음
-    setForeground('white');
+function status(info) {
+  var widget = new Widget();
+  with (widget) {
+    setBackground("blue"); // Widget.prototype.setBackground에서 찾음
+    setForeground("white");
     setText("Status: " + info); // 이 info는 원래 함수 인수에서 오는 것으로 의도됨
     show();
   }
@@ -168,10 +166,10 @@ function status(info){
 당연히 그냥 새 변수를 선언하고 사용하는 게 안전하다.
 
 ```js
-function status(info){
-  var widget= new Widget();
-  widget.setBackground('blue');
-  widget.setForeground('white');
+function status(info) {
+  var widget = new Widget();
+  widget.setBackground("blue");
+  widget.setForeground("white");
   widget.setText(text);
   widget.show();
 }
@@ -187,11 +185,11 @@ function status(info){
 JS var는 함수 스코프다. 그러면 호이스팅은 변수 선언을 함수 스코프 최상위로 끌어올린다는 것만 기억. 그리고 같은 스코프에서 var로 변수를 재선언하는 건 호이스팅에 의해 1개의 변수 선언처럼 처리된다.
 
 ```js
-function isWinner(player, others){
+function isWinner(player, others) {
   var highest = 0;
-  for(var i=0; i<others.length; i++){
+  for (var i = 0; i < others.length; i++) {
     var player = others[i];
-    if(player.score > highest){
+    if (player.score > highest) {
       highest = player.score;
     }
   }
@@ -203,15 +201,16 @@ function isWinner(player, others){
 ES3 시절에도 블록 스코프가 지원되는 예외적이었던 상황 중 하나는 exception이었다. try-catch-finally 블록 내에서 선언된 변수는 블록 스코프를 갖는다. try-catch는 exception을 잡아서 변수로 바인딩하고 해당 변수는 catch 블록 안에서만 스코프가 적용된다.
 
 ```js
-function test(){
-  var x="var", result=[];
+function test() {
+  var x = "var",
+    result = [];
   result.push(x);
-  try{
+  try {
     throw "exception";
-  }catch(x){
+  } catch (x) {
     // catch 블록 내부에서 x는 catch "블록" 스코프를 갖는다.
     // 외부 x에 영향을 미치지 않음
-    x="catch";
+    x = "catch";
   }
   result.push(x);
   return result;
@@ -222,10 +221,10 @@ test(); // ["var", "var"]
 클로저와 함수 스코프 때문에 이런 버그가 만들어진다.
 
 ```js
-function wrapElements(a){
-  var result=[];
-  for(var i=0, n=a.length; i<n; i++){
-    result[i]=function(){
+function wrapElements(a) {
+  var result = [];
+  for (var i = 0, n = a.length; i < n; i++) {
+    result[i] = function () {
       return a[i];
     };
   }
@@ -248,12 +247,12 @@ f(); // undefined
 이를 해결하기 위해서는 ES6의 let, const 이전 기준으로 IIFE를 사용하여 새로운 스코프를 만들어야 한다.
 
 ```js
-function wrapElements(a){
-  var result=[];
-  for(var i=0, n=a.length; i<n; i++){
-    (function(){
-      var j=i;
-      result[i]=function(){
+function wrapElements(a) {
+  var result = [];
+  for (var i = 0, n = a.length; i < n; i++) {
+    (function () {
+      var j = i;
+      result[i] = function () {
         return a[j];
       };
     })();
@@ -262,11 +261,11 @@ function wrapElements(a){
 }
 
 // 혹은 지역 변수를 IIFE 인수로 전달
-function wrapElements(a){
-  var result=[];
-  for(var i=0, n=a.length; i<n; i++){
-    (function(j){
-      result[i]=function(){
+function wrapElements(a) {
+  var result = [];
+  for (var i = 0, n = a.length; i < n; i++) {
+    (function (j) {
+      result[i] = function () {
         return a[j];
       };
     })(i);
@@ -284,8 +283,8 @@ function wrapElements(a){
 함수 표현식은 익명 함수를 생성하는 데에 사용할 수 있다. 예를 들어 다음과 같이 말이다. 이렇게 하면 인수를 제곱해서 돌려주는 함수가 변수 `square`에 바인딩된다.
 
 ```js
-var square = function(x){
-  return x*x;
+var square = function (x) {
+  return x * x;
 };
 ```
 
@@ -294,10 +293,10 @@ var square = function(x){
 단 이렇게 함수 표현식에 지정한 이름은 함수 내부에서만 스코프가 적용된다. 함수 선언문과 달리 기명 함수 표현식은 함수 이름을 외부에서 참조할 수 없다.
 
 ```js
-var f = function fact(x){
+var f = function fact(x) {
   // 이 내부에서 fact를 지역 변수로 사용할 수 있다.
-  if(x<=1) return 1;
-  return x*fact(x-1);
+  if (x <= 1) return 1;
+  return x * fact(x - 1);
 };
 
 f(3); // 6
@@ -310,9 +309,11 @@ fact(3); // ReferenceError: fact is not defined. fact는 함수 선언의 스코
 
 ```js
 // ES3 실행 환경에서
-function constructor(){return null;}
+function constructor() {
+  return null;
+}
 
-var f = function f(){
+var f = function f() {
   return constructor();
 };
 
@@ -331,15 +332,19 @@ ES5에서는 이 문제가 수정되었다.
 
 ```js
 // 이 코드는 ES3 시절 일부 엔진의 버그를 나타낸다
-var f= function g(){return 1;};
-g() // 1
+var f = function g() {
+  return 1;
+};
+g(); // 1
 ```
 
 이렇게 기명 함수 표현식과 같은 이름으로 지역 변수를 만들고 null을 할당하여 해결할 수도 있다.
 
 ```js
-var f = function g(){return 1;};
-var g=null;
+var f = function g() {
+  return 1;
+};
+var g = null;
 ```
 
 하지만 가독성도 떨어진다.. 기명 함수 표현식은 사용하기에는 문제가 많다. 디버깅할때만 필요시 사용하자. 실제 코드에서는 함수 표현식은 모두 익명인 게 좋다. 단 요즘은 대부분이 ES5 이상을 지원하므로 이런 문제는 거의 없을 것이다.
@@ -351,16 +356,16 @@ var g=null;
 다른 함수 내부의 최상단 스코프에 함수 선언문을 넣는 건 완전히 잘 작동한다.
 
 ```js
-function f(){
+function f() {
   return "global";
 }
 
-function test(x){
-  function f(){
+function test(x) {
+  function f() {
     return "local";
   }
-  var result=[];
-  if(x){
+  var result = [];
+  if (x) {
     result.push(f());
   }
   result.push(f());
@@ -373,14 +378,14 @@ test(true); // ["local", "local"]
 그런데 지역 블록 안에서 함수 선언문을 쓰면?
 
 ```js
-function f(){
+function f() {
   return "global";
 }
 
-function test(x){
-  var result=[];
-  if(x){
-    function f(){
+function test(x) {
+  var result = [];
+  if (x) {
+    function f() {
       return "local";
     }
     result.push(f());
@@ -401,15 +406,15 @@ ES5 이전까지는 이런 부분에 대한 명세 기준이 없었다. 단 이�
 만약 정말로 함수들을 조건에 따라 선택해야 한다면 var로 함수 표현식을 사용하자. 이러면 할당만 조건부로 실행되므로 완전히 예상할 수 있는 결과를 얻을 수 있다.
 
 ```js
-function f(){
+function f() {
   return "global";
 }
 
-function test(x){
-  var result=[];
+function test(x) {
+  var result = [];
   var g = f;
-  if(x){
-    g = function(){
+  if (x) {
+    g = function () {
       return "local";
     };
     result.push(g());
@@ -429,7 +434,7 @@ eval은 사용하지 않는 게 좋다. 엄격 모드에선 좀 나아졌다고 
 eval은 인자로 받은 문자열을 JS 프로그램처럼 해석하고 실행한다. 그런데 엄격 모드 이전의 eval은 eval이 호출된 스코프에 새로운 변수를 동적으로 추가할 수 있었다.
 
 ```js
-function test(x){
+function test(x) {
   eval("var y=x;");
   return y;
 }
@@ -440,8 +445,8 @@ test(10); // 10
 이는 명확하지만 변수 선언문이 test함수 본문에 있는 것과는 동작이 약간 다르다. 이 선언은 eval이 호출될 때만 실행된다. 조건절에서 써보면 알 수 있다.
 
 ```js
-function test(x){
-  if(x){
+function test(x) {
+  if (x) {
     eval("var y=x;");
   }
   return y;
@@ -455,8 +460,8 @@ test(0); // ReferenceError: y is not defined
 
 ```js
 // 엄격 모드 이전
-var y="global";
-function test(src){
+var y = "global";
+function test(src) {
   eval(src);
   return y;
 }
@@ -465,7 +470,6 @@ test("var y='local';"); // "local"
 test("var z='local';"); // "global"
 ```
 
-
 엄격 모드가 아닐 때 동작하는 이런 코드는 안전하지 않다. 외부 호출자가 test 함수 내부 스코프를 변경할 수 있기 때문이다.
 
 ES5의 엄격 모드는 eval을 감싸진 스코프에서 실행하도록 한다. 즉시 실행 함수를 사용하면 비슷하게 eval이 외부 스코프에 영향을 주지 않도록 제한할 수 있다.
@@ -473,9 +477,9 @@ ES5의 엄격 모드는 eval을 감싸진 스코프에서 실행하도록 한다
 그러니 엄격 모드가 아닌 상태이고 eval 코드가 전역 변수를 생성할 가능성이 있다면 함수로 감싸 실행하는 것도 좋다.
 
 ```js
-var y="global";
-function test(src){
-  (function(){
+var y = "global";
+function test(src) {
+  (function () {
     eval(src);
   })();
   return y;
@@ -493,9 +497,9 @@ eval 식별자를 직접 포함하는 건 직접적인 eval 호출이다. eval �
 반면 eval을 다른 변수명으로 바인딩한 후 호출하는 것같이 간접적으로 호출하면 eval이 실행한 프로그램은 호출자의 지역 스코프가 아닌 전역 스코프에서 평가된다.
 
 ```js
-var x="global";
-function test(){
-  var x="local";
+var x = "global";
+function test() {
+  var x = "local";
   var f = eval;
   return f("x");
 }
@@ -525,16 +529,16 @@ ES6 이전의 JS에서는 함수, 메서드, 생성자가 모두 function 키워
 
 ```js
 var obj = {
-  hello: function(){
+  hello: function () {
     return "hello " + this.username;
   },
-  username: "witch"
-}
+  username: "witch",
+};
 
-var obj2={
+var obj2 = {
   username: "may",
-  hello: obj.hello
-}
+  hello: obj.hello,
+};
 
 obj.hello(); // "hello witch"
 obj2.hello(); // "hello may"
@@ -543,19 +547,19 @@ obj2.hello(); // "hello may"
 이는 여러 객체에서 공유되는 함수를 만들 때 쓸 수도 있지만 이럴 경우 프로토타입을 쓰는 게 낫다고 보이기는 한다.
 
 ```js
-function hello(){
+function hello() {
   return "hello " + this.username;
 }
 
 var obj = {
   hello: hello,
-  username: "witch"
-}
+  username: "witch",
+};
 
-var obj2={
+var obj2 = {
   hello: hello,
-  username: "may"
-}
+  username: "may",
+};
 ```
 
 그러나 이렇게 this를 사용하는 함수를 전역에서 함수로 호출하게 되면 전역 객체 프로퍼티(즉, 전역 변수)를 조회하게 되므로 일반적으로 그렇게 유용하지 않다.
@@ -563,7 +567,7 @@ var obj2={
 사실 전역 객체로 this를 바인딩하는 건 문제의 소지가 있어서 ES5에 엄격 모드에서는 전역 함수 호출 시 this가 undefined로 바인딩된다.
 
 ```js
-function hello(){
+function hello() {
   "use strict";
   return "hello " + this.username;
 }
@@ -604,7 +608,7 @@ var result = f.call(obj, arg1, arg2); // f의 this를 obj로 지정하여 호출
 
 ```js
 // 함수 덮어쓰기
-dict.hasOwnProperty = function(){
+dict.hasOwnProperty = function () {
   return false;
 };
 
@@ -652,7 +656,7 @@ var result = f.apply(thisObj, [arg1, arg2, ...]);
 가변 인자 함수를 만들 땐 명시적인 배열도 받을 수 있게 항상 고정 인자 버전을 함께 제공하는 게 좋다. 가변 인자 함수의 arguments를 고정 인자 함수에 위임하는 래퍼를 작성하면 된다.
 
 ```js
-function average(){
+function average() {
   // 1개의 인자를 받는 고정 인자 함수에 위임
   return averageOfArray(arguments);
 }
@@ -700,18 +704,18 @@ callMethod(obj, "add", 17, 25);
 처음에 arguments 객체 요소들을 진짜 배열로 복사(call + slice 이용)한 후 사용하면 안전하다.
 
 ```js
-function callMethod(obj, method){
+function callMethod(obj, method) {
   // arguments를 복사하고 앞 2개의 인자들을 제거한 배열 만들기
   var args = [].slice.call(arguments, 2);
   // args는 obj, method 다음에 오는 인자들만 담고 있다
   return obj[method].apply(obj, args);
 }
 
-var obj={
-  add: function(x, y){
-    return x+y;
-  }
-}
+var obj = {
+  add: function (x, y) {
+    return x + y;
+  },
+};
 
 callMethod(obj, "add", 17, 25); // 42
 ```
@@ -733,13 +737,13 @@ callMethod(obj, "add", 17, 25); // 42
 ```js
 var buffer = {
   entries: [],
-  add: function(s){
+  add: function (s) {
     console.log(this);
     this.entries.push(s);
   },
-  concat: function(){
+  concat: function () {
     return this.entries.join("");
-  }
+  },
 };
 
 var source = ["867", "-", "5309"];
@@ -750,7 +754,7 @@ source.forEach(buffer.add);
 
 ```js
 // 방법 1
-source.forEach(function(s){
+source.forEach(function (s) {
   buffer.add(s);
 });
 
@@ -769,8 +773,8 @@ buffer.add === buffer.add.bind(buffer); // false
 함수 bind 메서드는 this 객체를 고정할 뿐 아니라 함수들의 인수도 고정한 새로운 함수를 만들 수 있다. 이를 이용하면 커링을 쉽게 할 수 있다. `foo` 함수의 첫 번째 인자를 1로 고정한 함수를 만들고 싶다면 다음과 같이 하면 된다.
 
 ```js
-var foo = function(a, b){
-  return a+b;
+var foo = function (a, b) {
+  return a + b;
 };
 
 var bar = foo.bind(null, 1);
@@ -787,8 +791,8 @@ var bar = foo.bind(null, 1);
 그러니 문자열을 eval해서 실행하는 식으로 함수를 작성하기보다는 콜백 함수를 사용하자. 이는 클로저를 사용하는 것과 같다.
 
 ```js
-function repeat(n, action){
-  for(var i=0; i<n; i++){
+function repeat(n, action) {
+  for (var i = 0; i < n; i++) {
     action();
   }
 }
@@ -805,8 +809,8 @@ function repeat(n, action){
 함수는 toString 메서드로 내용을 볼 수 있을 때가 있다. 이는 함수를 디버깅할 때 유용할 수 있다.
 
 ```js
-function add(a, b){
-  return a+b;
+function add(a, b) {
+  return a + b;
 }
 
 add.toString(); // 'function add(a, b){\n  return a+b;\n}'
@@ -817,8 +821,8 @@ add.toString(); // 'function add(a, b){\n  return a+b;\n}'
 가령 bind 메서드는 함수를 반환하는데 이 함수의 toString 메서드는 원본 함수의 내용을 반환하지 않는다. 엔진은 일반적으로 함수 코드의 신뢰할 만한 표현을 제공하려고 노력하지만 그건 바닐라 JS일 때 얘기고, bind와 같은 내장 함수는 다른 프로그래밍 언어로 작성되었을 수도 있기 때문이다.
 
 ```js
-function add(a, b){
-  return a+b;
+function add(a, b) {
+  return a + b;
 }
 
 var plus = add.bind(null, 1);
@@ -854,8 +858,8 @@ function getCallStack() {
 이런 방식으로 스택 추적을 만들 수 있었다. 문제는 이런 방식에서 호출 스택에 같은 함수가 2번 이상 나타나면 스택 검사 로직이 반복문 내에 갇히게 된다는 거였다.
 
 ```js
-function f(n){
-  return n===0 ? getCallStack() : f(n-1);
+function f(n) {
+  return n === 0 ? getCallStack() : f(n - 1);
 }
 var stack = f(1); // f가 자기 자신을 호출하므로 caller도 자기 자신이 되어 무한 루프가 됨
 ```
@@ -914,7 +918,6 @@ if (typeof Object.create === "undefined") {
 
 다만 진짜 `Object.create`는 새로운 객체에 정의하기 위한 프로퍼티들의 모음을 2번째 인자로 받는다. 위 버전은 1번째 인자만 받는다.
 
-
 - 아이템 33. 생성자가 new와 관계없이 동작하게 하라
 
 ES5 엄격 모드에선 전역 함수의 this를 알아서 undefined로 처리
@@ -922,8 +925,8 @@ ES5 엄격 모드에선 전역 함수의 this를 알아서 undefined로 처리
 암튼 생성자 함수가 new 없이 호출되는 경우는 조용히 오작동하거나 버그를 일으키거나, 어쨌든 불안정하다. 때문에 new 없이 호출되었을 때도 제대로 생성자로 동작하게 만드는 게 좋다. 이렇게 `this`가 User의 적절한 인스턴스인지 확인하는 걸 통해 가능하다.
 
 ```js
-function User(name, password){
-  if(!(this instanceof User)){
+function User(name, password) {
+  if (!(this instanceof User)) {
     return new User(name, password);
   }
   this.name = name;
@@ -941,7 +944,7 @@ function User(name, password){
 // JS는 생성자 함수 내에서 명시적으로 return을 호출할 경우 new 표현식의 결과를
 // return값이 오버라이딩하도록 허용한다.
 // 따라서 이 User를 new로 호출할 시에도 self가 의도대로 반환된다.
-function User(name, password){
+function User(name, password) {
   var self = this instanceof User ? this : Object.create(User.prototype);
   self.name = name;
   self.password = password;
@@ -999,7 +1002,7 @@ function Reader(separators) {
 
 Reader.prototype.read = function (str) {
   var lines = str.trim().split("\n");
-  return lines.map(function(line){
+  return lines.map(function (line) {
     return line.split(this.separators);
   });
 };
@@ -1017,7 +1020,7 @@ function Reader(separators) {
 
 Reader.prototype.read = function (str) {
   var lines = str.trim().split("\n");
-  return lines.map(function(line){
+  return lines.map(function (line) {
     return line.split(this.separators);
   }, this);
 };
@@ -1033,7 +1036,7 @@ Reader.prototype.read = function (str) {
   // self 변수로 외부 this 바인딩 참조를 저장
   var self = this;
   var lines = str.trim().split("\n");
-  return lines.map(function(line){
+  return lines.map(function (line) {
     // 외부의 this 사용
     return line.split(self.separators);
   });
@@ -1047,7 +1050,7 @@ Reader.prototype.read = function (str) {
 만약 `SpaceShip` 이 `Actor`를 상속한다고 하자. 그러면 먼저 `Actor`의 생성자를 호출해야 한다. 서브클래스의 인스턴스가 슈퍼클래스 인스턴스로 적절하게 초기화되었는지 확인하는 것이다.
 
 ```js
-function SpaceShip(scene, game, name, x, y){
+function SpaceShip(scene, game, name, x, y) {
   Actor.call(this, scene, game, name, x, y);
   // SpaceShip의 초기화
 }
@@ -1111,11 +1114,11 @@ Object.prototype.toString.call([]); // "[object Array]"
 
 ```js
 // 내장 구현이 있는지 확인하고 없으면 추가
-if(typeof Array.prototype.map !== "function"){
-  Array.prototype.map = function(f, thisArg){
+if (typeof Array.prototype.map !== "function") {
+  Array.prototype.map = function (f, thisArg) {
     var result = [];
-    for(var i=0, len=this.length; i<len; i++){
-      if(i in this){
+    for (var i = 0, len = this.length; i < len; i++) {
+      if (i in this) {
         result[i] = f.call(thisArg, this[i], i, this);
       }
     }
@@ -1157,7 +1160,7 @@ Object.getPrototypeOf(x) === null; // true
 오래된 환경에선 객체 리터럴과 `__proto__`를 이용해 프로토타입 없는 객체를 만들 수 있다.
 
 ```js
-var x = {__proto__: null};
+var x = { __proto__: null };
 ```
 
 `__proto__`는 비표준이므로 웬만하면 `Object.create(null)`을 사용하자. 그리고 `__proto__`는 보통 특별하게 취급되므로 절대 프로퍼티 이름으로 사용하면 안된다.
@@ -1167,7 +1170,7 @@ var x = {__proto__: null};
 특정 프로퍼티가 진짜로 객체에 속해 있는지를 알기 위해 `hasOwnProperty`를 사용할 수 있다. 그런데 객체에 `"hasOwnProperty"`라는 프로퍼티가 있을 경우 이 메서드를 호출할 때 문제가 생길 수 있다. 따라서 `Object.prototype.hasOwnProperty`를 직접 호출하는 것을 고려할 수 있다.
 
 ```js
-var x = {hasOwnProperty: "foo"};
+var x = { hasOwnProperty: "foo" };
 // x.hasOwnProperty("foo"); // TypeError: x.hasOwnProperty is not a function
 // 따라서 Object.prototype의 hasOwnProperty를 call을 통해 호출
 Object.prototype.hasOwnProperty.call(x, "foo"); // false
@@ -1176,30 +1179,30 @@ Object.prototype.hasOwnProperty.call(x, "foo"); // false
 견고한 딕셔너리 생성자. `__proto__`라는 프로퍼티가 영원히 모든 객체를 오염시킬 때 이를 막기 위한 조치까지 들어가 있다. `Object.create(null)`로 객체를 만들어도 `__proto__`가 객체에 들어 있는 걸로 처리되는 환경도 있기 때문이다. 따라서 `dict.has("__proto__")`가 false가 나오는 것이 보장되도록 하였다.
 
 ```js
-function Dict(elements){
+function Dict(elements) {
   // 부가적인 초기 프로퍼티들 허용
   this.elements = elements || {};
   this.hasSpecialProto = false; // __proto__ 프로퍼티가 있는지 여부
   this.specialProto = undefined; // __proto__ 프로퍼티 값
 }
 
-Dict.prototype.has = function(key){
-  if(key === "__proto__"){
+Dict.prototype.has = function (key) {
+  if (key === "__proto__") {
     return this.hasSpecialProto;
   }
   // hasOwnProperty를 사용해 프로퍼티가 직접적으로 소유되었는지 확인
   return Object.prototype.hasOwnProperty.call(this.elements, key);
 };
 
-Dict.prototype.get = function(key){
-  if(key === "__proto__"){
+Dict.prototype.get = function (key) {
+  if (key === "__proto__") {
     return this.specialProto;
   }
   return this.has(key) ? this.elements[key] : undefined;
 };
 
-Dict.prototype.set = function(key, val){
-  if(key === "__proto__"){
+Dict.prototype.set = function (key, val) {
+  if (key === "__proto__") {
     this.hasSpecialProto = true;
     this.specialProto = val;
   } else {
@@ -1208,8 +1211,8 @@ Dict.prototype.set = function(key, val){
   }
 };
 
-Dict.prototype.remove = function(key){
-  if(key === "__proto__"){
+Dict.prototype.remove = function (key) {
+  if (key === "__proto__") {
     this.hasSpecialProto = false;
     this.specialProto = undefined;
   } else {
@@ -1235,7 +1238,7 @@ Object.defineProperty(Object.prototype, "newMethod", {
   },
   enumerable: false,
   writable: true,
-  configurable: true
+  configurable: true,
 });
 ```
 
@@ -1250,9 +1253,9 @@ ECMAScript 표준은 객체 열거 도중 추가된 프로퍼티에 대해서, �
 이 코드에서 mean의 값은?
 
 ```js
-var scores=[98, 74, 85, 77, 93, 100, 89];
+var scores = [98, 74, 85, 77, 93, 100, 89];
 var total = 0;
-for(var score in scores){
+for (var score in scores) {
   total += score;
 }
 var mean = total / scores.length;
@@ -1263,9 +1266,9 @@ var mean = total / scores.length;
 배열 내용을 잘 반복하려면 for 반복문을 이용해 인덱스를 쓰자.
 
 ```js
-var scores=[98, 74, 85, 77, 93, 100, 89];
+var scores = [98, 74, 85, 77, 93, 100, 89];
 var total = 0;
-for(var i=0, len=scores.length; i<len; i++){
+for (var i = 0, len = scores.length; i < len; i++) {
   total += scores[i];
 }
 var mean = total / scores.length;
@@ -1284,10 +1287,14 @@ ES5에서 추가된 배열 메서드를 사용하면 반복문의 추상화를 �
 배열 표준 메서드들은 Array에서 상속된 게 아니라도 재사용 가능하게 설계되었다. 따라서 `call`등을 이용하면 유사 배열 객체에 사용할 수 있다. 예를 들어 `arguments`객체에 배열 메서드를 사용할 수 있다.
 
 ```js
-function sum(){
-  return Array.prototype.reduce.call(arguments, function(x, y){
-    return x + y;
-  }, 0);
+function sum() {
+  return Array.prototype.reduce.call(
+    arguments,
+    function (x, y) {
+      return x + y;
+    },
+    0
+  );
 }
 ```
 
@@ -1305,14 +1312,14 @@ var arrayLike = {
   0: "a",
   1: "b",
   2: "c",
-  length: 3
+  length: 3,
 };
 ```
 
 문자열 또한 인덱싱될 수 있고 `length` 프로퍼티를 가지므로 배열을 수정하지 않는 배열 메서드를 사용할 수 있다.
 
 ```js
-Array.prototype.map.call("abc", function(x){
+Array.prototype.map.call("abc", function (x) {
   return x.toUpperCase();
 }); // ["A", "B", "C"]
 ```
@@ -1369,20 +1376,20 @@ undefined가 인자가 주어지지 않았을 때의 기본값이나 아예 값�
 그럴 경우 옵션 객체를 사용하여 인자를 줄일 수 있다. 필수적인 인자를 제외한 나머지 인자는 옵션 객체로 받아들이는 것이다. 그러면 함수 시그니처가 간결해지고 인자 순서를 기억할 필요도 없어진다. 옵션 객체 key를 통해 인자의 의미를 명확히 할 수도 있다.
 
 ```js
-var obj=new MyObject({
+var obj = new MyObject({
   // 객체 key를 통해 인자 의미 추론 가능
   name: "foo",
   age: 25,
-  weight: 70
+  weight: 70,
 });
 ```
 
 이런 옵션 인자를 쓰는 이점은 어떤 인자든 부가적으로 적용될 수 있고 이게 인자의 순서에 영향을 미치지 않는다는 것이다. 한두개의 필수 인자가 필요하면 옵션 객체와 분리하여 받아들일 수도 있다.
 
 ```js
-var obj=new MyObject("foo", {
+var obj = new MyObject("foo", {
   age: 25,
-  weight: 70
+  weight: 70,
 });
 ```
 
@@ -1409,7 +1416,7 @@ API는 구조적인 타입을 이와 중복된 다른 타입으로 절대 오버
 ES5 이전 환경에서는 `instanceof`를 쓸 수 있었지만 `Object.prototype.toString`을 쓸 수 있다. 이 함수도 내부 `[[Class]]`를 이용해 결과값을 만들기 때문에 `instanceof`보다 더 믿을 만 하다.
 
 ```js
-function isArray(value){
+function isArray(value) {
   return Object.prototype.toString.call(value) === "[object Array]";
 }
 ```
@@ -1466,7 +1473,7 @@ string replace 메서드처럼, 무상태 API는 메서드 체이닝을 이용�
 
 > 자바스크립트는 임베디드 스크립트 언어로 설계되었다. JS 프로그램은 독립 애플리케이션으로 실행되지 않지만 더 큰 애플리케이션의 컨텍스트 내에서 실행된다. 주요 애플리케이션은 물론 웹 브라우저다. - 이펙티브 자바스크립트 223p
 
-JS는 동시에 발생하는 여러 이벤트 응답을 위해 비동기 API를 사용한다. 이벤트 큐, 이벤트 루프 동시성이라고도 불린다. 
+JS는 동시에 발생하는 여러 이벤트 응답을 위해 비동기 API를 사용한다. 이벤트 큐, 이벤트 루프 동시성이라고도 불린다.
 
 - 아이템 61. 이벤트 큐를 IO에 블로킹시키지 마라
 
@@ -1487,7 +1494,7 @@ JS는 이런 멀티 스레드를 제공하지 않는다. 대신 대부분의 IO 
 ```js
 // 블로킹되지 않고, 다운로드 프로세스 초기화 후 콜백을 저장하고 즉시 리턴
 // 이후 다운로드가 끝나면 콜백 호출(정확히는 콜스택에 넣음)
-download("http://example.com/file.txt", function(text){
+download("http://example.com/file.txt", function (text) {
   console.log(text);
 });
 ```
@@ -1514,7 +1521,7 @@ xhr은 브라우저에서만 동작하는 web api인 듯 https://despiteallthat.
 비동기 API를 쓰는 이 프로그램을 보면, starting이 먼저 출력되고 finished가 나중에 출력될 것이다.
 
 ```js
-download("file.txt", function(text){
+download("file.txt", function (text) {
   console.log("finished");
 });
 console.log("starting");
@@ -1528,11 +1535,11 @@ js는 실행 즉시 완료됨을 보장하기 때문에 다른 이벤트 핸들�
 - download 함수 실행 시점에 아직 db 탐색이 끝나지 않았다
 
 ```js
-db.lookupSync("url", function(url){
+db.lookupSync("url", function (url) {
   // ...
 });
 
-download(url, function(text){
+download(url, function (text) {
   // ...
 });
 ```
@@ -1540,8 +1547,8 @@ download(url, function(text){
 이를 해결하기 위해 일단 콜백을 감쌀 수 있다. 이러면 db 탐색이 끝난 이후 `url`을 사용 가능한 스코프에서 download가 실행된다.
 
 ```js
-db.lookup("url", function(url){
-  download(url, function(text){
+db.lookup("url", function (url) {
+  download(url, function (text) {
     // ...
   });
 });
@@ -1550,11 +1557,11 @@ db.lookup("url", function(url){
 하지만 이런 감싸기가 과해지면 흔히 콜백 지옥이라고 말하는 것에 빠지게 된다.
 
 ```js
-db.lookup("url", function(url){
-  download(url, function(file){
-    download("a.txt", function(a){
-      download("b.txt", function(b){
-        download("c.txt", function(c){
+db.lookup("url", function (url) {
+  download(url, function (file) {
+    download("a.txt", function (a) {
+      download("b.txt", function (b) {
+        download("c.txt", function (c) {
           // ...
         });
       });
@@ -1568,13 +1575,13 @@ db.lookup("url", function(url){
 ```js
 db.lookupAsync("url", downloadURL);
 
-function downloadURL(url){
-  downloadAsync(url, function(text){
+function downloadURL(url) {
+  downloadAsync(url, function (text) {
     showContents(url, text);
-  })
+  });
 }
 
-function showContents(url, text){
+function showContents(url, text) {
   // ...
 }
 ```
@@ -1582,7 +1589,7 @@ function showContents(url, text){
 downloadURL 내에서 또 콜백을 쓰는 게 싫다면 bind를 이용할 수 있다.
 
 ```js
-function downloadURL(url){
+function downloadURL(url) {
   // showContent.bind 함수에 첫번째 인자로 text가 전달될 것이다.
   downloadAsync(url, showContents.bind(null, url));
 }
@@ -1593,10 +1600,12 @@ function downloadURL(url){
 더 좋은 방법은 여러 파일 다운로드와 저장을 위한, 배열을 인자로 받는 함수를 추가하는 것이다. 이때 배열에 있는 파일들은 다운로드 순서가 상관 없어야 한다.
 
 ```js
-function downloadFiles(url, file){
-  downloadAllAsync([url, "a.txt", "b.txt", "c.txt"], function(all){
-    var a = all[1], b = all[2], c = all[3];
-    // ... 
+function downloadFiles(url, file) {
+  downloadAllAsync([url, "a.txt", "b.txt", "c.txt"], function (all) {
+    var a = all[1],
+      b = all[2],
+      c = all[3];
+    // ...
   });
 }
 ```
@@ -1610,25 +1619,29 @@ function downloadFiles(url, file){
 이 책은 async await은 커녕 promise도 없던 시절 책이다. 이때는 try-catch 구문을 비동기에 전혀 사용할 수 없었다. 애초에 비동기 에러가 발생했을 때 예외를 처리할 실행 컨텍스트가 없었다. 대신 비동기 API는 콜백의 특수 인자 혹은 에러 처리 콜백(errorback)을 받아들였다. 예를 들어 download 함수는 다음과 같이 사용했다.
 
 ```js
-download("file.txt", function(text){
-  console.log(text);
-}, function(error){
-  // errorback function
-  console.error("Error: "+error);
-});
+download(
+  "file.txt",
+  function (text) {
+    console.log(text);
+  },
+  function (error) {
+    // errorback function
+    console.error("Error: " + error);
+  }
+);
 ```
 
 다른 스타일로는 하나의 콜백을 받아서 하는 방법이 있다. nodejs 덕에 유명해졌다고 한다. 첫번째 인자는 에러, 두번째 인자는 결과값이다.
 
 ```js
-download("a.txt", function(error, a){
-  if(error) return onError(error);
+download("a.txt", function (error, a) {
+  if (error) return onError(error);
   // a를 사용
-  download("b.txt", function(error, b){
-    if(error) return onError(error);
+  download("b.txt", function (error, b) {
+    if (error) return onError(error);
     // b를 사용
-    download("c.txt", function(error, c){
-      if(error) return onError(error);
+    download("c.txt", function (error, c) {
+      if (error) return onError(error);
       // c를 사용
       // ...
     });
@@ -1647,18 +1660,22 @@ URL 배열을 받아서 순서대로(하나가 끝나면 다음으로) 다운로
 그래서 재귀적으로 함수를 정의하여, 다운로드가 끝났을 때 다음 다운로드를 명시적으로 시작하도록 할 수 있다.
 
 ```js
-function downloadURLs(urls, onSuccess, onFailure){
-  var len=urls.length;
-  function tryNextURL(i){
-    if(i===len){
+function downloadURLs(urls, onSuccess, onFailure) {
+  var len = urls.length;
+  function tryNextURL(i) {
+    if (i === len) {
       onSuccess();
     } else {
-      download(urls[i], function(){
-        // 성공시 다음 다운로드 시작
-        tryNextURL(i+1);
-      }, function(error){
-        onFailure(error, urls[i]);
-      });
+      download(
+        urls[i],
+        function () {
+          // 성공시 다음 다운로드 시작
+          tryNextURL(i + 1);
+        },
+        function (error) {
+          onFailure(error, urls[i]);
+        }
+      );
     }
   }
   tryNextURL(0);
@@ -1679,17 +1696,18 @@ function downloadURLs(urls, onSuccess, onFailure){
 예를 들어 이렇게 함수의 동작을 쪼개고 `setTimeout`을 이용해 다음 턴에 실행되도록 할 수 있다. 다음과 같이 하면 이벤트 루프의 각 턴마다 작은 단계만 실행되도록 할 수 있고 단계가 끝날 때마다 다음 단계를 이벤트 큐에 삽입한다. 따라서 다른 작업이 블로킹되지 않는다.
 
 ```js
-Member.prototype.inNetwork = function(other, callback) {
+Member.prototype.inNetwork = function (other, callback) {
   var visited = {};
   var worklist = [this];
-  function next(){
+  function next() {
     if (worklist.length === 0) {
       callback(false);
       return;
     }
     var member = worklist.pop();
     // 다른 코드
-    if (member === other) { // 멤버를 찾았다
+    if (member === other) {
+      // 멤버를 찾았다
       callback(true);
       return;
     }
@@ -1697,7 +1715,7 @@ Member.prototype.inNetwork = function(other, callback) {
     setTimeout(next, 0); // 다음 이터레이션 스케줄링
   }
   setTimeout(next, 0); // next를 스케줄링
-}
+};
 ```
 
 - 아이템 66. 동시성 연산을 수행하기 위해 카운터를 사용하라
@@ -1709,23 +1727,27 @@ Member.prototype.inNetwork = function(other, callback) {
 비동기 콜백은 이벤트 루프의 구분된 턴에서 호출되어야 한다. 그런데 이런 비동기 콜백이 동기적으로 호출되게 되면, 이벤트 루프의 별도의 턴에 실행되어야 할 코드가 현재 턴에서 실행되어 의도치 않은 동작을 할 수 있다. 예를 들어 파일이 캐시에 있으면 그대로 사용하고 그렇지 않으면 URL에서 파일을 다운로드하는 함수를 가정해보자.
 
 ```js
-function downloadAsyncWithCache(url, onsuccess, onerror){
-  if(cache.has(url)){
+function downloadAsyncWithCache(url, onsuccess, onerror) {
+  if (cache.has(url)) {
     // 캐시에 있으면 동기적으로 호출
     onsuccess(cache.get(url));
     return;
   }
-  return downloadAsync(url, function(file){
-    cache.set(url, file);
-    onsuccess(file);
-  }, onerror);
+  return downloadAsync(
+    url,
+    function (file) {
+      cache.set(url, file);
+      onsuccess(file);
+    },
+    onerror
+  );
 }
 ```
 
 이 코드는 `url`이 캐시에 있을 경우 `onsuccess`를 동기적으로 호출한다. 이는 이런 문제를 발생시킬 수 있다.
 
 ```js
-downloadAsyncWithCache("target.txt", function(file){
+downloadAsyncWithCache("target.txt", function (file) {
   console.log("finished"); // 만약 캐시에 url이 있으면 이 코드가 동기적으로, 즉 먼저 실행된다
 });
 console.log("starting");
@@ -1740,17 +1762,21 @@ console.log("starting");
 콜백이 항상 비동기적으로 실행되도록 보장하기 위해 `setTimeout`을 사용할 수 있다.
 
 ```js
-function downloadAsyncWithCache(url, onsuccess, onerror){
-  if(cache.has(url)){
+function downloadAsyncWithCache(url, onsuccess, onerror) {
+  if (cache.has(url)) {
     // 캐시에 있으면 동기적으로 호출
-    var cached=cache.get(url);
+    var cached = cache.get(url);
     setTimeout(onsuccess.bind(null, cached), 0);
     return;
   }
-  return downloadAsync(url, function(file){
-    cache.set(url, file);
-    onsuccess(file);
-  }, onerror);
+  return downloadAsync(
+    url,
+    function (file) {
+      cache.set(url, file);
+      onsuccess(file);
+    },
+    onerror
+  );
 }
 ```
 

@@ -4,8 +4,6 @@ title: Tailwind CSS 문서 읽고 정리 내용
 description: Tailwind CSS v4 문서 읽고 정리한 내용
 ---
 
-# Tailwind CSS 사용기
-
 Tailwind CSS를 싫어하다가 새로운 기능이 많이 나왔다고 해서 써보게 되었다. 공식 문서를 읽으면서 신기한 기능들을 정리해보았다. 내가 Tailwind CSS를 처음 썼던 3년 전에 비해 많이 달라진 듯해 새롭게 느낀 기능들만 정리한다.
 
 ## 클래스 결합
@@ -15,11 +13,11 @@ Tailwind CSS를 싫어하다가 새로운 기능이 많이 나왔다고 해서 �
 ```css
 .blur-sm {
   --tw-blur: blur(var(--blur-sm));
-  filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-grayscale,);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-grayscale);
 }
 .grayscale {
   --tw-grayscale: grayscale(100%);
-  filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-grayscale,);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-grayscale);
 }
 ```
 
@@ -42,6 +40,7 @@ tailwind 클래스랑 충돌할지도 모르는 기존 클래스명이 있다면
 ```css
 @import "tailwindcss" prefix(tw);
 ```
+
 이렇게 하면 tailwind CSS 클래스명과 변수명이 `tw-`로 바뀌게 된다. 예를 들어 `bg-red-500`은 `tw-bg-red-500`으로 바뀌게 된다. 물론 사용자는 그대로 쓸 수 있다. 컴파일된 css 결과에 prefix가 붙는 것이다.
 
 ## 부모, 형제 클래스
@@ -57,7 +56,7 @@ tailwind 클래스랑 충돌할지도 모르는 기존 클래스명이 있다면
 
 `group-focus` 등 `group-*`등 여러 가지가 있다. 그리고 `group/{name}` 예를 들어 `group/item` 같은 형식으로 그룹 간에 구분할 수 있다. 해당 group의 상태에 대해 뭔가를 하려면 `group-hover/item` 같은 식으로 쓸 수 있다. 이건 `peer`도 비슷하게 `peer/{name}`으로 쓸 수 있다.
 
-`group-`이랑 비슷한 `in-`도 있지만 이건 모든 부모에 대해 적용됨. 가령 `in-focus:~~`는 focus된 요소 내에 있다면 무조건 적용된다. 
+`group-`이랑 비슷한 `in-`도 있지만 이건 모든 부모에 대해 적용됨. 가령 `in-focus:~~`는 focus된 요소 내에 있다면 무조건 적용된다.
 
 형제 클래스에 따라 뭘 하려면 `peer` 클래스를 사용하면 된다. `peer`는 형제 요소에 적용할 수 있는 클래스다. 예를 들어 `peer-focus:bg-red-500`을 사용하면 형제가 focus 되었을 때 배경색이 빨간색으로 바뀐다.
 
@@ -84,18 +83,15 @@ tailwind 클래스랑 충돌할지도 모르는 기존 클래스명이 있다면
 
 Responsive design 문서 https://tailwindcss.com/docs/responsive-design
 
-뷰포트 크기에 따른 반응형 디자인을 하려면 `md:`같은 식으로 쓴다. 부모 요소의 크기에 따라 반응형 디자인을 할 수도 있는데 이러면 기준이 되는 요소에 `@container` 클래스를 붙이고 자식에 `@md:` 같은 걸 붙이면 `@container`의 크기에 따라 반응형 디자인을 할 수 있다. 
+뷰포트 크기에 따른 반응형 디자인을 하려면 `md:`같은 식으로 쓴다. 부모 요소의 크기에 따라 반응형 디자인을 할 수도 있는데 이러면 기준이 되는 요소에 `@container` 클래스를 붙이고 자식에 `@md:` 같은 걸 붙이면 `@container`의 크기에 따라 반응형 디자인을 할 수 있다.
 
 `@container`에도 `group`처럼 이름을 붙일 수 있다. 예를 들어 `@container/item` 같은 식으로 쓸 수 있다. 그리고 `@md/item:--`처럼 쓰면 `@container/item`의 크기가 `md` 이상일 때 적용된다. 이렇게 하면 반응형에 쓰일 여러 컨테이너들에 중복 포함되는 요소가 있을 때 구분 가능하다.
-
 
 tailwind는 mobile-first 접근 방식을 사용한다. 즉 작은 화면부터 시작해서 큰 화면으로 가는 방식이다. 그래서 `md:bg-red-500`은 `md` 너비 이상일 때 배경색이 빨간색이 된다. 모바일 화면/혹은 모든 화면 대상으로 스타일링할 때는 어떤 prefix도 붙이지 않으면 된다.
 
 만약 어떤 화면 크기 범위에서만 스타일링을 적용하고 싶다면 max 너비도 줘야 한다. 이건 `max-sm`, `max-md` 등으로 쓸 수 있다. 예를 들어 `md:max-lg:bg-red-500`은 `md` 너비 이상 `lg` 너비 이하일 때 배경색이 빨간색이 된다.
 
 이런 breakpoint는 css 파일에서 `--breakpoint-*` 변수를 설정하는 걸로 커스텀 가능하다. 예를 들어 `--breakpoint-sm`을 `500px`로 설정하면 `sm:--`은 너비가 `500px` 이상일 때 적용된다. `@theme`을 사용해서 설정한다. 테일윈드에서는 `rem` 단위를 사용하므로 breakpoint도 `rem` 단위로 설정해야 한다. 안 그러면 기본 값들과 충돌하여 예기치 않은 결과가 나올 수 있다.
-
-
 
 ## 다양한 state
 
@@ -122,6 +118,7 @@ aria 속성들을 기반으로 스타일링하려면 `aria-*`로 `aria-checked:~
 ```css
 @custom-variant dark (&:where([data-theme="dark"] *));
 ```
+
 이렇게 하면 `dark:어쩌구`로 다크모드에 대한 스타일링을 할 수 있게 된다.
 
 모든 상태의 레퍼런스 https://tailwindcss.com/docs/hover-focus-and-other-states#quick-reference
@@ -187,7 +184,7 @@ https://tailwindcss.com/docs/theme
 
 색 관련 유틸리티 클래스, 예를 들어 배경색은 `bg-{color}`로 쓸 수 있다. 이 레퍼런스는 https://tailwindcss.com/docs/colors#using-color-utilities
 
-색 투명도는 `클래스명/투명도`로 쓸 수 있다. 예를 들어 `bg-sky-500/10`은 `bg-sky-500` 색상에 투명도 10%를 적용한 것이다. 이건 10%단위로 있는데, 물론 `bg-sky-500/[23.5%]`처럼 `[]`를 이용해 임의 투명도를 적용할 수도 있다. 
+색 투명도는 `클래스명/투명도`로 쓸 수 있다. 예를 들어 `bg-sky-500/10`은 `bg-sky-500` 색상에 투명도 10%를 적용한 것이다. 이건 10%단위로 있는데, 물론 `bg-sky-500/[23.5%]`처럼 `[]`를 이용해 임의 투명도를 적용할 수도 있다.
 
 ## 임의의 값
 
@@ -214,7 +211,7 @@ https://tailwindcss.com/docs/theme
 ```css
 @layer components {
   .btn-primary {
-    ...
+    ...;
   }
 }
 ```
