@@ -12,7 +12,18 @@ export default async function (eleventyConfig) {
   eleventyConfig.setLibrary("md", markdownIt(options));
 
   eleventyConfig.addPlugin(syntaxHighlight);
-  eleventyConfig.addPlugin(eleventyImageTransformPlugin);
+  eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
+    htmlOptions: {
+      imgAttributes: {
+        loading: "lazy",
+        decoding: "async",
+        style: "max-width: 100%; height: auto;",
+      },
+
+      // Which source to use for `<img width height src>` attributes
+      fallback: "largest", // or "smallest"
+    },
+  });
 
   eleventyConfig.addPassthroughCopy("styles");
   eleventyConfig.addPassthroughCopy("assets");
