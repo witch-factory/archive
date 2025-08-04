@@ -27,40 +27,58 @@ layout: main.html
 <h2>Contents</h2>
 
 <nav>
-  <ul>
-    <li>
-      <a href="/study/">study</a>
-      <ul>
-        {% for study in collections.study2025 %}
-        <li>
-          <a href="{{ study.url }}">{{ study.data.title }}</a>
-        </li>
-        {% endfor %}
-      </ul>
-    </li>
-  </ul>
-  <ul>
-    <li>
-      <a href="/scrap/">scrap</a>
-      <ul>
-        {% for link in collections.scrap %}
-        <li>
-          <a href="{{ link.url }}">{{ link.data.title }}</a>
-        </li>
-        {% endfor %}
-      </ul>
-    </li>
-  </ul>
-  <ul>
-    <li>
-      <a href="/books/">books</a>
-      <ul>
-        {% for book in collections.books %}
-        <li>
-          <a href="{{ book.url }}">{{ book.data.title }}</a>
-        </li>
-        {% endfor %}
-      </ul>
-    </li>
-  </ul>
+  <details>
+    <summary>
+      2025년의 공부 내용
+      <span>({{ collections.study2025.length }})</span>
+    </summary>
+
+    <ul>
+      {% for study in collections.study2025 %}
+      <li>
+        <a href="{{ study.url }}">{{ study.data.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <p>
+      <a href="/study/">학습 목록 페이지로 이동</a>
+    </p>
+  </details>
+  <details>
+    <summary>
+      스크랩해놓은 글들
+      <span>({{ collections.scrap.length }})</span>
+    </summary>
+
+    <ul>
+      {% for link in collections.scrap %}
+      <li>
+        <a href="{{ link.url }}">{{ link.data.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <p>
+      <a href="/scrap/">스크랩 목록 페이지로 이동</a>
+    </p>
+  </details>
+  <details>
+    <summary>
+      읽은 책들
+      <span>({{ collections.books.length }})</span>
+    </summary>
+
+    <ul>
+      {% for book in collections.books %}
+      <li>
+        <a href="{{ book.url }}">{{ book.data.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <p>
+      <a href="/books/">책 목록 페이지로 이동</a>
+    </p>
+  </details>
 </nav>
