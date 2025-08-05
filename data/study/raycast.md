@@ -130,7 +130,7 @@ raycast 기본 + 각종 익스텐션의 기능들을 alias나 하이퍼키를 �
 - alias `gh`: github 레포지토리 찾아서 열기
 - alias `e`: 이모지 검색
 - alias `projects`: cursor 최근 프로젝트 찾기
-- alias `terminal`: Open iTerm here
+- alias `term`: Open iTerm here
 
 Caps Lock이 하이퍼키임. 하이퍼키 + 숫자키로 적당한 앱/기능 실행하면 좋겠어서 설계 중
 
@@ -145,11 +145,12 @@ Caps Lock이 하이퍼키임. 하이퍼키 + 숫자키로 적당한 앱/기능 �
 
 - `Caps Lock + d`: 디스코드
 - `Caps Lock + b`: Bruno
-- `Caps Lock + c`: cursor
+- `Caps Lock + c`: chrome
 - `Caps Lock + k`: GitKraken
 - `Caps Lock + t`: iterm(혹은 아무 터미널이나)
+- `Caps Lock + e`: 코드 에디터(나 같은 경우 cursor)
 
-`command` 따닥 2번 누르기: Chrome
+`command` 따닥 2번 누르기, `shift` 따닥 누르기도 편한데 아직 여기 들어갈 정도로 중요한 앱을 찾지 못했다.
 
 ---
 
@@ -177,6 +178,10 @@ cursor, github 같은 것도 다 확장이 있다. 깔고 적절한 기능에 �
 
 퀵링크로 특정 링크로 가거나 automator로 만든 명령어/스크립트 같은 것도 실행할 수 있다
 https://www.raycast.com/core-features/quicklinks
+
+`localhost:xxxx` 같은 걸 자주 쓰는데 나는 3000, 3001, 5173(vite)같은 자주 쓰는 포트번호는 숫자로 설정했음
+
+나는 localhost:xxxx를 했다
 
 ## 참고할 만한 링크
 
@@ -282,7 +287,3 @@ function git_develop_branch() {
 - [이창희](https://xo.dev/)
 - [박성훈](https://blog.koder.page/)
 - [이재열](https://kodingwarrior.github.io/)
-
-- 참고 링크
-
-https://humorous-bass-b9e.notion.site/21e016f4183980eca3a3f2f3994f4466
