@@ -136,10 +136,12 @@ raycast 기본 + 각종 익스텐션의 기능들을 alias나 하이퍼키를 �
 - alias `e`: 이모지 검색
 - alias `projects`: cursor 최근 프로젝트 찾기
 - alias `term`: Open iTerm here
+- alias `claude`: claude.ai 퀵링크
+- alias `sec`: 설정 - 개인정보 보호 및 보안(각종 앱 설치 시마다 이거 설정해야 할 때가 많은데 켜기 귀찮으니까)
 
 Caps Lock이 하이퍼키임. 하이퍼키 + 숫자키로 적당한 앱/기능 실행하면 좋겠어서 설계 중
 
-- `Caps Lock + g`: 최근 github 레포지토리들 찾기
+- `Caps Lock + g`: 내 github 레포지토리들 찾기
 - `Caps Lock + h`: clipboard history. 말 그대로 복사했던 내용들인데 이미지 복사 같은 것도 보관해 놔서 좋음
 - `Caps Lock + f`: 파일 검색. 이걸 잘 쓰려면 겹치는 폴더/파일명 같은 거 좀 관리해주면 좋은데 이걸 위한 PARA 메서드라는 게 있음
   https://hannut91.github.io/blogs/books/para-method
@@ -176,8 +178,9 @@ calculator가 내장되어 있어서 레이캐스트에서 1+2 같은 거 치면
 - iTerm(이외에 사용하는 터미널 아무거나)
 - emoji
 - HTTP status code
+- Amphetamine: 화면이 꺼지지 않게 해준다. Caffeinated 같은 비슷한 앱들도 있는 듯
+  - 내게 개발을 처음 가르쳐준 사람 중 한 명은 아주 강한 고집이 몇 가지 있었다. 개발자라면 vim을 메인으로 쓰지 않더라도 기본은 무조건 알아야 한다는 등등. 그중에는 "화면을 켠 상태로 자리를 비우면 세션 탈취 등등으로 인해 너의 모든 게 탈탈 털릴 수 있으니까 단 5초라도 자리를 비우면 무조건 모니터를 꺼야 한다 안 그러면 머저리다"라는 것도 있었고 내가 모니터를 안 끄고 일어날 때마다 나를 엄청나게 괴롭혔다. 그래서 나는 모니터를 안 끄면 일어나서 다른 데로 걸어가다가도 모니터를 끄러 돌아오는 사람이 되어버렸고 자동으로 꺼지지 않는 것도 굉장히 불편하다. 그래서 나는 이런 걸 쓰지 않지만, 이런 걸 좋아하는 사람이 많은 듯해 쓴다.
 - (Tailwind를 쓴다면) tailwind css 클래스명 검색하는거
-- (나는 안쓰지만 화면을 안 끄고 싶다면 쓰기) Amphetamine
 
 cursor, github 같은 것도 다 확장이 있다. 깔고 적절한 기능에 단축키 / alias 등록하면 좋음
 
@@ -192,6 +195,8 @@ https://www.raycast.com/core-features/quicklinks
 `localhost:xxxx` 같은 걸 자주 쓰는데 나는 3000, 3001, 5173(vite)같은 자주 쓰는 포트번호는 숫자로 설정했음. 3000 치면 `localhost:3000` 나오게
 
 보통은 구글 검색 등 검색을 할 때 퀵링크를 쓰는 거 같은데 나는 레이캐스트 크롬 익스텐션에서 구글 검색 쓰는 게 편한 듯
+
+raycast의 confetti: 화면에서 폭죽이 터지는데 이걸 보면 기분이 좋다.
 
 ## 참고할 만한 링크
 
