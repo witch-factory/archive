@@ -148,14 +148,15 @@ Caps Lock이 하이퍼키임. 하이퍼키 + 숫자키로 적당한 앱/기능 �
 - `Caps Lock + 1`: 크롬 새탭 (검색도 가능)
 - `Caps Lock + 2`: 커서 새창 열기
 
-앱 단축키
+앱 단축키. 보통 앱이나 해당 기능의 머리글자를 따서 짓는다.
 
 - `Caps Lock + d`: 디스코드
-- `Caps Lock + b`: Bruno
+- `Caps Lock + b`: Bruno(API 쏘는 거)
 - `Caps Lock + c`: chrome
 - `Caps Lock + k`: GitKraken
 - `Caps Lock + t`: iterm(알라크리티 같은 다른 터미널 프로그램일 수도)
 - `Caps Lock + e`: 코드 에디터(나의 경우 cursor)
+- `Caps Lock + z`: zoom
 - `command` 따닥 2번 누르기: finder
 
 `shift` 따닥 누르기도 편한데 아직 여기 들어갈 정도로 중요한 앱을 찾지 못했다.
@@ -220,7 +221,7 @@ raycast에서 터미널로 이동하는 단축키 같은 것도 설정 가능한
 
 zshrc로 단축 명령어 등등 지정 가능. git 명령 같은 거 해놓았다.
 
-지금 내가 해놓은 zshrc는 다음과 같음
+지금 내가 해놓은 zshrc는 다음과 같음. 사실 나는 gitKraken을 쓰기 때문에 github 관련한 커맨드들은 잘 쓰지 않음
 
 ```bash
 eval "$(starship init zsh)"
