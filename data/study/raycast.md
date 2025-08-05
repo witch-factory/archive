@@ -53,7 +53,7 @@ window에서는 alt + tab으로 탭 선택 가능한데 맥에서도 command + T
 `command + f`: 문서에서 검색. shift랑 같이 누르면 디렉토리 같은 단위로 검색도 가능(cursor, vscode)
 `command + s`: 현재 문서 저장
 
-`command + b`: 선택 텍스트 볼드체21
+`command + b`: 선택 텍스트 볼드체
 `command + i`: 선택 텍스트 이탤릭체
 `command + u`: 선택 텍스트 밑줄
 
@@ -94,6 +94,10 @@ https://blog.naver.com/nearfall/223355336046
 하지만 Lua를 쓰는 hammerspoon이라는 앱이 있는데 이게 압살한다고 함 https://www.hammerspoon.org/
 
 rectangle: 창 왼쪽 오른쪽 위 아래 등등 옮기기 가능. 분할도 가능
+
+-> 하지만 raycast의 window management로 대체했다. rectangle이 기능이 더 많다고도 하데 어차피 상하좌우 반으로밖에 안 써서... `control + option + 상하좌우 방향키`로 창을 이동한다.
+`control + option + f`로는 최대화. (원래 맥에서 `command control f`로 전체화면을 하는 걸 참고했다)
+`control + option + r`로 restore(이전 화면 크기로)
 
 물결키 눌렀을 때 원화 대신 백틱을 기본적으로 나오게 하기. 나는 `~/Library/KeyBindings` 설정을 통해서 했음.
 
@@ -148,8 +152,8 @@ Caps Lock이 하이퍼키임. 하이퍼키 + 숫자키로 적당한 앱/기능 �
 - `Caps Lock + b`: Bruno
 - `Caps Lock + c`: chrome
 - `Caps Lock + k`: GitKraken
-- `Caps Lock + t`: iterm(혹은 아무 터미널이나)
-- `Caps Lock + e`: 코드 에디터(나 같은 경우 cursor)
+- `Caps Lock + t`: iterm(알라크리티 같은 다른 터미널 프로그램일 수도)
+- `Caps Lock + e`: 코드 에디터(나의 경우 cursor)
 - `command` 따닥 2번 누르기: finder
 
 `shift` 따닥 누르기도 편한데 아직 여기 들어갈 정도로 중요한 앱을 찾지 못했다.
@@ -160,11 +164,15 @@ Caps Lock이 하이퍼키임. 하이퍼키 + 숫자키로 적당한 앱/기능 �
 
 ---
 
+calculator가 내장되어 있어서 레이캐스트에서 1+2 같은 거 치면 계산해줌.
+이뿐 아니라 `rem`같은 개발 관련, 혹은 `ft`같은 단위환산도 해준다.
+
 깔면 좋은 익스텐션
 
 - github
 - cursor
 - kill process
+- port manager: 특정 포트에서 켜진 프로세스를 끌 수 있다. 개발 서버를 켤 때가 많으면 좋은 듯
 - iTerm(이외에 사용하는 터미널 아무거나)
 - emoji
 - HTTP status code
@@ -181,13 +189,17 @@ cursor, github 같은 것도 다 확장이 있다. 깔고 적절한 기능에 �
 퀵링크로 특정 링크로 가거나 automator로 만든 명령어/스크립트 같은 것도 실행할 수 있다
 https://www.raycast.com/core-features/quicklinks
 
-`localhost:xxxx` 같은 걸 자주 쓰는데 나는 3000, 3001, 5173(vite)같은 자주 쓰는 포트번호는 숫자로 설정했음
+`localhost:xxxx` 같은 걸 자주 쓰는데 나는 3000, 3001, 5173(vite)같은 자주 쓰는 포트번호는 숫자로 설정했음. 3000 치면 `localhost:3000` 나오게
 
-나는 localhost:xxxx를 했다
+보통은 구글 검색 등 검색을 할 때 퀵링크를 쓰는 거 같은데 나는 레이캐스트 크롬 익스텐션에서 구글 검색 쓰는 게 편한 듯
 
 ## 참고할 만한 링크
 
 https://www.integer.blog/raycast/
+
+생산성에 진심인 자의 Raycast 세팅 엿보기 (for macOS)
+
+https://velog.io/@wisepine/%EC%83%9D%EC%82%B0%EC%84%B1%EC%97%90-%EC%A7%84%EC%8B%AC%EC%9D%B8-%EA%B0%9C%EB%B0%9C%EC%9E%90%EC%9D%98-Raycast-%EC%84%B8%ED%8C%85-%EC%97%BF%EB%B3%B4%EA%B8%B0-for-macOS
 
 ## 터미널
 
