@@ -42,6 +42,7 @@ window에서는 alt + tab으로 탭 선택 가능한데 맥에서도 command + T
 `command + 숫자키`: 현재 열려 있는 창에서 숫자키에 해당하는 탭으로 가기(**1-index**)
 `control + tab`: 현재 탭의 오른쪽 탭으로 이동
 `control + shift + tab`: 현재 탭의 왼쪽 탭으로 이동
+이걸 방향키로도 할 수 있다. `option + command + 왼쪽/오른쪽 방향키`로 탭 간 이동 가능. 크롬/커서 등등에서 가능
 
 - 너무 유명하지만 혹시나 해서 적어놓는 단축키들
 
@@ -149,8 +150,9 @@ Caps Lock이 하이퍼키임. 하이퍼키 + 숫자키로 적당한 앱/기능 �
 - `Caps Lock + k`: GitKraken
 - `Caps Lock + t`: iterm(혹은 아무 터미널이나)
 - `Caps Lock + e`: 코드 에디터(나 같은 경우 cursor)
+- `command` 따닥 2번 누르기: finder
 
-`command` 따닥 2번 누르기, `shift` 따닥 누르기도 편한데 아직 여기 들어갈 정도로 중요한 앱을 찾지 못했다.
+`shift` 따닥 누르기도 편한데 아직 여기 들어갈 정도로 중요한 앱을 찾지 못했다.
 
 ---
 
