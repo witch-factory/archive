@@ -29,5 +29,8 @@
   "engines": {
     "node": ">=18.0"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@mdit/plugin-katex": "^0.23.1"
+  }
 }

@@ -1,6 +1,7 @@
 import markdownIt from "markdown-it";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
+import { katex } from "@mdit/plugin-katex";
 
 export default async function (eleventyConfig) {
   const options = {
@@ -9,7 +10,10 @@ export default async function (eleventyConfig) {
     linkify: true,
   };
 
-  eleventyConfig.setLibrary("md", markdownIt(options));
+  eleventyConfig.setLibrary(
+    "md",
+    markdownIt(options).use(katex, { output: "mathml" })
+  );
 
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
