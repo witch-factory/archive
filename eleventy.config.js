@@ -28,7 +28,15 @@ export default async function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("styles");
   eleventyConfig.addPassthroughCopy("assets");
 
-  eleventyConfig.addCollection("study2025", (collectionApi) =>
+  eleventyConfig.addCollection("daily", (collectionApi) =>
+    collectionApi.getFilteredByGlob("data/daily/**/*.md")
+  );
+
+  eleventyConfig.addCollection("math", (collectionApi) =>
+    collectionApi.getFilteredByGlob("data/math/**/*.md")
+  );
+
+  eleventyConfig.addCollection("study", (collectionApi) =>
     collectionApi.getFilteredByGlob("data/study/**/*.md")
   );
 

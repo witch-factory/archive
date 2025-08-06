@@ -1,0 +1,20 @@
+---
+title: 배우는 대로 쓰는 메모
+---
+
+<p>배우는 대로 쓰는 메모를 정리했다.</p>
+
+<nav>
+  <ul>
+    <li>
+      <a href="/daily/">daily</a>
+      <ul>
+        {% for daily in collections.daily %}
+        <li>
+          <a href="{{ daily.url }}">{{ daily.data.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+  </ul>
+</nav>

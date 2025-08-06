@@ -1,0 +1,20 @@
+---
+title: 수학 공부 메모
+---
+
+<p>수학 공부 메모를 정리했다.</p>
+
+<nav>
+  <ul>
+    <li>
+      <a href="/math/">math</a>
+      <ul>
+        {% for math in collections.math %}
+        <li>
+          <a href="{{ math.url }}">{{ math.data.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+  </ul>
+</nav>
