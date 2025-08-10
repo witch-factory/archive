@@ -1,6 +1,6 @@
 // https://www.ovl.design/text/permalink-driven-breadcrumbs-in-eleventy/
+// 11ty computed data docs: https://www.11ty.dev/docs/data-computed/
 export default {
-  hi: () => "Hello, World!",
   breadcrumbs: ({ page }) => {
     if (!page || !page.url) {
       return [];
@@ -17,7 +17,7 @@ export default {
       ...segments.reduce((acc, segment, index) => {
         const url = `/${segments.slice(0, index + 1).join("/")}/`;
         acc.push({
-          name: segment.replace(/-/g, " ").replace(/\.html$/, ""),
+          name: segment.replace(/\.html$/, ""),
           url: url,
         });
         return acc;
