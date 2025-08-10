@@ -61,6 +61,7 @@ https://support.google.com/chrome/answer/157179?hl=ko&co=GENIE.Platform%3DDeskto
 `command + z`: 직전 동작 실행 취소. `command + shift + z` 하면 실행 취소한 동작을 취소가능
 `command + f`: 문서에서 검색. shift랑 같이 누르면 디렉토리 같은 단위로 검색도 가능(cursor, vscode)
 `command + s`: 현재 문서 저장
+`command + r`: 새로고침(fn키를 통해 F5를 쓸 수도 있겠지만 귀찮다)
 
 `command + b`: 선택 텍스트 볼드체
 `command + i`: 선택 텍스트 이탤릭체
