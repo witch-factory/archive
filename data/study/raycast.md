@@ -67,6 +67,8 @@ https://support.google.com/chrome/answer/157179?hl=ko&co=GENIE.Platform%3DDeskto
 `command + i`: 선택 텍스트 이탤릭체
 `command + u`: 선택 텍스트 밑줄
 
+tab을 치면 들여쓰기를 한다. 근데 `shift + tab`을 누르면 들여쓰기가 한칸 지워진다. 이걸 이용해서 여러 줄의 들여쓰기를 한번에 바꿀 수 있다.
+
 - 커서 IDE에서
 
 `command + p`: 커서에서 파일 이름으로 검색해서 바로 열기 가능(원래는 현재 화면 프린트)
