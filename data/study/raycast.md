@@ -129,7 +129,9 @@ https://tttap.tistory.com/273
 
 ## Raycast
 
-`command + Space`: 레이캐스트 여는 단축키(레이캐스트 내에서 설정 가능)
+### 세팅에 관한 결정들
+
+`command + Space`: 레이캐스트 여는 단축키(레이캐스트 내에서 설정 가능, 기본 spotlight는 버리기)
 
 raycast 기본 + 각종 익스텐션의 기능들을 alias나 하이퍼키를 이용한 단축키 설정으로 해놓으면 좋다.
 
@@ -145,7 +147,7 @@ raycast 기본 + 각종 익스텐션의 기능들을 alias나 하이퍼키를 �
 
 카라비너가 잘 안되는 경우가 있다고 하는데 내가 겪지는 않았지만 이 경우 hyperkey라는 앱을 쓸 수도 있다고 한다.
 
----
+### 내 alias, 하이퍼키 설정
 
 내가 해놓은 것
 
@@ -180,7 +182,11 @@ Caps Lock이 하이퍼키임. 하이퍼키 + 숫자키로 적당한 앱/기능 �
 
 `shift` 따닥 누르기도 편한데 아직 여기 들어갈 정도로 중요한 앱을 찾지 못했다.
 
----
+### 좋은 기능과 팁
+
+**action panel**: 레이캐스트는 액션 패널이란 걸 통해서 앱의 추가적인 기능을 사용할 수 있다. 레이캐스트 상에서 `command + k`로 실행할 수 있음. 액션 패널에서 나오는 기능들은 보통 단축키도 있는데 이런 추가 기능들을 익혀 놓으면 좋음. 예를 들어 clipboard history상에서 `command + k`를 누르면 paste to~(엔터), 컨텐츠 수정(`commend + e`)같은 다양한 기능과 단축키를 볼 수 있다. https://manual.raycast.com/action-panel
+
+하지만 단축키까지 안 외워도, 액션 패널만 해도 앱 종료, 앱의 추가 기능 사용 등등 다양한 걸 할 수 있다. 심지어 앱 삭제 같은 것도 가능.
 
 "create snippet" 등 snippet 기능으로 자동완성 문구 설정 가능. 예를 들어 `:hi` 입력하면 "안녕하세요. 잘 부탁드립니다" 나온다든지.
 
@@ -193,41 +199,79 @@ description:
 ---
 ```
 
----
-
 calculator가 내장되어 있어서 레이캐스트에서 1+2 같은 거 치면 계산해줌.
 이뿐 아니라 `rem`같은 개발 관련, 혹은 `ft`같은 단위환산도 해준다.
 
-깔면 좋은 익스텐션
+퀵링크로 특정 링크로 가거나 automator로 만든 명령어/스크립트 같은 것도 실행할 수 있다.
+파일이나 폴더 경로도 퀵링크로 설정할 수 있는데 나 같은 경우 프로젝트 폴더를 퀵링크로 지정해 두고 `workspace`로 접근할 수 있도록 했음
+https://www.raycast.com/core-features/quicklinks
+
+`localhost:xxxx` 같은 걸 자주 쓰는데 나는 3000, 3001, 5173(vite)같은 자주 쓰는 포트번호는 숫자로 퀵링크를 설정했음. 3000 치면 `localhost:3000` 나오게
+
+보통은 구글 검색 등 검색을 할 때 퀵링크를 쓰는 거 같은데 나는 레이캐스트 크롬 익스텐션에서 구글 검색 쓰는 게 편한 듯
+
+[레이캐스트 검색은 fuzzy search를 지원한다.](https://manual.raycast.com/search-bar) 따라서 첫 글자만 따서 검색하는 것도 가능. 예를 들어 Search Screenshot 기능은 `ssc`만 쳐도 검색된다.
+
+101 Things You Can Do With Raycast https://www.youtube.com/watch?v=NuIpZoQwuVY
+
+- clipboard history -> `command+e`로 해당 클립보드 컨텐츠 수정 가능
+- google search로 웹 검색 가능
+- raycast note(나는 하이퍼키 + n으로 사용 중. 플로팅 노트라 적당히 쓰기 좋음)
+- search screenshot: 스크린샷을 미리보기 하면서 찾고 복사 가능. fuzzy search로 `ssc`로 검색
+- toggle ~ 로 여러 설정을 바꿀 수 있다(ex: toggle system appearance)
+- empty trash: 휴지통 비우기
+- 앱 딥링크도 퀵링크 지정 가능
+- raycast ai
+- dictionary(기본 기능): 사전
+- theme 변경(pro 구독 필요)
+
+괜찮아 보이는 익스텐션들
+
+- download manager 익스텐션으로 가장 최근에 다운받은 컨텐츠 보기(show latest download, open latest download, 비슷하게 가장 최근에 받은 ㄱ copy도 가능)
+- system monitor 익스텐션으로 현재 시스템 자원 사용량 모니터링
+- google meet 익스텐션으로 미팅 참여하기(나는 안쓸거같긴 함)
+- convert image 익스텐션으로 이미지 포맷 변환(ex: jpeg -> png), 회전, 반전 등등 가능
+- tinyPNG를 이용하면 이미지 압축이 가능하지만 유료.
+- measure distance 익스텐션: 화면상 두 점 사이의 거리 측정 가능. 다른 페이지나 앱 상의 gap 설정 등을 볼 수 있을 것
+- color picker 익스텐션: pick color(특정 부분 색 감지), color names(hex 형식 색상의 이름 검색), extract color from image(finder에서 선택한 이미지에 사용된 색 추출)등 색상에 관한 다양한 기능 제공
+- video downloader: 유튜브 등의 비디오를 다운로드 가능
+- pomodoro 익스텐션: 뽀모도로 타이머. 메뉴바에 타이머 노출도 가능
+
+생산성이랑은 큰 상관 없어 보이는 뜬금없는 기능들도 있다.
+
+- typing practice(기본 기능): 타자연습 가능
+- 다른 곳의 시간 검색(ex: `time in usa`나 `time tokyo` 검색)
+- ai에 날씨 물어보기(`ask weather`)
+- confetti: 화면에서 폭죽이 터지는데 이걸 보면 기분이 좋다.
+
+### 익스텐션
+
+사용하는 애플리케이션의 확장은 보통 깔면 좋다.
 
 - github
 - cursor
+- chrome
+- google search(fuzzy search를 이용하면 `gs`로 실행 가능)
+- iTerm(이외에 사용하는 터미널 아무거나)
+
+애플리케이션의 특정 기능에 alias를 달아 놓으면 유용하게 쓸 수 있다.예를 들면 이런 거.
+
+- github에서 레포지토리를 찾는 search repo는 `gh`로 alias 등록
+- cursor에서 최근 프로젝트를 찾는 recent project는 `projects`로 alias 등록
+- iterm의 open iterm here은 `term`으로 alias 등록
+- google meet를 사용하는 사람이라면 관련 익스텐션 기능으로 미팅을 빨리 열기
+
+이외에 다음과 같은 익스텐션들이 깨알같은 도움이 된다.
+
 - kill process
 - port manager: 특정 포트에서 켜진 프로세스를 끌 수 있다. 개발 서버를 켤 때가 많으면 좋은 듯
-- iTerm(이외에 사용하는 터미널 아무거나)
-- emoji
+- emoji(나는 `e`로 alias를 등록했다)
+  - 이 익스텐션은 ai를 통한 검색도 지원해서 "congrats for grad" 같은 걸 치면 학사모를 추천해 주는 등 똑똑한 검색 가능.
 - HTTP status code
 - Amphetamine: 화면이 꺼지지 않게 해준다. Caffeinated 같은 비슷한 앱들도 있는 듯
   - 내게 개발을 처음 가르쳐준 사람 중 한 명은 아주 강한 고집이 몇 가지 있었다. 개발자라면 vim을 메인으로 쓰지 않더라도 기본은 무조건 알아야 한다는 등등. 그중에는 "화면을 켠 상태로 자리를 비우면 세션 탈취 등등으로 인해 너의 모든 게 탈탈 털릴 수 있으니까 단 5초라도 자리를 비우면 무조건 모니터를 꺼야 한다 안 그러면 머저리다"라는 것도 있었고 내가 모니터를 안 끄고 일어날 때마다 나를 엄청나게 괴롭혔다. 그 결과로 나는 모니터를 안 끄면 일어나서 다른 데로 걸어가다가도 모니터를 끄러 돌아오는 사람이 되어버렸고 자동으로 꺼지지 않는 것도 굉장히 불편하다. 그래서 나는 이런 걸 쓰지 않지만, 이런 걸 좋아하는 사람이 많은 듯해 쓴다.
 - (Tailwind를 쓴다면) tailwind css 클래스명 검색하는거
-
 - Paste as Plain Text: 맥에서 코드 같은 걸 붙여넣을 때 IDE에서 복사하면 배경색 같은 게 같이 들어갈 때가 있다. 나는 이게 싫어서 이 익스텐션을 깔고 option + v에 해당 익스텐션의 "plain text로 붙여넣기"를 덮어씌워 놓았다.
-
-cursor, github 같은 것도 다 확장이 있다. 깔고 적절한 기능에 단축키 / alias 등록하면 좋음
-
-- github에서 레포지토리를 찾는 search repo는 gh로 alias 등록
-- cursor에서 최근 프로젝트를 찾는 recent project는 projects로 alias 등록
-
-이외의 익스텐션: kill process, emoji(e로 alias 등록해 놓았음), iTerm(open iterm2 here 등 가능)
-
-퀵링크로 특정 링크로 가거나 automator로 만든 명령어/스크립트 같은 것도 실행할 수 있다
-https://www.raycast.com/core-features/quicklinks
-
-`localhost:xxxx` 같은 걸 자주 쓰는데 나는 3000, 3001, 5173(vite)같은 자주 쓰는 포트번호는 숫자로 설정했음. 3000 치면 `localhost:3000` 나오게
-
-보통은 구글 검색 등 검색을 할 때 퀵링크를 쓰는 거 같은데 나는 레이캐스트 크롬 익스텐션에서 구글 검색 쓰는 게 편한 듯
-
-raycast의 confetti: 화면에서 폭죽이 터지는데 이걸 보면 기분이 좋다.
 
 ## 참고할 만한 링크
 
