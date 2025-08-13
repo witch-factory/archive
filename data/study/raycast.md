@@ -227,7 +227,7 @@ https://www.raycast.com/core-features/quicklinks
 
 괜찮아 보이는 익스텐션들
 
-- download manager 익스텐션으로 가장 최근에 다운받은 컨텐츠 보기(show latest download, open latest download, 비슷하게 가장 최근에 받은 ㄱ copy도 가능)
+- download manager 익스텐션으로 가장 최근에 다운받은 컨텐츠 보기(show latest download, open latest download, 비슷하게 가장 최근에 받은 파일을 클립보드 copy도 가능)
 - system monitor 익스텐션으로 현재 시스템 자원 사용량 모니터링
 - google meet 익스텐션으로 미팅 참여하기(나는 안쓸거같긴 함)
 - convert image 익스텐션으로 이미지 포맷 변환(ex: jpeg -> png), 회전, 반전 등등 가능
