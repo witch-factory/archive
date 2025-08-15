@@ -76,6 +76,8 @@ tab을 치면 들여쓰기를 한다. 근데 `shift + tab`을 누르면 들여�
 
 `command + shift + L`: 선택한 단어 현재 문서에서 전부 찾아서 다중 선택. 원래 vscode 기능인데 커서에선 기본적으로 안되어서 Keyboard shortcut 설정에서 바꿔야 함 https://forum.cursor.com/t/equivalent-vscode-shift-command-l-l/11361/2
 
+`command + shift + h`: 선택한 단어를 현재 열린 프로젝트에서 전부 찾아서 바꾸기 기능. 바꿀 단어 선택 -> `command + shift + h` -> 포함/제외할 파일 형식 선택 -> 바꿀 단어 입력하고 replace 클릭하면 한방에 일괄 변경 가능. 단 필요없는 부분까지 바뀌지는 않는지 주의 필요
+
 `command` 누르고 변수명, import 같은 거 클릭하면 해당 정의로 간다.
 
 - 스크린샷
