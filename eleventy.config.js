@@ -2,6 +2,8 @@ import markdownIt from "markdown-it";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import { katex } from "@mdit/plugin-katex";
+import { IdAttributePlugin } from "@11ty/eleventy";
+import markdownItAnchor from "markdown-it-anchor";
 
 export default async function (eleventyConfig) {
   const options = {
@@ -12,7 +14,14 @@ export default async function (eleventyConfig) {
 
   eleventyConfig.setLibrary(
     "md",
-    markdownIt(options).use(katex, { output: "mathml" })
+    markdownIt(options)
+      .use(katex, { output: "mathml" })
+      .use(markdownItAnchor, {
+        permalink: markdownItAnchor.permalink.linkInsideHeader({
+          symbol: "#",
+          placement: "after",
+        }),
+      })
   );
 
   eleventyConfig.addPlugin(syntaxHighlight);
@@ -28,6 +37,7 @@ export default async function (eleventyConfig) {
       fallback: "largest", // or "smallest"
     },
   });
+  eleventyConfig.addPlugin(IdAttributePlugin);
 
   eleventyConfig.addPassthroughCopy("styles");
   eleventyConfig.addPassthroughCopy("assets");
