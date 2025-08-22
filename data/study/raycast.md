@@ -29,6 +29,8 @@ window에서는 alt + tab으로 탭 선택 가능한데 맥에서도 command + T
 `command + t`: 새 탭 띄우기. 터미널에서도 사용 가능
 `command + n`: 새 창 띄우기, new인 듯 하다. 단 커서에서는 새 윈도우가 뜨지 않고 새 탭이 뜸에 주의. finder 하나 더 띄우기 등에 유용
 
+`command + ~`: 동일한 애플리케이션의 다른 창 사이를 전환
+
 (finder에서)
 `command + 백스페이스`: 파일 삭제
 `command + option + 백스페이스`: 휴지통으로 안보내고 바로 삭제. 윈도우의 shift + delete 같은 거
