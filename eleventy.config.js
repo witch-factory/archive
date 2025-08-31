@@ -4,6 +4,7 @@ import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import { katex } from "@mdit/plugin-katex";
 import { IdAttributePlugin } from "@11ty/eleventy";
 import markdownItAnchor from "markdown-it-anchor";
+import markdownItFootnote from "markdown-it-footnote";
 
 export default async function (eleventyConfig) {
   const options = {
@@ -22,6 +23,7 @@ export default async function (eleventyConfig) {
           placement: "after",
         }),
       })
+      .use(markdownItFootnote)
   );
 
   eleventyConfig.addPlugin(syntaxHighlight);
