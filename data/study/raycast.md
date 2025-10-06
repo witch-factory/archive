@@ -71,6 +71,8 @@ https://support.google.com/chrome/answer/157179?hl=ko&co=GENIE.Platform%3DDeskto
 
 tab을 치면 들여쓰기를 한다. 근데 `shift + tab`을 누르면 들여쓰기가 한칸 지워진다. 이걸 이용해서 여러 줄의 들여쓰기를 한번에 바꿀 수 있다.
 
+- 터미널에서는 `control + r`을 통해 지난 명령 검색 가능. `fzf`(brew로 설치)를 쓰면 더 보기 좋게 방향키로 이동해 가면서 보는 것 등도 가능.
+
 - 커서 IDE에서
 
 `command + p`: 커서에서 파일 이름으로 검색해서 바로 열기 가능(원래는 현재 화면 프린트)
@@ -118,6 +120,8 @@ rectangle: 창 왼쪽 오른쪽 위 아래 등등 옮기기 가능. 분할도 �
 -> 하지만 raycast의 window management로 대체했다. rectangle이 기능이 더 많다고도 하데 어차피 상하좌우 반으로밖에 안 써서... `control + option + 상하좌우 방향키`로 창을 이동한다.
 `control + option + f`로는 최대화. (원래 맥에서 `command control f`로 전체화면을 하는 걸 참고했다)
 `control + option + r`로 restore(이전 화면 크기로)
+
+클로드 코드에서 `shift + tab`을 누르면 planning mode / 수정 허용 모드 등을 왔다갔다할 수 있다.
 
 물결키 눌렀을 때 원화 대신 백틱을 기본적으로 나오게 하기. 나는 `~/Library/KeyBindings` 설정을 통해서 했음.
 
