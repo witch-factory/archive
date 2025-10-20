@@ -81,7 +81,7 @@ MCP 서버도 쉽게 추가할 수 있다.
 
 Server Name, command, arg 입력으로 쉽게 추가 가능. 예를 들어 gemini mcp라면 다음과 같이 할 수 있다.
 
-```
+```bash
 server name: gemini-cli-mcp
 command: npx
 argument: -y gemini-mcp-tool
