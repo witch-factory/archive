@@ -35,6 +35,18 @@ https://superclaude.netlify.app/docs/Getting-Started/quick-start
 
 토큰을 아껴주는 serena, 최신 문서를 읽어와 컨텍스트로 제공하는 Context7, 브라우저 조작을 제공하는 chrome-devtools 등의 MCP가 딸려온다.
 
+### serena 팁
+
+serena를 쓰면 토큰을 상당히 아낄 수 있다. 그러나 개인적으로 불편한 점은 serena mcp가 활성화된 상태로 claude code가 실행되면 로그가 기록되는 브라우저 창이 localhost 주소로 열린다는 것이다. serena 제작자 중 한 명에 따르면 문제가 발생했을 때 사용자가 무슨 일이 일어났는지 볼 수 있는 대시보드가 있는 게 좋다고 한다.
+
+아무튼 이걸 없앨 수 있다. MCP 서버 실행 커맨드에서 `--enable-web-dashboard False`를 추가하면 된다고 한다. 이를 더 간단하게 설정하는 방법은 세레나 설정에서 할 수 있다. 내 mac 기준 serena 설정 파일은 `~/.serena/serena_config.yml`에 위치한다. 이걸 열어보면 설정을 위한 다양한 속성들이 있다.
+
+여기서 웹 대시보드를 없애기 위해 봐야 할 옵션은 `web_dashboard`랑 `web_dashboard_open_on_launch`다. 이 둘을 false로 설정하자.
+
+참고로 `web_dashboard_open_on_launch`만 false로 설정하면 이름 그대로 serena가 실행되었을 때 대시보드가 실행되는 것만 막히고 로그를 보기 위해 serena 대시보드 주소로 가는 건 가능하다. `web_dashboard`가 false면 아예 그것까지 없어지는 것 같다.
+
+참고한 serena 이슈: https://github.com/oraios/serena/discussions/271
+
 ### 커맨드
 
 아이디어를 제시하고 생각해 주는 `/sc:brainstorm`, 기존 프로젝트를 분석하는 `/sc:analyze`, 특정 기능을 구현하는 `/sc:implement` 등의 커맨드를 사용 가능하다.
@@ -166,6 +178,8 @@ claude에서 `/output-style` 커맨드를 입력 시 출력 스타일을 선택�
 CLAUDE.md 같은 것과 달리 클로드의 기본 시스템 프롬프트(소프트웨어 작업을 빨리 끝낼 수 있게 설계됨)를 완전히 바꾼다고 한다.
 
 https://docs.claude.com/en/docs/claude-code/output-styles
+
+원래 이 기능은 11월 5일부로 deprecate될 예정이었지만 다시 복구되었다.
 
 ## 추가 자료
 
