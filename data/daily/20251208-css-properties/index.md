@@ -1,5 +1,5 @@
 ---
-title: web.dev에 CSS 글들
+title: 2025-12-12 web.dev에 CSS 글들
 description: web.dev에 있던 CSS 속성 관련 글들을 몇 개 읽어보기
 ---
 
@@ -59,6 +59,8 @@ web.dev 그리드 https://web.dev/learn/css/grid?hl=ko
 - 그리드 라인: 그리드를 구분하는 선. 열이 4개일 경우 마지막 열 다음까지 5개의 column line 존재. **1부터 센다**
 - 그리드 트랙: 행/열 트랙이 있음. 두 그리드 라인 사이 공간
 - 그리드 셀: 그리드의 한 칸
+
+![용어들을 그림으로 설명](./grid-words.png)
 
 `grid-template-columns`으로 각 열의 너비를, `grid-template-rows`로 각 행의 높이를 지정한다. 여기 지정한 만큼 행/열이 생긴다. 다음처럼 지정했으면 5em, 100px, 30% 너비 이렇게 3개의 열이 생긴 것. `auto`를 쓰면 기본적으로 크기가 자동 조정되는데, 컨텐츠만큼 크다고 보면 됨.
 
@@ -169,4 +171,57 @@ footer {
 
 https://web.dev/articles/css-subgrid?hl=ko
 
-CSS 그리드
+CSS 그리드를 통해 레이아웃 배치 가능. 그러나 직접적인 자식 요소만 제어할 수 있었다. 이제는 더 하위 그리드도 grid 레이아웃을 통해 정렬 가능
+
+`grid-template-columns`를 `subgrid`로 설정하면 상위 요소의 열을 채택한다. 만약 container 클래스 요소 내부에 subgrid 요소가 있다고 가정하고 다음과 같이 CSS가 있다면 subgrid 요소의 열은 container요소의 `grid-template-columns`를 따라간다.
+
+```css
+.container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 20rem 1fr;
+}
+
+.subgrid {
+  grid-column: span 2;
+  display: grid;
+  /* container 하위에 있으면, container를 따라 20rem 1fr */
+  grid-template-columns: subgrid;
+}
+```
+
+이때 주의할 점은, subgrid는 부모의 행/열 배치를 이어받는 설정이기 때문에 해당 요소가 부모 그리드에서 subgrid로 할당할 갯수만큼은 **트랙을 차지하고 있어야** 한다는 것이다.
+
+예를 들어 `grid-template-rows: subgrid`를 사용하면서 부모의 행을 1개만 차지하고 있다면, subgrid 내부의 아이템들이 모두 그 1개 행 안에 배치되려고 하면서 서로 겹쳐 보이게 된다.
+
+```css
+/* 잘못된 예: 부모에서 1개 행만 차지 */
+.subgrid {
+  display: grid;
+  grid-template-rows: subgrid;
+  /* grid-row 등의 옵션으로 2개 이상의 칸을 지정하지 않으면 기본적으로 1개 행만 차지 */
+}
+```
+
+이를 해결하려면 `grid-row`나 `grid-column`으로 subgrid 요소가 부모의 여러 트랙을 명시적으로 차지하도록 지정해야 한다.
+
+```css
+/* 올바른 예: 부모에서 여러 트랙 차지 */
+.subgrid {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3; /* 부모의 3개 행을 차지 → 내부 아이템이 3개 행에 분산 배치됨 */
+}
+```
+
+subgrid를 사용할 때는 "어느 방향의 트랙을 상속받을 것인지"와 "그 방향으로 몇 개의 트랙을 차지할 것인지"를 함께 고려해야 한다.
+
+그리고 subgrid를 지원하지 않는 브라우저들도 있는데 이럴 경우 `@supports` 미디어 쿼리를 사용해서 확인하고 점진적 개선을 할 수 있다.
+
+```css
+@supports (grid-template-columns: subgrid) {
+  /* safe to enhance to */
+}
+```
+
+하위 컨테이너들도 부모 컨테이너와 똑같은 정렬을 하고 싶다면(예를 들어 카드들을 배열하는 경우 내부 요소들도 줄맞춰 있는 게 보기 좋으니까) subgrid를 쓸 만 하다. 실제 사용 예시들도 이런 게 많았음.
