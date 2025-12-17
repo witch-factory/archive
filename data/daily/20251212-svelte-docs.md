@@ -1,5 +1,5 @@
 ---
-title: 20251212 svelte 문서 리딩
+title: 2025-12-12 svelte 문서 리딩
 description: 빠와 까를 미치게 하는 svelte
 ---
 
@@ -17,7 +17,9 @@ nextjs같은 느낌의 svelteKit도 있다.
 
 JS는 `<script>` 태그 내부에 씀. 이런 구조
 
-```svelte
+{% raw %}
+
+```jsx
 <script lang="ts">
     // JS
 </script>
@@ -31,6 +33,8 @@ script 내에 정의된 변수들 {var} 처럼 갖다쓰기 가능
 </style>
 ```
 
+{% endraw %}
+
 이 style은 컴포넌트 스코프로 적용되어서 다른 곳에 영향을 미치지 않음
 
 `<script>` 태그 내에서 import하면 해당 컴포넌트 사용 가능. import한 컴포넌트라고 해도 스타일은 컴포넌트 스코프
@@ -42,7 +46,7 @@ HTML 렌더링을 하려면 `{@html string}` 처럼 특수 HTML 태그 쓰면 �
 
 `$state`를 이용해서 reactive하게 동작하는 변수를 만들 수 있다. 이걸 rune이라고 한다. 다음처럼 직접 변경이 가능하다.
 
-```svelte
+```jsx
 <script lang="ts">
 	let count = $state(0);
 
@@ -82,7 +86,7 @@ effect를 개발자가 발생시킬 수 있도록 해주는 `$effect` 단 이벤
 
 props는 `$props` 룬을 통해서 하위 컴포넌트에 전달한 속성을 받을 수 있다. react props랑 비슷. 다음과 같이 받아서 사용한다.
 
-```svelte
+```jsx
 // answer = ...로 하면 react props에서처럼 기본값도 지정 가능
 <script>
 	let { answer } = $props();
@@ -101,7 +105,7 @@ spread로 props 전달도 가능. 진짜 react랑 비슷하다..
 `{:...}`으로 블럭 계속
 `{/...}`으로 블럭 종료
 
-```svelte
+```tsx
 {#if count > 10}
 	<p>Count is greater than 10</p>
 {:else if count > 5}
@@ -113,7 +117,7 @@ spread로 props 전달도 가능. 진짜 react랑 비슷하다..
 
 리액트에서 map을 사용하는 것처럼 스벨트에서는 `{#each}`블록으로 목록 렌더링 가능. 열거하는 목록은 array-like 즉 `Array.from`이 동작하는 모든 객체
 
-```svelte
+```tsx
 {#each 리스트 as 항목명}
 //...
 {/each}
@@ -148,7 +152,7 @@ spread로 props 전달도 가능. 진짜 react랑 비슷하다..
 
 비동기 데이터 처리는 `{#await} - {/await}` 블록 사용. `{:then}`, `{:error}` 블록도 promise 값을 받는 것처럼 쓸 수 있다.
 
-```svelte
+```tsx
 {#await promise}
 	<p>rolling...</p>
 {:then number}
@@ -160,7 +164,7 @@ spread로 props 전달도 가능. 진짜 react랑 비슷하다..
 
 약속이 reject되지 않을 거라면 catch 블록 생락할 수도 있고, 만약 약속이 resolve되어 then 블록까지 아무것도 안 보여주고 싶다면 `{#await} - {:then}` 사이를 생략하고 다음과 같이 쓰기도 가능.
 
-```svelte
+```tsx
 {#await promise then number}
 	<p>result is {number}</p>
 {/await}
@@ -180,7 +184,7 @@ spread로 props 전달도 가능. 진짜 react랑 비슷하다..
 
 일반적으로 스벨트의 데이터는 단방향(리액트랑 같음)이다. 근데 이걸 깨고 양방향 바인딩을 하는 게 좋을 때도 있다. 이걸 위해서는 `bind` 쓸 수 있음. `input`같은 경우 value 대신 `bind:value` 쓰면 됨
 
-```svelte
+```tsx
 <!-- name의 변경이 input에 반영됨. input 값 변경은 value에 영향 X -->
 <input value={name} />
 <!-- input value와 name이 바인딩  -->
@@ -200,7 +204,7 @@ spread로 props 전달도 가능. 진짜 react랑 비슷하다..
 
 인라인 스타일도 그대로 쓸 수 있다. 근데 인라인 스타일에 문자열을 그대로 이렇게 박으면 이상해 보인다.
 
-```svelte
+```tsx
 <button
 	class="card"
 	style="transform: {flipped ? 'rotateY(0)' : ''}; --bg-1: palegoldenrod; --bg-2: black; --bg-3: goldenrod"
@@ -210,7 +214,7 @@ spread로 props 전달도 가능. 진짜 react랑 비슷하다..
 
 따라서 `style:` directive를 이용해 정리 가능.
 
-```svelte
+```tsx
 <button
 	class="card"
 	style:transform=...
@@ -221,7 +225,7 @@ spread로 props 전달도 가능. 진짜 react랑 비슷하다..
 
 - 방법 1: 다른 컴포넌트 내의 요소를 스타일링할 수 있게 css에 `:global` 디렉티브 사용
 
-```svelte
+```tsx
 <!-- 원래 svelte는 각 컴포넌트의 스타일이 독립적인데, :global 디렉티브 쓰면 무차별적으로 적용 가능 -->
 <style>
 	.boxes :global(.box:nth-child(1)){
@@ -234,7 +238,7 @@ spread로 props 전달도 가능. 진짜 react랑 비슷하다..
 
 css 변수를 통해서 외부에서 변경할 수 있도록 한다. 예를 들어 `Box` 컴포넌트 스타일을 이렇게 지정한다.
 
-```svelte
+```tsx
 <style>
 	.box {
 		background-color: var(--color, #ddd);
@@ -244,7 +248,7 @@ css 변수를 통해서 외부에서 변경할 수 있도록 한다. 예를 들�
 
 이러면 Box의 어떤 부모 요소, 혹은 `Box`의 사용처에서도 `--color`의 값을 설정 가능하다.(동적 설정도 가능)
 
-```svelte
+```tsx
 <Box --color="gold">
 ```
 
@@ -256,7 +260,7 @@ css 변수를 통해서 외부에서 변경할 수 있도록 한다. 예를 들�
 
 attachments는 `@attach`로 요소에 부착하는데 일종의 effect이다. 요소가 생성시 실행되고 언마운트시 클린업(리턴하는 콜백)을 실행한다.
 
-```svelte
+```tsx
 <div {@attach 함수}>
 ```
 
@@ -275,15 +279,15 @@ function tooltip(content) {
 
 ## transition
 
-transition directive로 쉽게 트랜디션 애니메이션 넣기 가능. `svelte/transition` 패키지에서 import
+transition directive로 쉽게 트랜디션 애니메이션 넣기 가능. `svelte/transition` 패키지에서 import한다.
 
-```svelte
-<p transition:fade>
-	Fades in and out
-</p>
+```tsx
+<p transition:fade>Fades in and out</p>
 ```
 
+{% raw %}
 `transition:fly={{y:200}}` 처럼 transition 함수가 인자를 받을 수도 있다. 이 경우 애니메이션은 왕복으로 적용된다.
+{% endraw %}
 
 transition 대신 `in`, `out` directive를 써서 마운트될 때/언마운트될 때의 애니메이션을 따로 지정할 수도 있다. 이러면 애니메이션은 왕복이 아니라 각각에 대해 적용
 
@@ -326,7 +330,7 @@ Global transition을 넣으면 해당 요소를 포함하는 "어떤 블록이�
 
 요소를 key block으로 감싸면 key가 바뀔 때마다 내부 요소를 다시 만든다. `in`과 같은 애니메이션도 다시 실행됨. 어떤 값이 바뀔 때마다 DOM에 다시 올리고 또 애니메이션도 실행시키고 싶으면 써보자.
 
-```svelte
+```tsx
 {#key 키값}
 <!-- // ... -->
 {/key}
