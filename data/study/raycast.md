@@ -178,6 +178,7 @@ Caps Lock이 하이퍼키임. 하이퍼키 + 숫자키로 적당한 앱/기능 �
 
 앱 단축키. 보통 앱이나 해당 기능의 머리글자를 따서 짓는다.
 
+- `Caps Lock + s`: 슬랙
 - `Caps Lock + d`: 디스코드
 - `Caps Lock + b`: Bruno(API 쏘는 거)
 - `Caps Lock + c`: chrome
