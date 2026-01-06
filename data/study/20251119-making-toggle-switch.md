@@ -3,9 +3,11 @@ title: 토글 스위치 만들기
 description: 토글 스위치를 만들어보자
 ---
 
-회사에서 on/off 상태가 있는 스위치를 만들 일이 있었다. 기존 코드는 완전한 제어 컴포넌트도 아니고 내부에 `value` state를 따로 두고 props로 받은 값과 해당 state를 `useEffect`를 통해 동기화하도록 짜여 있었다.
+# 시작
 
-스타일링이나 다른 props 로직을 제외하고 기본적인 Switch 구현만 재현해 보면 이런 식이었다.
+on/off 상태가 있는 스위치를 만들 일이 있었다. 기존 코드는 꽤 복잡하게 짜여 있었다. 내부에 value state를 따로 두고 props로 받은 값과 value state를 `useEffect`를 통해 동기화하는 방식이었다.
+
+부수적인 부분을 전부 덜어내고 기존 코드를 재현해 보면 이런 식이었다. 변수명 등은 비즈니스 로직을 제외하는 과정에서 일반적으로 쓰이는 이름으로 변경하였다.
 
 ```tsx
 interface Props {
@@ -17,7 +19,7 @@ export default function Switch(props: Props) {
   // 1. Props로 받은 값을 내부 state의 초기값으로 할당
   const [value, setValue] = useState(props.value);
 
-  // 2. Props(외부 상태)가 변할 때마다 내부 state를 강제로 동기화
+  // 2. Props(외부 상태)가 변할 때마다 내부 state를 동기화
   useEffect(() => {
     if (props.value !== value) {
       setValue(props.value);
