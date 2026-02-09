@@ -1,7 +1,11 @@
 ---
-title: TkDodo의 practical react query 읽기
-description: Practical React Query를 읽고 tanstack query를 더 잘 쓰기 위해 정리한다
+title: TkDodo의 practical react query를 비롯한 블로그 글 읽기
+description: Practical React Query를 읽고 tanstack query를 더 잘 쓰기 위해 정리한다. TkDodo의 다른 글도 읽음
 ---
+
+## Exhaustive matching in TypeScript
+
+https://tkdodo.eu/blog/exhaustive-matching-in-type-script
 
 ## 1: Practical React Query
 
@@ -48,6 +52,10 @@ export const useTodosQuery = (state: State) =>
   });
 ```
 
-클라-서버 데이터를 분리하라. 만약 폼의 초기값 등으로 데이터를 불러오는 데에 react query를 쓰는 경우 staleTime를 `Infinity`로 설정. "진짜 클라이언트 상태"에는 react state, redux 같은 진짜 클라이언트 도구들을 생성하라.
+클라-서버 데이터를 분리하라. 만약 폼의 초기값 등으로 데이터를 불러오는 데에 react query를 쓰는 경우 staleTime를 `Infinity`로 설정. "진짜 클라이언트 상태"에는 react state, redux 같은 진짜 클라이언트 도구들을 사용하라.
 
-쿼리의 `enabled` 옵션을 통해 쿼리 실행 조건을 지정할 수 있다. 이를 통해 [dependent query](https://tanstack.com/query/latest/docs/framework/react/guides/dependent-queries)(물론 waterfall로 인한 성능 저하 우려 존재) 등 쿼리 실행 제어 가능.
+쿼리의 `enabled` 옵션을 통해 쿼리 실행 조건을 지정할 수 있다. 이를 통해 [dependent query](https://tanstack.com/query/latest/docs/framework/react/guides/dependent-queries) (물론 waterfall로 인한 성능 저하 우려 존재) 등 쿼리 실행 제어 가능.
+
+그리고 queryCache는 `setQueryData`, `getQueryData` 등을 통해 직접 접근 가능하지만, 낙관적 업데이트나 mutation을 제외하면 직접 접근하지 말도록 하자. queryCache를 로컬 상태 관리자로 쓰지 말도록!
+
+커스텀 훅을 생성하는 걸 여기선 추천하는데, 굳이? 왜냐 하면 useMutation에서 invalidate해야 하는 경우가 상당히 많은데 이 경우 querykey를 박아줘야 한다. 그럼 그냥 useQuery 단에서 key를 바로 볼 수 있는 게 나음. mutation 했을 때 어떤 key를 invalidate해야 하는지 알기 쉬워서.
