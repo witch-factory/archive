@@ -186,7 +186,7 @@ fmt.Printf("안녕하세요, %s\n", "Go 언어")
 
 - `%s`: 문자열
 - `%d`: 10진수 정수
-- `%f`: 부동 소수점 숫자
+- `%f`: 부동 소수점 숫자. 기본적으로 소수점 이하 6자리까지 출력
 - `%v`: 기본 형식으로 값 출력. 어떤 타입이든 사용할 수 있다.
 - `%t`: true 또는 false로 boolean 값 출력
 - `%c`: 단일 문자 출력. C언어의 char 같은 느낌
@@ -210,4 +210,87 @@ func main(){
 
 ```go
 const a,b,c = 1,2,3
+```
+
+## 4장. 자료형과 포인터
+
+go에서 지원하는 기본 자료형
+
+- bool
+- 숫자(int뿐 아니라 int8, int16, int32, int64 등 다양한 크기의 정수 타입과 float32, float64 등 부동 소수점 타입)
+  이외에도 byte, 유니코드를 저장하는 용도인 rune, 복소수를 나타내는 complex64, complex128 등이 있다.
+- string
+
+signed int에서 비트로 음수를 표현하는 방식 -> N의 비트 표현이 있을 때 `-N`은 N에 2의 보수를 취하고 1을 더한 값으로 표현된다. 즉 `-19`는 go에서 `^19 + 1`과 같다.
+
+go에서는 string이라고 문자열 타입이 있다. 또한 `byte`, `rune`으로 문자(C의 char 같은 느낌)를 표현할 수 있다. `byte`는 8비트로 ASCII 문자 표현에 주로 사용되고, `rune`은 32비트로 유니코드 문자 표현에 사용된다. char 타입이 아스키 문자만 담을 수 있었던 문제를 해결하는 타입임. 물론 C의 문자열 표현처럼 문자 배열로 즉 `[]byte`나 `[]rune`로 문자열을 표현할 수도 있다.
+
+근데 사실 byte는 `uint8`의, rune은 `int32`의 별칭이기 때문에, byte는 0~255 범위의 정수로 표현되고 rune은 유니코드 코드 포인트를 나타내는 정수로 표현된다. (https://go.dev/blog/strings#code-points-characters-and-runes) 이런 type alias는 유저가 직접 정의할 수도 있다.
+
+```go
+type MyString = string
+```
+
+또한 C에서처럼 문자는 작은따옴표, 문자열은 큰따옴표나 백틱으로 표현. 포맷 지정자도 `%c`랑 `%s`로 구분해서 사용할 수 있다. 문자열을 `%c`로 출력하거나 하면 제대로 출력 안되고 경고도 뜸
+
+값이 없음을 표현하는 값은 `nil`이다. JS의 null, 파이썬의 None 같은 개념으로, 변수를 선언만 하고 초기화하지 않으면 기본값으로 nil이 할당된다. nil은 포인터, 슬라이스, 맵, 채널, 인터페이스 타입의 제로 값으로 사용된다.
+
+형변환은 `변환할 자료형(값)` 식으로 한다. `int64(3.14)` 같은 느낌.
+
+```go
+package main
+
+import "fmt"
+
+func main(){
+	var intValue int=42;
+	var floatValue = float64(intValue);
+
+	fmt.Printf("intValue: %d, floatValue: %f\n", intValue, floatValue);
+
+	var s string = "123"
+	var asc int = int(s[1]);
+
+	fmt.Printf("s: %s, asc: %d\n", s, asc);
+}
+```
+
+C에서와 똑같이, 큰 자료형 -> 작은 자료형 형변환 시 데이터 손실에 주의.
+
+### 4-3 포인터
+
+Go는 C의 영향을 많이 받았다. 포인터도 제공함. C처럼 이렇게 포인터 선언시 `*` 쓰고, 다른 변수 주소 할당 가능. 포인터 역참조도 가능하고 역참조를 통해 값 변경시 원본도 변경됨
+
+```go
+var ptr *int // int 포인터 타입
+
+var intValue int = 42
+
+ptr = &intValue // intValue의 주소를 ptr에 할당
+
+*ptr = 123;
+```
+
+- `*`를 통해 포인터임을 표시
+- `&`로 변수의 주소를 가져옴
+- `*`로 포인터 역참조하여 값에 접근하거나 변경
+
+포인터는 함수에 인자로 전달할 때 유용하다. 일반적으로 go는 값 전달 방식이지만, 포인터를 사용하면 함수 내에서 원본 데이터에 직접 접근하여 수정할 수 있다. C를 하던 추억이 떠오른다. 이게 go의 call by reference!
+
+```go
+package main
+
+import "fmt"
+
+// 변수의 주소값을 전달받는다
+func updateValue(value *int) {
+	*value=200
+}
+
+func main(){
+	score:=100
+	fmt.Printf("score 지역 변수에 저장된 값: %d\n", score)
+	updateValue(&score)
+	fmt.Printf("score 지역 변수에 저장된 값: %d\n", score)
+}
 ```
