@@ -294,3 +294,236 @@ func main(){
 	fmt.Printf("score 지역 변수에 저장된 값: %d\n", score)
 }
 ```
+
+## 5장. 연산자
+
+Go에서는 당연히 연산자를 이용해 데이터에 대한 변경과 계산 가능. 사칙연산이랑 `%` 당연히 지원. 이때 C처럼, 정수 나눗셈과 실수 나눗셈을 명확히 구분. `+=` 같은 것도 지원한다.(syntactic sugar)
+
+`++`, `--` 도 지원한다. 하지만 C와 달리 Go에서는 `a++` 같은 후위 연산만 지원하고 전위 연산은 지원하지 않음. 그리고 `b=a++` 같이 증감 연산 결과를 대입하는 것도 Go에선 안된다. 개발자를 혼란스럽게 한다는 이유로 지원 안 함.
+
+덧셈으로 문자열 concat도 지원. 단 JS같은 근본 없는 언어와 달리 문자열끼리만 concat할 수 있다. 좋다.
+
+근데 만약에 이런 경우에는 어떨까? 나이 변수가 int형으로 있는데 이걸 포함해서 출력하고 싶을 수 있으니까. 물론 Printf를 이용할 수 있지만 그냥 이렇게 해보자.
+
+```go
+package main
+
+import "fmt"
+
+// 변수의 주소값을 전달받는다
+func updateValue(value *int) {
+	*value=200
+}
+
+func main(){
+	name:="김성현"
+	age:=25
+
+	msg :=name+"님의 나이는 "+string(age)+"세입니다."
+
+	fmt.Printf(msg)
+}
+```
+
+이렇게 하면 나이가 안 보인다. `string(25)`를 했을 때 나오는 건 유니코드 문자 코드로 `U+0019`(16진수로 25)이기 때문이다. EOM(End of Medium)이다.
+
+따라서 포맷 문자열을 쓰거나, fmt.Sprintf(출력 결과를 문자열로 반환함)를 이용해서 문자열로 변환하거나 `strconv.Itoa` 함수를 이용해서 정수를 문자열로 변환하는 방법이 있다.
+
+이외에도 비교 연산자, 비트 연산자, `&&`, `||`, `!` 같은 C에서 알고 있던 연산자들은 Go에서도 다 지원한다.
+
+Go의 비트 연산자 관련 메모
+
+- `^`은 이항 연산자로 썼을 때 xor인데, Go에서는 단항 연산자로 써서 비트 반전 가능
+- NAND 연산 `&^` 지원(and 한 다음 비트 반전)
+
+할당 연산자(`=`, `:=`), 주소 연산자 `&`, 역참조할 땐 `*`
+
+고루틴과 채널 연산자는 나중에 나오는데 그때 쓰이는 `<-` 를 채널 연산자라고 한다.
+
+- 왼쪽 항이 채널이면 오른쪽 항 값을 왼쪽 채널로 보냄
+- 오른쪽 항이 채널이면 오른쪽 항 채널에서 값을 받아 왼쪽 항에 대입
+- 왼쪽 오른쪽 모두 채널이면 오른쪽 채널 -> 왼쪽 채널로 값 전달
+
+나중에 더 자세히 다루겠지만 간단하게 고루틴과 채널을 이용해서 메시지를 보내고 받는 예시
+
+```go
+package main
+
+import "fmt"
+
+// 변수의 주소값을 전달받는다
+func updateValue(value *int) {
+	*value=200
+}
+
+func main(){
+	messages :=make(chan string)
+
+	// 고루틴을 통해 메시지 전송
+	go func() {
+		messages <- "Hello, World!"
+	}()
+
+	msg := <-messages
+	fmt.Println(msg)
+}
+```
+
+## 6장. 함수
+
+함수는 input을 받아서 body에서 작업을 처리한 뒤 반환한다.
+
+```
+입력 -> 함수 body -> 출력
+```
+
+정수형 인자 2개를 받아서 합을 계산하고 정수형을 반환하는 건 이렇게. 이떄 반환값이 없다면 자료형을 생략할 수 있다.(void return)
+
+```go
+package main
+
+import "fmt"
+
+func add(a int, b int) int {
+	return a + b
+}
+
+func main(){
+	fmt.Printf("Hello, %s!\n", "Go")
+	result := add(3, 5)
+	fmt.Printf("3 + 5 = %d\n", result)
+}
+```
+
+Go에서는 함수가 값을 여러 개 반환할 수 있다. 그리고 이 반환값을 받을 때는 변수 여러 개를 선언해서 받거나, 반환값 중 일부만 받고 나머지는 무시할 수 있다. 반환값이 여러 개인 경우에는 괄호로 묶어서 반환한다.
+
+```go
+package main
+
+import "fmt"
+
+func addAndSub(a, b int) (int, int) {
+	add:= a + b
+	sub:= a - b
+
+	return add, sub
+}
+
+func main(){
+	fmt.Printf("Hello, %s!\n", "Go")
+	add, sub := addAndSub(10, 5) // 변수 여러 개를 선언해서 반환값 받기
+	fmt.Printf("Addition: %d, Subtraction: %d\n", add, sub)
+}
+```
+
+a,b의 타입이 한번만 `a, b int`로 선언된 것도 보인다. 이런 식으로 여러 매개변수의 타입이 같다면 마지막에 한 번만 타입을 선언할 수 있다.
+
+보통은 반환값은 타입만 명시하지만 Go에서는 반환값에 이름 지정도 가능. 하지 않아도 동작에는 차이가 없지만 의미를 나타내서 가독성을 높일 수 있다. 또한 함수 반환값을 할당받는 데에서도 반환값 이름에 구애받지 않기에 자유롭게 명명 가능
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func getAgeDetail(bornYear int) (age int, isAdult bool){
+	currentYear := time.Now().Year()
+
+	ageValue := currentYear - bornYear
+
+	isAdultValue := ageValue >= 18
+
+	return ageValue, isAdultValue
+}
+
+func main(){
+	var bornYear int
+
+	fmt.Print("태어난 년도를 입력하세요: ")
+	fmt.Scanf("%d", &bornYear)
+
+	age, isAdult := getAgeDetail(bornYear)
+	fmt.Printf("당신의 나이는 %d세입니다.\n", age)
+	if isAdult {
+		fmt.Println("당신은 성인입니다.")
+	} else {
+		fmt.Println("당신은 미성년자입니다.")
+	}
+}
+```
+
+C처럼 `fmt.Scanf`로 사용자 입력 받기 가능
+
+### 6-2 익명 함수와 클로저
+
+Go는 함수를 일급 시민(first-class citizen)으로 취급한다. 따라서 함수를 변수에 할당하거나, 다른 함수의 인자로 전달하거나, 함수에서 반환할 수 있다. 익명 함수도 선언 가능
+
+```go
+package main
+
+import "fmt"
+
+func main(){
+	// 익명 함수 선언
+	addResult := func(a,b int)(result int){
+		return a+b
+	}(10,20)
+	fmt.Println(addResult)
+}
+```
+
+또한 go도 JS처럼 렉시컬 스코프 기반의 클로저도 지원한다. 클로저는 자신이 생성될 때의 렉시컬 스코프를 캡처해 보존한다. 나중에 내부 함수가 실행되면 캡처된 스코프에 접근한다.
+
+```go
+package main
+
+import "fmt"
+
+func makeCounter() func() int{
+	count :=0
+	return func() int{
+		count++
+		return count
+	}
+}
+
+func main(){
+	// makeCounter에서 반환하는 익명 함수는 자신이 생성될 때의 렉시컬 스코프를 캡처하여, makeCounter가 종료되어도 생성 당시 count 변수에 접근할 수 있다. 따라서 makeCounter에서 반환된 함수가 호출될 때마다 캡처된 스코프의 count가 증가한다.
+	counter := makeCounter()
+	fmt.Println(counter()) // 1
+	fmt.Println(counter()) // 2
+	fmt.Println(counter()) // 3
+}
+```
+
+클로저를 이용해서, 함수를 생성하는 팩토리 함수를 만드는 등의 테크닉도 가능하다.
+
+```go
+package main
+
+import "fmt"
+
+func funcFactory(x int) func(int) int {
+	return func(y int) int {
+		return x + y
+	}
+}
+
+func main(){
+	// x 인자에 전달하는 값이 클로저에 전달되어서, x만큼 증가하는 함수를 생성한다.
+	addTwo := funcFactory(2)
+	addThree := funcFactory(3)
+
+	var result int
+
+	result = addTwo(3)
+	fmt.Println(result) // 5
+
+	result = addThree(3)
+	fmt.Println(result) // 6
+}
+```
+
+## 7장-8장. 제어문, 반복문
