@@ -527,3 +527,118 @@ func main(){
 ```
 
 ## 7장-8장. 제어문, 반복문
+
+if, else if, else를 제공한다. C나 JS같은 다른 언어와 달리 조건에 괄호 안 씌워줘도 됨
+
+```go
+func getScoreRank(score int) (rank string) {
+	if score >= 90 {
+		return "A"
+	} else if score >= 80 {
+		return "B"
+	} else {
+		return "C"
+	}
+}
+```
+
+switch도 if처럼 괄호가 없다 뿐이지 비슷함. 정말 C랑 비슷하다고 봐야 함. 단 Go의 switch는 break가 자동으로 들어가서 case마다 break 안 써도 된다. break를 쓸 수도 있지만 어차피 자동으로 종료되어 잘 사용하지 않는다.
+
+```go
+func getDayOfWeek(day int) string {
+	switch day {
+	case 1:
+		return "Monday"
+	case 2:
+		return "Tuesday"
+		// ...
+	default:
+		return "Invalid day"
+	}
+}
+```
+
+그리고 C와 달리 `case` 뒤에 표현식을 사용할 수도 있다. `case foo():` 같은 게 가능하다.
+
+### tagless switch
+
+switch에 비교할 값을 생략하고 case마다 참이나 거짓으로 표현되는 조건식을 쓰는 tagless switch라는 기법도 있다. 고랭의 신기한 기능 중 하나. if else 체인을 좀 더 간결하게 쓸 때 사용해볼 수 있다. 예를 들어 이런 식으로 여러 케이스의 유효성 검사
+
+```go
+func validate(name string, age int) error {
+    switch {
+    case name == "":
+        return errors.New("이름은 필수입니다")
+    case len(name) > 50:
+        return errors.New("이름이 너무 깁니다")
+    case age < 0 || age > 150:
+        return errors.New("나이가 유효하지 않습니다")
+    default:
+        return nil
+    }
+}
+```
+
+### 반복문
+
+go의 반복문은 `for` 하나뿐이다. `if`에서도 그랬지만 go의 for도 소괄호 안 써도 됨
+
+```go
+func main() {
+	for i := 0; i < 5; i++ {
+		num := i + 1
+		fmt.Printf("%d번 반복문: i는 %d\n", num, i)
+	}
+}
+```
+
+> 중간에 있던 팁
+> 표현식(expression)은 항상 값을 반환하며 다른 표현식 안에서도 사용 가능. `2`, `f(3)`, `x > 5` 같은 게 표현식이다. 반면 문(statement)은 값을 반환하지 않으며 프로그램의 흐름을 제어하는 역할. `if`, `for`, `switch` 같은 게 문이다. C에서는 `x++` 가 표현식이지만 go에서는 문인 등 언어마다 차이가 있음
+
+그리고 go에는 반복문이 for 하나뿐인 만큼 유연하게 쓸 수 있는 여러 방도가 있다. 예를 들어 `for { body }`로 무한 루프 만들기 가능. C처럼 초기식, 증감식에 여러 변수 넣는 테크닉도 비슷하게 가능. 단 go의 문법을 사용해 병렬 대입을 한 걸 볼 수 있다. `i, j = i+1, j-1` 같은 느낌. 이런 식으로 여러 변수를 동시에 업데이트할 수 있다.
+
+```go
+func main() {
+	for i, j := 0, 10; i < j; i, j = i+1, j-1 {
+		num := i + 1
+		fmt.Printf("%d번 반복문: i는 %d, j는 %d\n", num, i, j)
+	}
+}
+```
+
+break, continue, goto도 지원한다. goto는 레이블을 이용해서 코드의 특정 위치로 이동하는 제어문이다. 일반적으로 goto는 코드의 가독성을 떨어뜨릴 수 있기 때문에 권장되지 않지만, 특정 상황에서는 유용하게 사용될 수 있다. 예를 들어 중첩된 루프에서 빠져나올 때 사용할 수 있다. 나머지 break, continue는 다른 언어와 동일
+
+- break: 현재 루프를 즉시 탈출
+- continue: 이 예약어를 포함한 가장 가까운 루프를 즉시 다시 반복(한 사이클 건너뛰고 다음 사이클로 넘어감)
+
+`label:`처럼 코드의 특정 위치에 레이블을 지정하고, `break label` 또는 `continue label`을 사용하여 해당 레이블로 이동할 수 있다. 중첩 루프 탈출에 유용하게 쓰인다.
+
+goto를 이용해서 코드의 실행을 특정 레이블로 이동시킬 수도 있다. 단 가독성도 떨어뜨려서 잘 쓰지 않음
+그리고 go의 goto에는 바깥에서 안쪽 블록에 goto로 이동하는 건 허용되지 않고, 변수 선언을 건너뛸 수 없고, 같은 함수 내에서만 쓸 수 있는 등의 제약이 있다.
+
+```go
+func main() {
+	// ❌ 컴파일 에러
+	goto skip
+	x := 10 // 이 선언을 건너뛰게 되니까
+skip:
+	fmt.Println("hi")
+}
+```
+
+### while처럼 쓰기
+
+go에는 while문이 없다. 대신 for문을 조건문만 있는 형태로 작성 가능하다. 이렇게 하면 while문처럼 사용할 수 있다.
+
+```go
+func main() {
+	i := 0
+	fmt.Println("i를 1씩 증가시킵니다.")
+	for i < 10 {
+		fmt.Printf("현재 i의 값: %d\n", i)
+		i++
+	}
+}
+```
+
+## 9장. 자료구조
