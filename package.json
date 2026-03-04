@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "pnpm exec eleventy",
     "dev": "pnpm exec eleventy --serve",
-    "build": "npx @11ty/eleventy"
+    "build": "npx @11ty/eleventy",
+    "prepare": "husky"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.1.2",
@@ -33,6 +34,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "@mdit/plugin-katex": "^0.23.1"
+    "@mdit/plugin-katex": "^0.23.1",
+    "husky": "^9.1.7"
   }
 }
