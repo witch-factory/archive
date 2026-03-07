@@ -642,3 +642,526 @@ func main() {
 ```
 
 ## 9장. 자료구조
+
+배열 사용하기. 이런 식으로 `[배열 크기]자료형`으로 배열 타입을 선언한다. 메모리 공간이 고정되며 이후 크키 변경 불가.
+
+```go
+var nameArray [5]string
+```
+
+`len(nameArray)`로 배열 길이 확인 가능. 배열 요소는 인덱스로 접근 가능. `nameArray[0]` 같은 느낌.
+
+```go
+package main
+
+import (
+	"fmt"
+	"math/rand"
+)
+
+func main() {
+	var nameArray [5]string
+
+	for i := 0; i < 5; i++ {
+		fmt.Printf("%d번째 이름을 입력하세요: ", i+1)
+		fmt.Scanf("%s\n", &nameArray[i])
+	}
+
+	randomNumber := rand.Intn(len(nameArray))
+	fmt.Printf("\n")
+	fmt.Printf("오늘의 행운의 이름은 %s입니다.\n", nameArray[randomNumber])
+}
+```
+
+### 슬라이스
+
+슬라이스는 같은 자료형의 여러 값을 저장 가능한 동적 배열. 내부 포인터를 이용해 배열의 특정 부분을 가리키며 원소를 가변으로 다룰 수 있다.
+
+```go
+slice := []int{1, 2, 3, 4, 5}
+```
+
+슬라이스는 내부 배열을 참조하여 값을 저장한다. 배열의 시작 주소를 가리키는 포인터를 가지며, 길이와 용량(capacity) 정보를 포함한다. capacity는 리터럴 값으로 직접 초기화 시 선언할 때의 길이와 같다. 슬라이스는 capacity만큼의 요소를 담을 수 있음.
+
+혹은 `make`로 만들 수도 있다. `make([]자료형, 길이, 용량)` 같은 느낌. 길이와 용량을 다르게 지정할 수 있다.
+
+```go
+// make([]T, length, capacity)
+package main
+
+import (
+	"fmt"
+	"math/rand"
+)
+
+func main() {
+	nameSlice := make([]string, 5)
+
+	for i := 0; i < 5; i++ {
+		fmt.Printf("%d번째 이름을 입력하세요: ", i+1)
+		fmt.Scanf("%s\n", &nameSlice[i])
+	}
+
+	randomNumber := rand.Intn(len(nameSlice))
+	fmt.Printf("\n")
+	fmt.Printf("오늘의 행운의 이름은 %s입니다.\n", nameSlice[randomNumber])
+
+}
+```
+
+이때 `make`는 슬라이스뿐 아니라 map, channel의 초기화에도 쓰이기 때문에 타입은 원래 `make(t Type, size ...IntegerType) Type`으로 정의되어 있다. 여기서는 슬라이스 초기화에만 사용하므로 `make([]자료형, 길이, 용량)`의 형태.
+
+슬라이스는 `append` 함수를 이용해 동적으로 요소를 추가할 수 있다. `append`는 기존 슬라이스에 새로운 요소를 추가한 새로운 슬라이스를 반환한다. 만약 추가로 인해 용량이 초과되면, Go 런타임이 자동으로 더 큰 배열을 할당하고 기존 요소를 복사한 후 새 요소를 추가한다.
+
+```go
+func main() {
+	var nameSlice []string
+	var newName string
+
+	for i := 0; i < 5; i++ {
+		fmt.Printf("%d번째 이름을 입력하세요: ", i+1)
+		fmt.Scanf("%s\n", &newName)
+		nameSlice = append(nameSlice, newName)
+	}
+
+	randomNumber := rand.Intn(len(nameSlice))
+	fmt.Printf("\n")
+	fmt.Printf("오늘의 행운의 이름은 %s입니다.\n", nameSlice[randomNumber])
+}
+```
+
+이런 식으로 하면 사용자가 종료할 때까지 계속 입력을 받으면서 append로 계속 요소를 추가하는 식으로도 작성 가능하다. `append(값을 추가할 슬라이스, 추가할 요소)` 처럼 쓴다.
+
+append할 때마다 만약 capacity가 꽉 차면 go에서 알아서 배열을 확장한다. python의 list(amortized array)와 비슷한 느낌. 일반적으로 2배씩 확장되며 용량이 커질수록 증가폭은 조금씩 작아진다.
+
+또한 추가할 요소를 여러 개 전달 가능
+
+```go
+nameSlice = append(nameSlice, "Alice", "Bob", "Charlie")
+```
+
+### 슬라이싱
+
+파이썬 리스트랑 비슷하다. 단 append가 새 슬라이스를 반환하는 등 차이가 있다.
+
+또 비슷하면서 다른 게 있는데 슬라이싱도 가능. `sliced := original[1:4]` 처럼 하면 된다. 이때 슬라이스는 원본 배열의 요소를 참조하기 때문에, 슬라이스에서 요소를 변경하면 원본 배열에도 영향을 미친다. 슬라이스는 원본 배열의 특정 부분을 가리키는 뷰(view) 역할을 한다고 볼 수 있다.
+
+```go
+func main() {
+	original := []int{1, 2, 3, 4, 5, 6}
+
+	sliced := original[1:4]
+
+	fmt.Println("Original:", original) // [1 2 3 4 5 6]
+	fmt.Println("Sliced:", sliced)     // [2 3 4] - sliced는 original의 1, 2, 3번째 요소를 참조
+
+	sliced[0] = 20 // slice뿐 아니라 원본(original[1]에 해당)도 변경됨
+
+	fmt.Println("After modifying sliced:")                                       // original과 sliced 모두 변경됨
+	fmt.Println("Original:", original)                                           // [1 20 3 4 5 6] - original의 1번째 요소가 sliced[0]의 변경으로 인해 변경됨
+	fmt.Println("original len: ", len(original), "original cap:", cap(original)) // 6,6
+	fmt.Println("Sliced:", sliced)                                               // [20 3 4]
+	fmt.Println("sliced len: ", len(sliced), "sliced cap:", cap(sliced))         // 3,5
+	// sliced의 cap이 5인 이유는 sliced가 original이 1번 인덱스부터 끝까지를 참조하기 때문
+}
+```
+
+이런 슬라이스의 메모리 참조와 계산 방식을 알아 두면 효율적인 메모리 사용에 도움이 된다.
+
+### range
+
+python처럼 range라는 것도 사용가능
+
+```go
+func main() {
+	score := make([]int, 5)
+
+	for i := range score {
+		fmt.Printf("%d번째 과목 점수 입력: ", i+1)
+		fmt.Scanf("%d\n", &score[i])
+	}
+
+	sumOfScore := 0
+	for _, scoreItem := range score {
+		sumOfScore += scoreItem
+	}
+
+	mean := float64(sumOfScore) / float64(len(score))
+	fmt.Printf("총점: %d, 평균: %.2f\n", sumOfScore, mean)
+}
+```
+
+이렇게 `range`를 쓰면 score의 길이만큼 자동으로 반복하면서 인덱스 i를 반환한다. 슬라이스 순회 시 첫번째로는 인덱스를, 두번째로 값을 돌려준다.
+
+```go
+for i,v := range score {
+	// i는 인덱스, v는 해당 인덱스의 값
+}
+```
+
+`_`는 blank identifier라고 하며 값을 무시하거나 버릴 때 사용한다. Go는 모든 코드가 명시적이어야 한다는 철학이 있어서 모든 변수가 코드 내에서 사용되어야 한다. 그렇지 않으면 컴파일 에러 발생. 근데 range에서 인덱스는 필요 없는 등의 경우가 있다. 이때 `_`를 사용하면 해당 값을 할당 즉시 버리며, go 컴파일러도 오류를 발생시키지 않는다.
+
+### copy
+
+슬라이스를 다른 변수에 할당하는 건 가능하지만 이렇게 되면 얕은 복사라 원본과 새 변수 모두 같은 배열을 참조하게 된다. 따라서 한쪽에서 요소를 변경하면 다른 쪽에서도 변경이 반영된다. 만약 원본과 독립적인 새로운 슬라이스가 필요하다면 `copy` 함수를 사용해서 슬라이스를 복사해야 한다.
+
+다음 코드에서 원본 변경시 대입으로 만든 새 변수 내용도 변경되는 걸 볼 수 있다.
+
+```go
+func main() {
+	orig := []int{1, 2, 3, 4, 5}
+	ref := orig
+
+	fmt.Printf("orig: %v\n", orig)
+	fmt.Printf("ref: %v\n", ref)
+
+	orig[0] = 100
+	fmt.Printf("orig: %v\n", orig) // Output: orig: [100 2 3 4 5]
+	fmt.Printf("ref: %v\n", ref)   // Output: ref: [100 2 3 4 5] - ref도 orig의 변경을 반영
+}
+```
+
+깊은 복사를 수행해야 한다. copy의 반환형이 int인 이유는 복사된 요소의 개수를 정수형으로 반환하기 때문이다.
+
+```go
+copy(dst, src []T) int
+```
+
+다음과 같이 `make`로 새 슬라이스를 만들고 `copy`로 원본 슬라이스의 요소를 새 슬라이스로 복사하면 된다. 깊은 복사가 된다.
+
+```go
+func main() {
+	orig := []int{1, 2, 3, 4, 5}
+	copied := make([]int, len(orig))
+	copy(copied, orig)
+
+	fmt.Printf("orig: %v\n", orig)
+	fmt.Printf("copied: %v\n", copied)
+
+	orig[0] = 100
+	fmt.Printf("orig: %v\n", orig)     // Output: orig: [100 2 3 4 5]
+	fmt.Printf("copied: %v\n", copied) // Output: copied: [1 2 3 4 5] - 독립적
+}
+```
+
+근데 왜 `make`를 먼저 해줄까? `copy`는 대상 슬라이스의 기존 길이만큼만 복사하기 때문이다. 따라서 만약 `copied := make([]int, 3)` 처럼 3개짜리 배열을 만들고 거기에 복사하다면, 위 코드의 `orig`를 복사한다면 `[1,2,3]`만 복사된다. 앞쪽 3개만...
+
+### 맵
+
+map은 key-value 쌍을 저장하는 자료구조. 내부적으로 해시 테이블을 사용한다.
+
+```go
+func main() {
+	// make(map[키 자료형]값 자료형)처럼 만든다
+	scoreMap := make(map[string]int)
+
+	for i := 0; i < 3; i++ {
+		var subName string
+		var score int
+		fmt.Printf("Enter subject name and score: ")
+		fmt.Scanf("%s %d", &subName, &score)
+		scoreMap[subName] = score
+	}
+
+	fmt.Println("Subject\tScore\tRank")
+	for subName, score := range scoreMap {
+		rank := getRank(score)
+		fmt.Printf("%s\t%d\t%s\n", subName, score, rank)
+	}
+}
+```
+
+map은 키를 이용해서 값에 접근할 수 있다. 그리고 range로 선언 시 (key, value) 쌍으로 순회할 수 있다.
+
+`make` 대신 리터럴로도 맵을 만들 수 있다. `map[키 자료형]값 자료형{키1:값1, 키2:값2}` 같은 느낌
+
+```go
+func main() {
+	scoreMap := map[string]int{
+		"Math":    95,
+		"English": 88,
+		"Science": 92,
+	}
+	fmt.Println(scoreMap)
+}
+```
+
+좀 예쁘게 출력하고자 하면 이렇게 `%-10s` 같은 식으로 서식 지정자에 폭을 지정할 수도 있다. `%-10s`는 문자열을 왼쪽 정렬로 10칸의 폭을 차지하도록 출력한다. 이렇게 하면 과목 이름이 10칸의 공간을 차지하면서 왼쪽 정렬되어 출력된다.
+
+```go
+fmt.Println("| Subject    | Score | Rank |")
+fmt.Println("|------------|-------|------|")
+for subName, score := range scoreMap {
+	rank := getRank(score)
+	fmt.Printf("| %-10s | %-5d | %-4s |\n", subName, score, rank)
+}
+```
+
+그리고, 당연하지만 해시 테이블 특성상 map은 키의 순서를 보장하지 않는다. 따라서 range로 순회할 때마다 키의 순서가 달라질 수 있다. 만약 특정한 순서로 출력하고 싶다면, 키를 슬라이스에 담아서 정렬한 다음에 그 순서대로 값을 출력하는 식으로 구현해야 한다.
+
+### 구조체
+
+여러 자료형을 하나로 묶어서 저장. C의 struct와 비슷하다. `type 구조체명 struct { 필드1 자료형; 필드2 자료형; ... }` 같은 느낌으로 선언한다.
+
+```go
+func main() {
+	type Student struct {
+		Name  string
+		Age   int
+		Score map[string]int
+	}
+
+	// 필드 초기화
+	// 구조체 필드의 선언 순서와 일치해애 한다.
+	// 만약 필드명을 명시하면 순서 상관없이 초기화 가능
+	student := Student{"이능룡", 47, map[string]int{"Math": 95, "English": 88, "Science": 92}}
+	/*
+	필드명으로 초기화하는 건 이런 식으로.
+	student := Student{
+		Age:  47,
+		Name: "이능룡",
+	}
+	*/
+	fmt.Printf("Name: %s, Age: %d\n", student.Name, student.Age)
+	fmt.Printf("구조체 전체: %v\n", student)
+}
+```
+
+go에서는 보통 구조체를 응용해 로직을 구성한다. oop에서의 클래스와 비슷하게 사용 가능.
+
+## 10장. 객체지향 프로그래밍
+
+객체지향은 각 기능을 객체(데이터 + 기능)로 분리하고 객체간의 상호작용을 통해 전체가 동작하도록 한다. go에서는 이렇게 한다. 메서드 오버로딩, 추상 클래스 같은 것 대신 구조체와 메서드라는 기본적인 개념을 활용해서 객체지향 프로그래밍을 구현한다.
+
+- 구조체로 객체 구현
+- 인터페이스로 공통 기능 추상화
+- 리시버로 메서드-객체 연결
+- 구조체 임베딩으로 상속 모방
+
+go에서는 구조체를 정의한 후 `new` 함수에 전달하는 방식으로 객체를 생성한다.
+
+```go
+// 자료형을 전달받아 메모리 할당 후 그 포인터를 반환한다
+func new(Type) *Type
+```
+
+다음은 go에서 enum을 만드는 법이랑 새 구조체 만드는 법을 보이는 코드다.
+
+```go
+// type alias
+type Subject string
+
+// enum
+const (
+	Math    Subject = "Math"
+	Science Subject = "Science"
+	History Subject = "History"
+)
+
+type Student struct {
+	Name  string
+	Age   int
+	Major Subject
+}
+
+func main() {
+	student1 := new(Student)
+	fmt.Printf("Student1: %+v\n", student1)
+	fmt.Printf("Student1 Name: %s\n", student1.Name)
+	fmt.Printf("Student1 Age: %d\n", student1.Age)
+	fmt.Printf("Student1 Major: %s\n", student1.Major)
+}
+```
+
+근데 이러면 그냥 빈 구조체가 만들어질 뿐이다. 생성자를 만들어보자.
+
+go에는 다른 언어 같은 constructor나 `__init__` 같은 게 없다. 대신 생성자 역할을 하는 함수를 만들어서 객체를 초기화하는 관례가 있다. 보통 `New + 구조체명` 같은 이름으로 생성자 함수를 정의한다. 다음 함수를 보면 `student`의 포인터를 반환하는 걸 볼 수 있다.
+
+```go
+func NewStudent(name string, age int, major Subject) *Student {
+	student := new(Student)
+	student.Name = name
+	student.Age = age
+	student.Major = major
+	return student
+}
+// 호출은 이렇게
+student1 := NewStudent("이능룡", 47, Math)
+```
+
+구조체는 객체의 구조를 정의하고, 생성자 함수는 초기값을 설정하는 역할을 한다. 위보다 더 간단하게 리터럴 초기화와 `&` 연산자를 이용해서도 객체를 만들 수 있다.
+
+```go
+student1 := &Student{
+	Name:  "이능룡",
+	Age:   47,
+	Major: Math,
+}
+
+// 같은 방식으로 생성자 함수도 정의 가능
+func NewStudent(name string, age int, major Subject) *Student {
+	return &Student{
+		Name:  name,
+		Age:   age,
+		Major: major,
+	}
+}
+```
+
+객체지향을 간단히 설명하는데, 어차피 아는 내용이라 스킵. 객체지향 지식이 필요하면 "스프링 입문을 위한 자바 객체 지향의 원리와 이해" 같은 책을 참고하자.
+
+### 메서드
+
+구조체의 정보를 보관하는 필드 -> 멤버 변수. 기능을 정의하는 함수: 메서드
+
+go에서 메서드를 정의할 때도 func을 사용하지만 메서드의 소속을 알려준다.
+
+```go
+func (receiver ReceiverType) MethodName(parameters) returnType {
+	// 메서드 본문
+	// receiver는 메서드를 호출하는 객체를 지칭한다.
+}
+
+// 예를 들면 이런 식
+func (s *Store) GetProducts() []*Product {
+	return s.Products
+}
+```
+
+보통 receiver는 메서드가 속한 구조체의 포인터 타입으로 선언하며 관례상 타입 이름의 첫 글자 소문자로 지을 때가 많다. 위와 같이 쓰면 `myStore.GetProducts()` 처럼 메서드 호출 가능하다.
+
+근데 만약 nil pointer dereference 에러 같은 게 발생하면 어떡하지? 예를 들어 name으로 product를 찾고 해당 product에서 뭔가를 하는 코드를 짰는데, 해당 name에 대응하는 product가 없는 경우 말이다. 이런 경우 에러 핸들링이 필요한데 12장에서 다룬다.
+
+### 인터페이스
+
+인터페이스는 구조체가 구현해야 할 메서드 집합을 정의하는 구조다. ts 등에서의 `implements`랑 비슷하다. 인터페이스를 사용하는 객체는 인터페이스의 메서드를 반드시 정의해야 함. 따라서 함수 인자 등으로 인터페이스를 쓸 때 유용하다.
+
+다음과 같이 `type 인터페이스명 interface { 메서드 시그니처 }`로 인터페이스를 정의한다. 각 메서드의 입력, 출력 타입을 제공해서 일종의 명세서 같은 역할을 한다.
+
+```go
+type Shape interface {
+	Area() float64
+	Perimeter() float64
+
+	// 게터 함수
+	Length() float64
+}
+```
+
+또한 getter도 있는데, go는 다른 언어같은 Get prefix를 안 쓰고 필드 이름을 그대로 게터로 사용할 때가 많다. `Name()` 게터라면 `name` 필드를 가져오는 식이다. 이렇게 게터를 쓰면 내부 상태를 안전하게 관리하고 이후 변경하기 쉽게 할 수 있다고 한다.
+
+- 객체의 내부 데이터에 대한 접근을 제어하여 구조체의 내부 구현과 구조체의 활용을 경계짓고 이후 데이터 저장 방식이 변하는 등의 변경에 유연하게 대처할 수 있다.
+- 할인 등의 데이터 변환/처리 등이 필요할 때 게터에서 처리할 수 있다.
+- 게터를 통해 필드값의 읽기만 가능하게 하면 객체 불변성 유지 가능
+
+이때 주의할 점: go에서는 소문자로 시작하는 필드는 private member variable이 된다. 외부에서 접근해야 하면 게터를 만들거나 필드 이름을 대문자로 시작하게 해야 한다. https://cvml.tistory.com/11
+
+인터페이스를 마치 타입처럼 쓸 수 있다. 이렇게 하면 `ProductItem` 인터페이스를 구현하는 어떤 구조체든 `Product`의 `Item` 필드로 사용할 수 있다. 즉 Store.Products 에는 ProductItem을 구현하는, Coffee, Tea, Juice 같은 구조체가 들어갈 수 있다. 인터페이스를 이용하면 같은 기능을 하는 여러 구조체를 하나의 타입으로 다룰 수 있어서 유연한 코드 작성이 가능하다. 다형성이라고 한다.
+
+```go
+type ProductItem interface {
+	Make() error
+	Package() error
+	Pick() error
+}
+
+// 상품 구조체
+type Product struct {
+	Item     ProductItem
+	Quantity int
+}
+
+type Store struct {
+	Products []*Product
+	Money   int
+}
+```
+
+그리고 이런 건 한 파일에 작성하면 힘드니까, 여러 파일(예: product.go, store.go, main.go)로 나눠서 작성할 수 있다. go에서는 같은 패키지 내에 있는 파일들은 서로의 내용을 자유롭게 참조할 수 있다. 그리고 `go run .` 처럼 하면 해당 디렉토리 내의 모든 go 파일을 컴파일해서 실행할 수 있다.(단 모듈이어야, 즉 `go.mod` 파일이 있어야 함)
+
+### 리시버
+
+go에서 메서드는 특정 타입 값을 수신할 수 있도록 설정된다. 이를 리시버라고 하는데 이 리시버 선언이 함수를 특정 타입에 속한 메서드로 만들어준다.
+
+```go
+// func 다음에 리시버를 명시한다
+func (receiver ReceiverType) MethodName(parameters) returnType {
+	// 메서드 본문
+	// receiver는 메서드를 호출하는 객체를 지칭한다. this 같은 느낌
+}
+
+// 예시: Building 구조체에 Open 메서드 추가
+func (b *Building) Open() {
+	b.Status = "OPEN"
+}
+```
+
+이때 리시버는 값 리시버, 포인터 리시버가 있다.
+
+값 리시버(`func (b Building) Open()` 처럼 선언)는 메서드가 호출될 때 리시버 타입의 복사본이 생성되어 메서드 내부에서 사용된다. 따라서 메서드 내에서 리시버의 필드를 변경해도 원본 객체에는 영향을 미치지 않는다.
+
+반면 포인터 리시버(`func (b *Building) Open()`처럼 선언)는 메서드가 호출될 때 리시버 타입의 포인터가 전달된다. 따라서 메서드 내에서 리시버의 필드를 변경하면 원본 객체에도 영향을 미친다. 일반적으로 객체의 상태를 변경하는 메서드는 포인터 리시버로 정의하는 것이 좋다.
+
+go에는 사실 객체라는 개념이 별도로 존재하지 않는다. 구조체에 리시버를 통해서 메서드를 연결해 객체처럼 사용할 수 있게 하는 것이다.
+
+### 상속과 구조체 임베딩
+
+전통적인 객체지향에서는 상속을 통해서 구조를 확장할 수 있도록 한다. 하지만 go에는 이런 게 없고 대신 구조체 합성을 통해 비슷한 걸 처리한다.
+
+한 구조체 안에 다른 구조체를 포함하면 마치 상속처럼 사용 가능하다. 상속보다는 합성을 사용하라는 격언에 맞는 내용이기도 함.
+
+예를 들어 학생, 군인이 모두 사람이라는 공통된 특성을 가지면서도 각각의 고유한 특성도 가지고 있다고 생각해보자. 이때 `Person`이라는 구조체를 만들고, 학생, 군인 구조체에 `Person`을 포함시키는 식으로 구현할 수 있다.
+
+다음을 보면 그냥 `Person`을 `Student`와 `Soldier`에 포함만 시켜도 `Person`의 필드와 메서드를 사용할 수 있는 걸 볼 수 있다. 이렇게 구조체를 익명으로 임베딩하면 go의 필드 및 메서드 승격(promotion) 규칙에 따라 Person 구조체의 exported(대문자로 시작하는) 필드와 메서드가 외부에서 접근 가능하게 된다.
+
+```go
+package main
+
+import "fmt"
+
+type Person struct {
+	Name string
+}
+
+func (p Person) Walk() {
+	fmt.Printf("%s 이 걷고 있다.\n", p.Name)
+}
+
+func (p Person) Greet() {
+	fmt.Printf("안녕하세요. 제 이름은 %s입니다.\n", p.Name)
+}
+
+type Student struct {
+	Person
+}
+
+func (s Student) Study() {
+	fmt.Printf("%s 이 공부하고 있다.\n", s.Name)
+}
+
+type Soldier struct {
+	Person
+}
+
+func (s Soldier) Train() {
+	fmt.Printf("%s 이 훈련하고 있다.\n", s.Name)
+}
+
+// Greet 메서드 섀도잉
+func (s Soldier) Greet() {
+	fmt.Printf("안녕하세요. 저는 군인 %s입니다.\n", s.Name)
+}
+
+func main() {
+	student := Student{Person{Name: "철수"}}
+	student.Walk()
+
+	soldier := Soldier{Person{Name: "영희"}}
+	soldier.Walk()
+	soldier.Greet()
+}
+```
+
+임베딩된 구조체의 메서드와 똑같은 이름으로 외부 구조체에 메서드를 정의하면 외부 메서드가 우선 호출된다. 위에서 `Soldier.Greet`를 호출하면 `Person.Greet`이 아니라 `Soldier.Greet`가 호출되는 게 그 예시다.
+
+오버라이딩과 비슷하지만, go에서는 단순히 이름 우선 규칙에 따라 내부 메서드가 가려지는 것이다. 렉시컬 스코프에서 변수 섀도잉과 같다.
