@@ -1165,3 +1165,119 @@ func main() {
 임베딩된 구조체의 메서드와 똑같은 이름으로 외부 구조체에 메서드를 정의하면 외부 메서드가 우선 호출된다. 위에서 `Soldier.Greet`를 호출하면 `Person.Greet`이 아니라 `Soldier.Greet`가 호출되는 게 그 예시다.
 
 오버라이딩과 비슷하지만, go에서는 단순히 이름 우선 규칙에 따라 내부 메서드가 가려지는 것이다. 렉시컬 스코프에서 변수 섀도잉과 같다.
+
+### go에서 인터페이스로 다형성 구현
+
+go에서 다형성은 인터페이스로 구현한다. 특정 메서드들의 구현을 강제하기 위해 인터페이스를 쓰고, 함수 혹은 사용처에서는 인터페이스 타입을 받아서 사용한다. 그리고 각 객체는 인터페이스의 구체적인 구현체가 된다. 그럼 사용처에서는 인터페이스 타입으로 객체를 다루면서도, 실제로는 다양한 구현체가 들어올 수 있게 된다.
+
+다음 코드를 보면 `Shape` 인터페이스가 있고, `Circle`, `Rectangle` 구조체가 `Shape` 인터페이스를 구현한다. 같은 메서드, 혹은 같은 함수를 실행해도 shape가 참조하는 구체적인 구현체에 따라 결과가 달라진다.
+
+```go
+package main
+
+import "fmt"
+
+type Shape interface {
+	Area() float64
+}
+
+type Circle struct {
+	Radius float64
+}
+
+func (c Circle) Area() float64 {
+	return 3.14 * c.Radius * c.Radius
+}
+
+type Rectangle struct {
+	Width, Height float64
+}
+
+func (r Rectangle) Area() float64 {
+	return r.Width * r.Height
+}
+
+// 인터페이스를 매개변수로 받아서 다형성을 활용하는 함수
+// Shape 인터페이스를 구현하는 어떤 객체든 받아서 면적을 출력할 수 있다.
+func PrintArea(s Shape) {
+	fmt.Printf("Area of the shape is %.2f\n", s.Area())
+}
+
+func main() {
+	fmt.Println("chapter 10")
+	var s Shape
+
+	s = Circle{Radius: 5}
+	// shape는 Circle 객체 참조
+	fmt.Printf("Circle Area: %.2f\n", s.Area())
+
+	s = Rectangle{Width: 4, Height: 6}
+	// shape는 Rectangle 객체 참조
+	fmt.Printf("Rectangle Area: %.2f\n", s.Area())
+
+	PrintArea(s)
+}
+```
+
+핵심
+
+- 객체는 데이터 + 기능
+- go에서는 `New + 구조체명` 같은 이름으로 생성자 함수 정의(no constructor)
+- 메서드는 `func (receiver ReceiverType) MethodName(parameters) returnType`로 정의하여 리시버를 통해 구조체와 연결
+  - 값 리시버, 포인터 리시버
+- 인터페이스로 공통 기능(구현 강제) 추상화, 다형성 구현
+- 상속 대신 구조체 임베딩
+
+## 11장 입출력 프로그래밍
+
+go도 다른 언어들처럼 여러 입출력을 지원한다. 지금까지 본 표준 입출력 `fmt` 패키지 외에도 파일 입출력의 `os`랑 `io`, 네트워크를 위한 `net`, `http` 패키지, 버퍼 입출력의 `bufio` 패키지 등이 있다.
+
+### 표준 입출력
+
+표준 입출력이 없으면 프로그램이 각 장치에 대해 직접 입출력을 구현해야 한다..
+플랫폼에 따라 출력 위치도 지정해 줘야 하는 등 호환성 문제도 있고. 표준 입출력이 없을 때 os 기반으로 직접 출력하기
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func main() {
+	file, err := os.OpenFile("/dev/tty", os.O_WRONLY, 0600)
+
+	if err != nil {
+		fmt.Println("Error opening /dev/tty:", err)
+		return
+	}
+	defer file.Close()
+
+	_, err = file.WriteString("Hello, /dev/tty! this is a direct write\n")
+	if err != nil {
+		fmt.Println("Error writing to /dev/tty:", err)
+	}
+}
+```
+
+표준 입출력
+
+- `fmt.Print`, `fmt.Println`, `fmt.Printf` 등 다양한 출력 함수 제공
+- `fmt.Scan`, `fmt.Scanln`, `fmt.Scanf` 등 입력 함수 제공: `Scan`은 공백으로 구분된 입력 받기. `Scanln`은 입력 끝난 후 줄바꿈이 버퍼에 남지 않게 처리됨. `Scanf`는 C같이 포맷 문자열로 입력 받기
+
+표준 오류는 `log`나 `fmt.Fprintf`에 `os.Stderr`(표준 오류 스트림)를 전달해서 사용할 수 있다. 코드에서 `if (초기화문 + 조건식)`형태의 if문을 사용해서 출력이 실패했는지 확인하고, 실패했다면 표준 오류로 에러 메시지를 출력하는 식으로 작성한 것도 볼 수 있다.
+
+```go
+func main() {
+	if _, err := fmt.Println("This is a standard error message."); err != nil {
+		// 표준 오류로 에러 메시지 출력
+		fmt.Fprintf(os.Stderr, "Error writing to standard error: %v\n", err)
+	}
+
+	// 존재하지 않는 파일을 열려고 시도하여 의도적으로 오류 발생
+	if _, err := os.Open("nonexistent.txt"); err != nil {
+		fmt.Fprintf(os.Stderr, "Error opening file: %v\n", err)
+	}
+}
+```
