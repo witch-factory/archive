@@ -3,10 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pnpm exec eleventy",
-    "dev": "pnpm exec eleventy --serve",
-    "build": "npx @11ty/eleventy",
+    "start": "eleventy --serve --quiet",
+    "dev": "eleventy --serve --quiet",
+    "build": "eleventy",
     "prepare": "husky"
   },
   "dependencies": {
