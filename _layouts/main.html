@@ -60,6 +60,12 @@
         <span>&nbsp;/&nbsp;</span>
         {% endunless %}{% endfor %}
       </nav>
+      {% if date %}
+      <p>
+        작성일
+        <time datetime="{{ page.date | ymd }}">{{ page.date | ymd }}</time>
+      </p>
+      {% endif %}
     </header>
     <main>{{ content }}</main>
   </body>

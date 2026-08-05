@@ -50,6 +50,8 @@ export default async function (eleventyConfig) {
       collectionApi.getFilteredByGlob(`data/${name}/**/*.md`),
     );
   }
+
+  eleventyConfig.addFilter("ymd", (d) => d.toISOString().slice(0, 10));
 }
 
 export const config = {
