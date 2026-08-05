@@ -1,6 +1,7 @@
 ---
 title: 2025-12-20 react-simplikit, overlay-kit 등 토스 라이브러리
 description: react에서 자주 쓰이는 도구들을 모아놓은 React-simplikit을 보았다.
+date: 2025-12-20
 ---
 
 토스에서는 여러 라이브러리를 공개하고 있는데 그것들을 알아볼 때마다 적는다.

@@ -1,6 +1,7 @@
 ---
 title: CSS의 print-color-adjust에 대해 알아보자
 description: CSS에서 처음 본 속성
+date: 2026-08-03
 ---
 
 문서를 HTML로 작성하고 PDF로 출력하는 작업을 하고 있었다. 그런데 회색(`#868e96`)으로 설정해 놓은 텍스트가 PDF로 출력시 그냥 검은색으로 나오는 현상이 발생했다.

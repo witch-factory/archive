@@ -2,6 +2,7 @@
 id: 상태 관리 정보
 title: zustand 중심의 상태 관리에 관한 이야기
 description: 상태 관리에 대해 학습하면서 정리한 내용입니다.
+date: 2025-04-08
 ---
 
 - 프론트엔드 상태관리 실전 편 with React Query & Zustand
@@ -36,7 +37,7 @@ const useStore = create((set) => ({
 이런 자동 병합을 끌 수도 있는데 그러면 `set`함수의 2번째 인자인 `replace`를 `true`로 설정하면 된다. 이 경우 상태가 완전히 교체된다.
 
 ```tsx
-set((state) => newState, true)
+set((state) => newState, true);
 ```
 
 단 이런 자동 병합은 얕은 복사로 이루어진다([it will be shallowly merged with the existing state in the store.](https://zustand.docs.pmnd.rs/guides/updating-state)). 따라서 중첩 객체 업데이트 시 `...` 연산자를 사용해서 상태를 복사하여 불변 객체를 보장해줘야 한다. 하지만 깊이 중첩된 객체의 경우 Immer와 같은 대안을 고려할 수 있다. 깊은 중첩 객체를 복사하는 건 실수의 여지도 많기 때문이다.
@@ -56,8 +57,6 @@ function App() {
 
 이런 식으로 선택적으로 속성을 가져오는 걸 셀렉터를 이용한다고 한다. 그런데 이런 콜백을 매번 쓰는 게 귀찮다면 자동으로 생성하는 함수를 만들어줄 수 있다고 한다. [Auto Generating Selectors](https://zustand.docs.pmnd.rs/guides/auto-generating-selectors)
 
-
-
 `combine` 함수를 사용해서 initial state와 업데이트 함수를 한번에 정의할 수도 있다. 이러면 state creator 함수가 리턴되는데 타입 추론도 더 잘된다고 함.
 
 https://zustand.docs.pmnd.rs/middlewares/combine
@@ -74,8 +73,8 @@ combine<T, U>(initialState: T, additionalStateCreatorFn: StateCreator<T, [], [],
 
 ```tsx
 const useStore = create((set) => ({
-  x:0,
-  y:0,
+  x: 0,
+  y: 0,
   setX: (x: number) => set({ x }),
   setY: (y: number) => set({ y }),
 }));
@@ -94,4 +93,3 @@ const increaseX = useStore.setState((state) => ({ x: state.x + 1 }));
 그리고 `create` 함수는 상태를 사용할 수 있게 하는 커스텀 훅을 리턴한다. `createStore`는 상태 저장소 그 자체를 리턴한다. 즉 훅으로 사용할 게 아닐 경우(조건문, context API 등에서 사용하고 싶다면) `createStore`를 써야 한다.
 
 https://tuffstuff9.hashnode.dev/zustand-create-vs-createstore
-

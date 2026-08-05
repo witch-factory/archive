@@ -1,6 +1,7 @@
 ---
 title: Vercel AI SDK 사용해보기
 description: Vercel AI SDK를 사용해보았다.
+date: 2026-07-26
 ---
 
 Vercel AI SDK를 써봤다. `create-next-app`으로 프로젝트를 만들고 해봄

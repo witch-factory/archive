@@ -2,6 +2,7 @@
 id: nestjs docs reading
 title: Nest.js 문서를 읽고 해보자
 description: Nest.js 문서를 읽고 알아본 내용
+date: 2025-07-11
 ---
 
 https://docs.nestjs.com/ 를 읽고 시작해 보는 중. Prisma를 사용해 보려고 함
@@ -225,7 +226,7 @@ export const User = createParamDecorator(
     const user = request.user;
 
     return data ? user?.[data] : user;
-  }
+  },
 );
 ```
 

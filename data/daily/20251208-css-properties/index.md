@@ -1,6 +1,7 @@
 ---
 title: 2025-12-08 web.dev에 CSS 글들
 description: web.dev에 있던 CSS 속성 관련 글들을 몇 개 읽어보기
+date: 2025-12-08
 ---
 
 ## inert 속성

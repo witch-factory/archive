@@ -1,6 +1,7 @@
 ---
 title: 20251202 토스 ts-pattern 글
 description: 2025년 12월 2일에 토스의 ts-pattern 글을 읽고 메모
+date: 2025-12-02
 ---
 
 원글: ts-pattern은 더 멋진 if문이 아니다

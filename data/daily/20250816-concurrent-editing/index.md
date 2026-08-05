@@ -1,6 +1,7 @@
 ---
 title: 2025-08-16 Open Up Yorkie 동시 편집 세미나
 description: OSSCA에서 진행된 Yorkie 동시 편집 세미나를 들으며 메모d
+date: 2025-08-16
 ---
 
 내가 멘티로 참여하고 있는 OSSCA Yorkie팀의 멘토로 계신 [이진호](https://github.com/binary-ho)님의 발표를 듣고 정리한 내용이다. 이미지는 진호님의 발표 ppt에서 따온 게 대부분이다.

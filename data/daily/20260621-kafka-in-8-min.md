@@ -1,6 +1,7 @@
 ---
 title: 2026-06-21 Kafka in 8 minutes 영상
 description: 유튜브에 있는 Kafka in 8 minutes 영상에 대한 학습
+date: 2026-06-21
 ---
 
 Apache Kafka Explained in 8 Minutes

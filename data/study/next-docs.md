@@ -2,6 +2,7 @@
 id: next docs reading
 title: Next.js 문서를 읽으면서 메모
 description: Next.js 문서를 읽으면서 간단히 메모한 내용
+date: 2025-07-11
 ---
 
 ## 2024.10.10

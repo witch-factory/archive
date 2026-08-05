@@ -1,6 +1,7 @@
 ---
 title: TkDodo의 practical react query를 비롯한 블로그 글 읽기
 description: Practical React Query를 읽고 tanstack query를 더 잘 쓰기 위해 정리한다. TkDodo의 다른 글도 읽음
+date: 2026-02-09
 ---
 
 ## Exhaustive matching in TypeScript

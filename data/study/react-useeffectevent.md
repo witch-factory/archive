@@ -1,6 +1,7 @@
 ---
 title: React의 useEffectEvent 훅 사용해보기
 description: React 18.3에 추가된 useEffectEvent 훅을 사용해보자.
+date: 2026-02-09
 ---
 
 ## 시작

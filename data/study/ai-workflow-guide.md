@@ -1,6 +1,7 @@
 ---
 title: AI를 활용한 개발 팁
 description: Claude Code, ChatGPT 등 AI 도구를 실전 개발에 효과적으로 활용하는 방법
+date: 2025-11-07
 ---
 
 ## 들어가며

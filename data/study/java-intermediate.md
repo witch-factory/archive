@@ -2,6 +2,7 @@
 id: java lecture intermediate
 title: 김영한의 Java 중급편 강의(첫번째)를 듣고 정리한 내용
 description: 김영한의 Java 초급편 첫번째 강의를 듣고 정리한 내용
+date: 2025-07-11
 ---
 
 목표: java의 기능보다는 제공하는 기술들이 왜 필요한지 이해하는 것

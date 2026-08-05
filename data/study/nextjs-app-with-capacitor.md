@@ -1,6 +1,7 @@
 ---
 title: capacitor.js로 Next.js 앱으로 빌드하기
 description: 프로젝트에서 사용 중인 Capacitor.js로 nextjs 간단한 페이지를 앱으로 만들어 보자
+date: 2026-01-01
 ---
 
 프로젝트에서 [capacitor](https://capacitorjs.com/)를 사용중이다. Next.js를 앱으로 빌드해 주는 듯 한데 잘 몰라서 한번 간단한 프로젝트를 만들고 앱으로 빌드해 보려고 한다.

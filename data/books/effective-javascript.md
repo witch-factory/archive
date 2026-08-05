@@ -2,6 +2,7 @@
 slug: effective-javascript
 title: 이펙티브 자바스크립트
 description: 데이비드 허먼, "이펙티브 자바스크립트"
+date: 2024-08-23
 ---
 
 이펙티브 자바스크립트를 읽으며 매일 메모 남기기
@@ -1293,7 +1294,7 @@ function sum() {
     function (x, y) {
       return x + y;
     },
-    0
+    0,
   );
 }
 ```
@@ -1627,7 +1628,7 @@ download(
   function (error) {
     // errorback function
     console.error("Error: " + error);
-  }
+  },
 );
 ```
 
@@ -1674,7 +1675,7 @@ function downloadURLs(urls, onSuccess, onFailure) {
         },
         function (error) {
           onFailure(error, urls[i]);
-        }
+        },
       );
     }
   }
@@ -1739,7 +1740,7 @@ function downloadAsyncWithCache(url, onsuccess, onerror) {
       cache.set(url, file);
       onsuccess(file);
     },
-    onerror
+    onerror,
   );
 }
 ```
@@ -1775,7 +1776,7 @@ function downloadAsyncWithCache(url, onsuccess, onerror) {
       cache.set(url, file);
       onsuccess(file);
     },
-    onerror
+    onerror,
   );
 }
 ```

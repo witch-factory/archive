@@ -1,6 +1,7 @@
 ---
 title: FastAPI 빠르게 배우기
 description: 공식 문서와 클로드의 힘을 빌려가며 fastapi를 빠르게 배워보자.
+date: 2026-02-09
 ---
 
 ## 시작

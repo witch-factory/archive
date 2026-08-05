@@ -1,6 +1,7 @@
 ---
 title: todolist를 만들면서 playwright를 배워보자
 description: E2E 테스트 툴인 playwright를 만져보는 이야기
+date: 2025-07-31
 ---
 
 E2E 테스트를 제안해준 분이 계셔서, 늘 테스트를 해보고 싶었는데 이 기회에 한번 해본다. playwright가 요즘 e2e의 1황이라고 해서 사용해본다.

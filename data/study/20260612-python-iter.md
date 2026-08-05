@@ -1,6 +1,7 @@
 ---
 title: 전문가를 위한 파이썬 17장
 description: 반복자, 제너레이터, 고전적인 코루틴
+date: 2026-06-12
 ---
 
 # 반복자(iterator), 반복형(iterable)

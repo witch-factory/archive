@@ -1,6 +1,7 @@
 ---
 title: golang 추가 학습 자료
 description: golang을 Do it go로 공부하며 추가적으로 알아본 자료들
+date: 2026-03-23
 ---
 
 The Go Language - A brief introduction to the Go language and built-in types

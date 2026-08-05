@@ -2,6 +2,7 @@
 id: tailwind docs
 title: Tailwind CSS 문서 읽고 정리 내용
 description: Tailwind CSS v4 문서 읽고 정리한 내용
+date: 2025-05-13
 ---
 
 Tailwind CSS를 싫어하다가 새로운 기능이 많이 나왔다고 해서 써보게 되었다. 공식 문서를 읽으면서 신기한 기능들을 정리해보았다. 내가 Tailwind CSS를 처음 썼던 3년 전에 비해 많이 달라진 듯해 새롭게 느낀 기능들만 정리한다.

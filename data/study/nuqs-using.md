@@ -1,6 +1,7 @@
 ---
 title: 쿼리 파라미터를 쉽게 사용하게 해주는 nuqs 써보기
 description: nuqs를 사용해보자.
+date: 2026-01-14
 ---
 
 vite로 만든 react-ts 프로젝트 상에서 진행했다.
@@ -59,7 +60,7 @@ const [name, setName] = useQueryState("name", {
 // parser 사용 시
 const [count, setCount] = useQueryState(
   "count",
-  parseAsInteger.withDefault(0).withOptions({ clearOnDefault: false })
+  parseAsInteger.withDefault(0).withOptions({ clearOnDefault: false }),
 );
 ```
 
@@ -129,6 +130,6 @@ const [{ latitude, longitude }, setCoordinates] = useQueryStates(
       latitude: "lat", // URL에는 ?lat=... 로 표시
       longitude: "lng",
     },
-  }
+  },
 );
 ```
