@@ -17,8 +17,6 @@ nextjs같은 느낌의 svelteKit도 있다.
 
 JS는 `<script>` 태그 내부에 씀. 이런 구조
 
-{% raw %}
-
 ```jsx
 <script lang="ts">
     // JS
@@ -32,8 +30,6 @@ script 내에 정의된 변수들 {var} 처럼 갖다쓰기 가능
     /* 스타일 */
 </style>
 ```
-
-{% endraw %}
 
 이 style은 컴포넌트 스코프로 적용되어서 다른 곳에 영향을 미치지 않음
 
@@ -285,9 +281,7 @@ transition directive로 쉽게 트랜디션 애니메이션 넣기 가능. `svel
 <p transition:fade>Fades in and out</p>
 ```
 
-{% raw %}
 `transition:fly={{y:200}}` 처럼 transition 함수가 인자를 받을 수도 있다. 이 경우 애니메이션은 왕복으로 적용된다.
-{% endraw %}
 
 transition 대신 `in`, `out` directive를 써서 마운트될 때/언마운트될 때의 애니메이션을 따로 지정할 수도 있다. 이러면 애니메이션은 왕복이 아니라 각각에 대해 적용
 

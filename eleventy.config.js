@@ -23,7 +23,7 @@ export default async function (eleventyConfig) {
           placement: "after",
         }),
       })
-      .use(markdownItFootnote)
+      .use(markdownItFootnote),
   );
 
   eleventyConfig.addPlugin(syntaxHighlight);
@@ -45,27 +45,28 @@ export default async function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
 
   eleventyConfig.addCollection("daily", (collectionApi) =>
-    collectionApi.getFilteredByGlob("data/daily/**/*.md")
+    collectionApi.getFilteredByGlob("data/daily/**/*.md"),
   );
 
   eleventyConfig.addCollection("math", (collectionApi) =>
-    collectionApi.getFilteredByGlob("data/math/**/*.md")
+    collectionApi.getFilteredByGlob("data/math/**/*.md"),
   );
 
   eleventyConfig.addCollection("study", (collectionApi) =>
-    collectionApi.getFilteredByGlob("data/study/**/*.md")
+    collectionApi.getFilteredByGlob("data/study/**/*.md"),
   );
 
   eleventyConfig.addCollection("scrap", (collectionApi) =>
-    collectionApi.getFilteredByGlob("data/scrap/**/*.md")
+    collectionApi.getFilteredByGlob("data/scrap/**/*.md"),
   );
 
   eleventyConfig.addCollection("books", (collectionApi) =>
-    collectionApi.getFilteredByGlob("data/books/**/*.md")
+    collectionApi.getFilteredByGlob("data/books/**/*.md"),
   );
 }
 
 export const config = {
+  markdownTemplateEngine: false,
   dir: {
     input: ".",
     output: "_site",
