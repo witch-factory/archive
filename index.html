@@ -35,7 +35,7 @@ layout: main.html
   <h3>약간 정리된 메모들</h3>
 
   <ul>
-    {% for memo in collections.study %}
+    {% for memo in collections.study reversed %}
     <li>
       <a href="{{ memo.url }}">{{ memo.data.title }}</a>
     </li>
@@ -48,7 +48,7 @@ layout: main.html
     </summary>
 
     <ul>
-      {% for daily in collections.daily %}
+      {% for daily in collections.daily reversed %}
       <li>
         <a href="{{ daily.url }}">{{ daily.data.title }}</a>
       </li>
@@ -84,7 +84,7 @@ layout: main.html
     </summary>
 
     <ul>
-      {% for book in collections.books %}
+      {% for book in collections.books reversed %}
       <li>
         <a href="{{ book.url }}">{{ book.data.title }}</a>
       </li>
@@ -102,7 +102,7 @@ layout: main.html
     </summary>
 
     <ul>
-      {% for math in collections.math %}
+      {% for math in collections.math reversed %}
       <li>
         <a href="{{ math.url }}">{{ math.data.title }}</a>
       </li>

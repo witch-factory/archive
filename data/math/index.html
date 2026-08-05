@@ -9,7 +9,7 @@ title: 수학 공부 메모
     <li>
       <a href="/math/">math</a>
       <ul>
-        {% for math in collections.math %}
+        {% for math in collections.math reversed %}
         <li>
           <a href="{{ math.url }}">{{ math.data.title }}</a>
         </li>

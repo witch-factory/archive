@@ -10,7 +10,7 @@ description: 좋은 글들을 모아보자
     <li>
       <a href="/books/">books</a>
       <ul>
-        {% for book in collections.books %}
+        {% for book in collections.books reversed %}
         <li>
           <a href="{{ book.url }}">{{ book.data.title }}</a>
         </li>

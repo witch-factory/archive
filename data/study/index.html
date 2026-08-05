@@ -9,7 +9,7 @@ title: 2025년의 공부 내용
     <li>
       <a href="/study/">study</a>
       <ul>
-        {% for studyItem in collections.study %}
+        {% for studyItem in collections.study reversed %}
         <li>
           <a href="{{ studyItem.url }}">{{ studyItem.data.title }}</a>
         </li>
