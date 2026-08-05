@@ -2,7 +2,6 @@ import markdownIt from "markdown-it";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import { katex } from "@mdit/plugin-katex";
-import { IdAttributePlugin } from "@11ty/eleventy";
 import markdownItAnchor from "markdown-it-anchor";
 import markdownItFootnote from "markdown-it-footnote";
 
@@ -28,18 +27,20 @@ export default async function (eleventyConfig) {
 
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
+    formats: ["webp", "jpeg"],
+    widths: [400, 800, 1200, "auto"],
     htmlOptions: {
       imgAttributes: {
         loading: "lazy",
         decoding: "async",
         style: "max-width: 100%; height: auto;",
+        sizes: "(max-width: 60rem) 100vw, 60rem",
       },
 
       // Which source to use for `<img width height src>` attributes
       fallback: "largest", // or "smallest"
     },
   });
-  eleventyConfig.addPlugin(IdAttributePlugin);
 
   eleventyConfig.addPassthroughCopy("styles");
   eleventyConfig.addPassthroughCopy("assets");
