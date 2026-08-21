@@ -45,7 +45,7 @@ export default async function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("styles");
   eleventyConfig.addPassthroughCopy("assets");
 
-  for (const name of ["daily", "math", "study", "scrap", "books"]) {
+  for (const name of ["daily", "math", "study", "scrap", "books", "interview"]) {
     eleventyConfig.addCollection(name, (collectionApi) =>
       collectionApi.getFilteredByGlob(`data/${name}/**/*.md`),
     );
