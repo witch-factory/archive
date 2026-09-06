@@ -1,8 +1,10 @@
 ---
-title: 2026-08-11 openspec
-description: openspec이라는 걸 우연히 알게 되어 뭔지 알아봤다.
-date: 2026-08-11
+title: 2026-09-06 AI 도구, 스킬
+description: openspec 등 AI 관련된 도구나 스킬 등을 아는 대로 정리 중
+date: 2026-09-06
 ---
+
+## openspec
 
 우연히 openspec이라는 도구를 알게 되었다. spec driven으로 개발하는 걸 도와준다고 한다. 클코, 코덱스 등과 같이 쓸 수 있다.
 
@@ -16,7 +18,7 @@ https://github.com/Fission-AI/openspec
 
 > The best habit to build first: when you're not sure what to build, start with /opsx:explore
 
-## 시작하기
+### 시작하기
 
 설치 https://github.com/Fission-AI/OpenSpec/blob/main/docs/installation.md
 
@@ -33,7 +35,7 @@ openspec init
 
 이렇게 하면 프로젝트 디렉토리에 `openspec/` 폴더 생김
 
-## 사용법
+### 사용법
 
 getting started https://github.com/Fission-AI/OpenSpec/blob/main/docs/getting-started.md
 
@@ -59,6 +61,16 @@ openspec init # 터미널에서
 ```
 
 `/opsx:sync`는 이번 변경으로 달라지는 부분의 스펙을 `openspec/specs/`의 메인 스펙에 합치는 것. 단 변경을 끝내진 않고 지금 변경을 반영하는 거
+
+## ponytail
+
+https://github.com/dietrichgebert/ponytail
+
+기능 구현 시 AI가 가는 방향을 교정하는 도구. 포니테일 시니어 개발자(대충 개고수)를 모티브로 만들었다고 한다.
+
+기능이 필요한지, 기존 코드베이스 재사용 가능하거나 라이브러리 쓸 수 있는지 등등 '미니멀한 해결책'을 찾을 수 있도록 하는 방향의 도구. 무작정 새로 다 구현하는 AI를 교정한다. 코드량과 토큰을 상당히 줄여준다고 한다.
+
+딱히 뭔가를 익힐 필요도 없고 깔기만 하면 되니까 좋은 듯 특히 새로 구현하는 걸 안 좋아하는 나같은 보수파의 느낌에는 좋았다.
 
 ## 참고
 
