@@ -94,3 +94,13 @@ stylelint의 `stylelint-browser-compat` 플러그인과 룰도 사용 가능하�
 stylelint 설정 파일에서도 browserlist 설정 가능하지만 `browserlistrc`를 연동해 사용하는 게 더 낫다.
 
 단 warning으로 할지, 또 baseline을 언제로 할지 등은 팀 논의 필요
+
+## stylelint
+
+tailwind css 클래스명 정렬 등 몇 가지는 prettier 등에서도 지원하지만 css용을 위해 따로 나온 stylelint라는 도구도 있음.
+
+유효하지 않은 색상명 검사, 속성 순서 정하기 등의 규칙들도 적용 가능하다. css의 eslint라고 생각하면 좋음. scss같은 전처리기, css-in-js에 대해서도 지원
+
+https://daleseo.com/css-stylelint/
+
+biome에서는 css 린팅도 같이 지원하긴 하는데 oxc 계열에서는 안 하고 있으니 stylelint도 그 나름 쓸모가 있을지도 모르겠다.
