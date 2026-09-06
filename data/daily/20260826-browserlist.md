@@ -50,4 +50,47 @@ DX를 위해 vite로 마이그레이션했다고 한다. 몇몇 웹팩 플러그
 
 Browserslist와 함께 기준 사용 https://web.dev/articles/use-baseline-with-browserslist?hl=ko
 
-browserlist는 `package.json`이나 `.browserslistrc`에 쓰여서, 해당 프로젝트에서 지원하는 최소 브라우저 목록을 명시한다.
+browserlist는 `package.json`이나 `.browserslistrc`에 쓰여서, 해당 프로젝트에서 지원하는 최소 브라우저 목록을 명시한다. Autoprefixer(css에서 `webkit::`같은 접두사를 필요하면 붙여 주는 도구)나 eslint-plugin-compat같은 플러그인과 함께 사용 가능하다.
+
+브라우저 기준을 정해서 명시하기로 했다면 사용자층을 고려해 어디까지 지원할지를 결정해야 한다.
+
+baseline widely available: 30개월 전 기준으로 핵심 브라우저(크롬, 엣지, 파폭, 사파리)들에서 완전히 지원
+
+baseline newly availble: 현재 baseline 브라우저들의 최신 버전에서 전부 지원. 예전 버전엔 안될수도(caniuse 참고)
+
+baseline 연도(ex:2026): 지정 연도 말 기준 새로 제공된 모든 기능 포함
+
+MDN에서 나오는 그것이다. (https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility)
+
+### browserslist 설정
+
+https://github.com/browserslist/browserslist
+
+package.json에서 설정하면 `browserslist` 속성을 설정.
+
+```json
+{
+  "private": true,
+  "browserslist": ["baseline newly available"]
+}
+```
+
+`.browserslistrc`에서는 평문으로 설정. 그냥 `last 1 version` 같은 걸 쓰면 됨
+
+핵심 브라우저에는 기본적으로 크롬 엣지 파폭 사파리가 있다. 그런데 크로미움 등 오픈소스 브라우저 엔진 갖다 쓰는 다른 브라우저도 많다. 오페라 등. 이런 것도 고려하려면 `with downstream`을 붙임.
+
+```json
+"browserslist": "baseline 2024 with downstream"
+```
+
+이렇게 적절한 baseline 을 설정하면 babel 같은 패키징 도구가 변환하는 결과값도 줄일 수 있다. polyfill 지원이 줄어드니 당연함
+
+### 자동변환
+
+`eslint-plugin-compat`을 쓰면 js 코드에 대한 지원을 체크해줌.
+
+stylelint의 `stylelint-browser-compat` 플러그인과 룰도 사용 가능하다. 이렇게 하면 설정한 기준상 해당 브라우저에서 지원 안 되는 css들 체크 가능하다. 예를 들어 `calc-size`는 크롬, 엣지에서만 지원
+
+stylelint 설정 파일에서도 browserlist 설정 가능하지만 `browserlistrc`를 연동해 사용하는 게 더 낫다.
+
+단 warning으로 할지, 또 baseline을 언제로 할지 등은 팀 논의 필요
